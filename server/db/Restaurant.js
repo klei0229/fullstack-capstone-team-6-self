@@ -1,69 +1,65 @@
 const conn = require('./conn');
 const { STRING, UUID, UUIDV4, TEXT, BOOLEAN } = conn.Sequelize;
 
-
 const Restaurant = conn.define('restaurant', {
   id: {
     type: UUID,
     primaryKey: true,
-    defaultValue: UUIDV4
+    defaultValue: UUIDV4,
   },
   name: {
     type: STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    unique: true
+    unique: true,
   },
   address: {
     type: STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    unique: true
+    unique: true,
   },
   description: {
     type: STRING,
     validate: {
-      notEmpty: false
+      notEmpty: false,
     },
-    unique: true
+    unique: true,
   },
   contact: {
     type: STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    unique: true
+    unique: true,
   },
   email: {
     type: STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    unique: true
+    unique: true,
   },
   logo: {
     type: TEXT,
-    get: function(){
+    get: function () {
       const prefix = 'data:image/png;base64,';
-      const data = this.getDataValue('restaurant');
-      if(!data){
+      const data = this.getDataValue('logo');
+      if (!data) {
         return data;
       }
-      if(data.startsWith(prefix)){
+      if (data.startsWith(prefix)) {
         return data;
       }
       return `${prefix}${data}`;
-    }
-  }
+    },
+  },
 });
 
-
-
 module.exports = Restaurant;
-

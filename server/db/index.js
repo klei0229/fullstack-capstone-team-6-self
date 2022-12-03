@@ -1,11 +1,11 @@
-const conn = require("./conn");
-const User = require("./User");
-const Restaurant = require("./Restaurant");
-const Access = require("./Access");
-const Designation = require("./Designation");
-const Item = require("./Item");
-const Menu = require("./Menu");
-const Category = require("./Category");
+const conn = require('./conn');
+const User = require('./User');
+const Restaurant = require('./Restaurant');
+const Access = require('./Access');
+const Designation = require('./Designation');
+const Item = require('./Item');
+const Menu = require('./Menu');
+const Category = require('./Category');
 
 //associations
 User.hasMany(Restaurant);

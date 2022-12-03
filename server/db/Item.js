@@ -38,10 +38,6 @@ const Item = conn.define('item', {
   },
   props: {
     type: TEXT,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
 });
 

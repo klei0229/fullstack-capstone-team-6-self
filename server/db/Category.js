@@ -15,7 +15,7 @@ const Category = conn.define('category', {
     validate: {
       notEmpty: true
     },
-    unique: true
+
   }
 });
 

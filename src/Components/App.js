@@ -2,8 +2,14 @@ import React, { useEffect } from 'react';
 import Home from './Home';
 import Login from './Login';
 import Restaurants from './Restaurants';
+import Menus from './Menus';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginWithToken, fetchRestaurants, fetchAdminRestaurants } from '../store';
+import {
+  loginWithToken,
+  fetchRestaurants,
+  fetchAdminRestaurants,
+  fetchMenus,
+} from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 
 const App = () => {
@@ -11,6 +17,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loginWithToken());
+    dispatch(fetchMenus());
   }, []);
 
   useEffect(() => {
@@ -23,18 +30,12 @@ const App = () => {
 
   return (
     <div>
-      <h1>FS App Template</h1>
+      <h1>MenYou</h1>
       {auth.id ? <Home /> : <Login />}
-      {!!auth.id && (
-        <div>
-          <nav>
-            <Link to="/">Home</Link>
-          </nav>
-        </div>
-      )}
       <Routes>
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/admin-restaurants/:id" element={<Restaurants />} />
+        <Route path="/menus" element={<Menus />} />
       </Routes>
     </div>
   );

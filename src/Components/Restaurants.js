@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import EditPanel from './EditPanel';
+import BusinessDashboard from './BusinessDashboard';
 import Restaurant from './Restaurant';
 
 const Restaurants = () => {
@@ -10,24 +10,22 @@ const Restaurants = () => {
     <div>
       {auth.isAdmin ? (
         <div>
-          <EditPanel />
+          <BusinessDashboard />
+          <h1>My Restaurants</h1>
           <ul>
             {adminRestaurants.map((restaurant) => {
               return <Restaurant key={restaurant.id} restaurant={restaurant} />;
             })}
           </ul>
-          {/* <h1>Your Restaurants</h1>
-          <pre>{JSON.stringify(adminRestaurants, null, 2)}</pre> */}
         </div>
       ) : (
         <div>
+          <h1>All Restaurants</h1>
           <ul>
             {restaurants.map((restaurant) => {
               return <Restaurant key={restaurant.id} restaurant={restaurant} />;
             })}
           </ul>
-          {/* <h1>Hello!</h1>
-          <pre>{JSON.stringify(restaurants, null, 2)}</pre> */}
         </div>
       )}
     </div>

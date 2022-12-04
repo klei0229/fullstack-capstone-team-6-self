@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const csvData = (state = {}, action) => {
+const csvData = (state =[], action) => {
   if (action.type === "SET_CSV_DATA") {
     return action.csvData;
   }

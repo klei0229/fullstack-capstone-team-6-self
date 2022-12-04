@@ -6,21 +6,24 @@ const Designation = require('./Designation');
 const Item = require('./Item');
 const Menu = require('./Menu');
 const Category = require('./Category');
+const ItemDesignation = require('./ItemDesignation');
 
 //associations
 User.hasMany(Restaurant);
+Restaurant.belongsTo(User);
 Restaurant.hasMany(Menu);
+Menu.belongsTo(Restaurant);
 Menu.hasMany(Item);
+Item.belongsTo(Menu);
+Category.hasMany(Item);
 Item.belongsTo(Category);
-
-Item.belongsToMany(Designation, { through: Designation });
-// Designation.belongsToMany(Item, { through: Item });
-
-// Item.belongsToMany(Designation);
-// Designation.belongsToMany(Item);
-
 User.hasOne(Access);
-Access.hasOne(Restaurant);
+Access.belongsTo(User);
+Restaurant.hasOne(Access);
+Access.belongsTo(Restaurant);
+
+Item.belongsToMany(Designation, { through: ItemDesignation });
+Designation.belongsToMany(Item, { through: ItemDesignation });
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
@@ -65,6 +68,12 @@ const syncAndSeed = async () => {
     Category.create({ name: 'Breakfast' }),
   ]);
 
+  const [spicy, glutenFree, vegetarian] = await Promise.all([
+    Designation.create({ name: 'Spicy' }),
+    Designation.create({ name: 'Gluten Free' }),
+    Designation.create({ name: 'Vegetarian' }),
+  ]);
+
   const [food1, food2, food3] = await Promise.all([
     Item.create({
       name: 'pancakes',
@@ -86,17 +95,14 @@ const syncAndSeed = async () => {
     }),
   ]);
 
-  const [spicy, glutenFree, vegetarian] = await Promise.all([
-    Designation.create({ name: 'Spicy', itemId: food1.id }),
-    Designation.create({ name: 'Gluten Free' }),
-    Designation.create({ name: 'Vegetarian' }),
-  ]);
+  ItemDesignation.create({ itemId: food2.id, designationId: spicy.id });
 
   return {
     users: {
       moe,
       lucy,
       larry,
+      ethyl,
     },
     restaurants: {
       res1,
@@ -106,7 +112,7 @@ const syncAndSeed = async () => {
       menu1,
       menu2,
     },
-    foods: {
+    items: {
       food1,
       food2,
       food3,
@@ -129,4 +135,6 @@ module.exports = {
   Menu,
   Category,
   Designation,
+  Item,
+  Access,
 };

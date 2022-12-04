@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import Home from './Home';
 import Login from './Login';
+import Restaurants from './Restaurants';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginWithToken } from '../store';
+import { loginWithToken, fetchRestaurants, fetchAdminRestaurants } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 
 const App = () => {
@@ -11,6 +12,14 @@ const App = () => {
   useEffect(() => {
     dispatch(loginWithToken());
   }, []);
+
+  useEffect(() => {
+    if (auth.isAdmin) {
+      dispatch(fetchAdminRestaurants(auth));
+    } else {
+      dispatch(fetchRestaurants());
+    }
+  }, [auth]);
 
   return (
     <div>
@@ -23,6 +32,10 @@ const App = () => {
           </nav>
         </div>
       )}
+      <Routes>
+        <Route path="/restaurants" element={<Restaurants />} />
+        <Route path="/admin-restaurants/:id" element={<Restaurants />} />
+      </Routes>
     </div>
   );
 };

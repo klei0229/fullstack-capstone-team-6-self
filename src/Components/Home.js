@@ -14,6 +14,10 @@ const Home = () => {
         Welcome {auth.username}!!
         <button onClick={() => dispatch(logout())}>Logout</button>
 
+                
+
+
+        
         <EditPanel></EditPanel>
         <MenuTemplate2></MenuTemplate2>
       </div>

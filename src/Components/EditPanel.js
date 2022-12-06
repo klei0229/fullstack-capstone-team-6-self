@@ -130,6 +130,17 @@ csvData =
         "cursor": 3624
     }
 }*/
+  const onChange = () => {
+    console.log('changed');
+  };
+
+  const fonts = [
+    { name: 'Arial', value: 'arial' },
+    { name: 'Verdana', value: 'verdana' },
+    { name: 'Tahoma', value: 'tahoma' },
+    { name: 'Trebuchet MS', value: 'trebuchet ms' },
+    { name: 'Courier New', value: 'courier new' },
+  ];
 
   useEffect(() => {
     if (csvFile) {
@@ -170,6 +181,46 @@ csvData =
     <div>
       <h1>Editing Panel</h1>
 
+      {/* //FontFamily START_____________________________________________________________________*/}
+      <Typography>Font Family</Typography>
+      <Select
+        labelId="fontFamily"
+        id="fontFamilySelect"
+        // value={state.fontFamily}
+        label="font-family"
+        onChange={onChange}
+        name="fontFamily"
+      >
+        {fonts.map((font) => {
+          return <MenuItem value={font.value}>{font.name}</MenuItem>;
+        })}
+      </Select>
+      {/* //FontFamily END_____________________________________________________________________*/}
+      {/* <Typography>Restaurant Font Size</Typography> */}
+      <TextField
+          id="outlined-number"
+          label="Restaurant Font Size"
+          type="number"
+          value={15}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+              <TextField
+          id="outlined-number"
+          label="Restaurant Font Size"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      <Typography>Category Font Size</Typography>
+      <Typography>Dish Name Font Size</Typography>
+      <Typography>Dish Description Font Size</Typography>
+
+
+
+      <Typography>Change Font Family</Typography>
       <Button variant="contained" component="label">
         Upload File
         <input

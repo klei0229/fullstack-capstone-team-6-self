@@ -4,6 +4,7 @@ import Login from './Login';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginWithToken } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
+import ResponsiveAppBar from './ResponsiveAppBar';
 
 const App = () => {
   const { auth } = useSelector((state) => state);
@@ -14,6 +15,10 @@ const App = () => {
 
   return (
     <div>
+      <ResponsiveAppBar></ResponsiveAppBar>
+      <br></br>
+      <br></br>
+      <br></br>
       <h1>FS App Template</h1>
       {auth.id ? <Home /> : <Login />}
       {!!auth.id && (

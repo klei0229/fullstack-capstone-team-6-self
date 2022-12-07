@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Papa from 'papaparse';
-import { setCsvData } from '../store';
+import { setCsvData, setMenuPreferences } from '../store';
 
 import {
   Container,
@@ -20,118 +20,20 @@ import {
 
 const EditPanel = () => {
   const dispatch = useDispatch();
+  const { menuPreferences } = useSelector((state) => state);
 
   const [csvFile, setCSVFile] = React.useState(null);
   const [csvData, setCSVData] = React.useState(null);
 
-  //once a csvFile is uploaded, csvData is set to this object:
-  /*
-
-csvData =
-{
-    "data": [
-        [
-            "item","description","price","category"
-        ],
-        [
-            "Cheeseburger",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "5.00",
-            "Main"
-        ],
-        [
-            "Hotdog",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "5.00",
-            "Main"
-        ],
-        [
-            "French Fries",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "7.00",
-            "Main"
-        ],
-        [
-            "Salad",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "8.00",
-            "Main"
-        ],
-        [
-            "Spaghetti",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "9.00",
-            "Main"
-        ],
-        [
-            "Steak",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "10.00",
-            "Main"
-        ],
-        [
-            "Steak",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "10.00",
-            "Main"
-        ],
-        [
-            "Cheeseburger",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "5.00",
-            "Sides"
-        ],
-        [
-            "Hotdog",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "6.00",
-            "Sides"
-        ],
-        [
-            "French Fries",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "7.00",
-            "Sides"
-        ],
-        [
-            "Salad",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "8.00",
-            "Sides"
-        ],
-        [
-            "Spaghetti",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "9.00",
-            "Sides"
-        ],
-        [
-            "Steak",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "10.00",
-            "Sides"
-        ],
-        [
-            "Steak",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque egestas, massa quis pulvinar aliquet, purus arcu pretium nibh, sit amet varius elit libero at orci. Pellentesque vitae odio faucibus, mattis orci at, iaculis elit.",
-            "10.00",
-            "Sides"
-        ],
-        [
-            ""
-        ]
-    ],
-    "errors": [],
-    "meta": {
-        "delimiter": ",",
-        "linebreak": "\r\n",
-        "aborted": false,
-        "truncated": false,
-        "cursor": 3624
-    }
-}*/
-  const onChange = () => {
+  const onChange = (ev) => {
     console.log('changed');
+    console.log(ev.target.name);
+    console.log(ev.target.value);
+
+    let newMenuPreferencesObj = { ...menuPreferences };
+    newMenuPreferencesObj[ev.target.name] = ev.target.value;
+    console.log(newMenuPreferencesObj);
+    dispatch(setMenuPreferences(newMenuPreferencesObj));
   };
 
   const fonts = [
@@ -182,45 +84,77 @@ csvData =
       <h1>Editing Panel</h1>
 
       {/* //FontFamily START_____________________________________________________________________*/}
-      <Typography>Font Family</Typography>
-      <Select
-        labelId="fontFamily"
-        id="fontFamilySelect"
-        // value={state.fontFamily}
-        label="font-family"
-        onChange={onChange}
+      {/* <Typography>Font Family</Typography> */}
+      <TextField
+        // id="outlined-select-currency"
+        select
+        fullWidth
+        label="Font Family"
         name="fontFamily"
+        value={menuPreferences.fontFamily}
+        onChange={onChange}
       >
         {fonts.map((font) => {
           return <MenuItem value={font.value}>{font.name}</MenuItem>;
         })}
-      </Select>
+      </TextField>
       {/* //FontFamily END_____________________________________________________________________*/}
-      {/* <Typography>Restaurant Font Size</Typography> */}
+
+      {/* //Restaurant Font Size START_____________________________________________________________________*/}
       <TextField
-          id="outlined-number"
-          label="Restaurant Font Size"
-          type="number"
-          value={15}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-              <TextField
-          id="outlined-number"
-          label="Restaurant Font Size"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      <Typography>Category Font Size</Typography>
-      <Typography>Dish Name Font Size</Typography>
-      <Typography>Dish Description Font Size</Typography>
+        // id="outlined-number"
+        label="Restaurant Font Size"
+        type="number"
+        name="restaurantNameFontSize"
+        defaultValue={menuPreferences.restaurantNameFontSize}
+        onChange={onChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      {/* //Restaurant Font Size END_____________________________________________________________________*/}
 
+      {/* //Restaurant Font Size START_____________________________________________________________________*/}
+      <TextField
+        // id="outlined-number"
+        label="Category Font Size"
+        type="number"
+        name="categoryNameFontSize"
+        defaultValue={menuPreferences.categoryNameFontSize}
+        onChange={onChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      {/* //Restaurant Font Size END_____________________________________________________________________*/}
 
+      {/* //Restaurant Font Size START_____________________________________________________________________*/}
+      <TextField
+        // id="outlined-number"
+        label="Item Font Size"
+        type="number"
+        name="itemNameFontSize"
+        defaultValue={menuPreferences.itemNameFontSize}
+        onChange={onChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      {/* //Restaurant Font Size END_____________________________________________________________________*/}
 
-      <Typography>Change Font Family</Typography>
+      {/* //Restaurant Font Size START_____________________________________________________________________*/}
+      <TextField
+        // id="outlined-number"
+        label="Description Font Size"
+        type="number"
+        name="descriptionNameFontSize"
+        defaultValue={menuPreferences.descriptionNameFontSize}
+        onChange={onChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      {/* //Restaurant Font Size END_____________________________________________________________________*/}
       <Button variant="contained" component="label">
         Upload File
         <input

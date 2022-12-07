@@ -13,13 +13,12 @@ const Home = () => {
       <div>
         Welcome {auth.username}!!
         <button onClick={() => dispatch(logout())}>Logout</button>
-
-                
-
-
         
-        <EditPanel></EditPanel>
-        <MenuTemplate2></MenuTemplate2>
+        {/* <Container sx={{display:'flex'}}> */}
+          <EditPanel></EditPanel>
+          <MenuTemplate2></MenuTemplate2>
+        {/* </Container> */}
+      
       </div>
     </div>
   );

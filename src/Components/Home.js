@@ -11,7 +11,6 @@ const Home = () => {
       <div>
         Welcome {auth.username}!!
         <button onClick={() => dispatch(logout())}>Logout</button>
-        <Restaurants />
       </div>
     </div>
   );

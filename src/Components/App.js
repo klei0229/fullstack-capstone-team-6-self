@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Home from './Home';
 import Login from './Login';
 import Restaurants from './Restaurants';
+import Restaurant from './Restaurant';
+import Menu from './Menu';
 import Menus from './Menus';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -34,7 +36,9 @@ const App = () => {
       {auth.id ? <Home /> : <Login />}
       <Routes>
         <Route path="/restaurants" element={<Restaurants />} />
-        <Route path="/admin-restaurants/:id" element={<Restaurants />} />
+        <Route path="/restaurants/:id" element={<Restaurant />} />
+        <Route path="/menus/:id" element={<Menu />} />
+
         <Route path="/menus" element={<Menus />} />
       </Routes>
     </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import BusinessDashboard from './BusinessDashboard';
 import Restaurant from './Restaurant';
+import { Link } from 'react-router-dom';
 
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
@@ -14,7 +15,14 @@ const Restaurants = () => {
           <h1>My Restaurants</h1>
           <ul>
             {adminRestaurants.map((restaurant) => {
-              return <Restaurant key={restaurant.id} restaurant={restaurant} />;
+              return (
+                <li>
+                  <Link to={`/restaurants/${restaurant.id}`}>
+                    {restaurant.name}
+                  </Link>
+                </li>
+              );
+              // return <Restaurant key={restaurant.id} restaurant={restaurant} />;
             })}
           </ul>
         </div>

@@ -1,17 +1,25 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 
-const Restaurant = (props) => {
-  const { menus } = useSelector((state) => state);
+const Restaurant = () => {
+  const { menus, restaurants } = useSelector((state) => state);
+  const { id } = useParams();
+  const restaurant = restaurants.find((restaurant) => restaurant.id === id);
+
   const restaurantMenus = menus.filter(
-    (menu) => menu.restaurantId === props.restaurant.id
+    (menu) => menu.restaurantId === restaurant.id
   );
   return (
     <div>
-      <h3>{props.restaurant.name}</h3>
+      <h3>{restaurant.name}</h3>
       <ul>
         {restaurantMenus.map((menu) => {
-          return <li key={menu.id}>{menu.name}</li>;
+          return (
+            <li key={menu.id}>
+              <Link to={`/menus/${menu.id}`}>{menu.name}</Link>
+            </li>
+          );
         })}
       </ul>
     </div>

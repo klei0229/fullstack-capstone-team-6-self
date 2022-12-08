@@ -18,6 +18,26 @@ import {
   AccordionDetails,
 } from '@mui/material';
 
+//this function converts the raw data from CSV into a more organized object form
+export const convertCsvToObjectArray = (results) => {
+  results.data.shift(); //removes the table header of the csv
+  results.data.pop(); //removes the last element of the the csv due to the parser creating an extra row with null values
+
+  let arr = [];
+
+  results.data.forEach((element) => {
+    let obj = {
+      name: element[0],
+      description: element[1],
+      price: element[2],
+      category: element[3],
+    };
+
+    arr.push(obj);
+  });
+  return arr;
+};
+
 const EditPanel = () => {
   const dispatch = useDispatch();
 
@@ -145,26 +165,6 @@ csvData =
       });
     }
   }, [csvFile]);
-
-  //this function converts the raw data from CSV into a more organized object form
-  const convertCsvToObjectArray = (results) => {
-    results.data.shift(); //removes the table header of the csv
-    results.data.pop(); //removes the last element of the the csv due to the parser creating an extra row with null values
-
-    let arr = [];
-
-    results.data.forEach((element) => {
-      let obj = {
-        name: element[0],
-        description: element[1],
-        price: element[2],
-        category: element[3],
-      };
-
-      arr.push(obj);
-    });
-    return arr;
-  };
 
   return (
     <div>

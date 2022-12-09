@@ -19,7 +19,7 @@ const Restaurant = (props) => {
         {restaurantMenus.map((menu) => {
           return <li key={menu.id}>{menu.name} <Button>View</Button>
           <Button href={`/api/menus/${menu.id}`}>Edit Data</Button>
-          <Button>Edit Style</Button></li>;
+          <Button href={`#/edit/${menu.id}`}>Edit Style</Button></li>;
         })}
       </ul>
     </div>

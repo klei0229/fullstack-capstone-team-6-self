@@ -3,6 +3,8 @@ import Home from './Home';
 import Login from './Login';
 import Restaurants from './Restaurants';
 import Menus from './Menus';
+import TemplateDND from './TemplateDND';
+
 import { useSelector, useDispatch } from 'react-redux';
 import {
   loginWithToken,
@@ -38,6 +40,7 @@ const App = () => {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/admin-restaurants/:id" element={<Restaurants />} />
         <Route path="/menus" element={<Menus />} />
+        <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
       </Routes>
     </div>
   );

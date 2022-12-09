@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchMenu } from '../store';
 import { Container } from '@mui/material';
+
+import Draggable from 'react-draggable';
+
 const TemplateDND = () => {
   const { menu } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -11,19 +14,21 @@ const TemplateDND = () => {
 
   console.log(params);
   console.log(menu);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     dispatch(fetchMenu(params));
     console.log(menu);
-  },[params])
+  }, [params]);
 
   return (
     <div>
-        DND test
-        {menu.name}
-        <Container maxWidth="xl" sx={{backgroundColor:'green'}}>
-            
-        </Container>
+      DND test
+      {menu.name}
+      <Draggable grid={[25, 25]}>
+      <div>
+        
+      </div>
+      </Draggable>
     </div>
   );
 };

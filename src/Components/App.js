@@ -28,6 +28,8 @@ const App = () => {
     }
   }, [auth]);
 
+  // useEffect(()=>{},[menus])
+
   return (
     <div>
       <h1>MenYou</h1>

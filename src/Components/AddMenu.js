@@ -9,9 +9,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCsvData, createMenu } from '../store';
+import { setCsvData, createMenu, fetchMenus } from '../store';
 
 const AddMenu = (props) => {
 
@@ -22,6 +23,7 @@ const AddMenu = (props) => {
     description: '',
     restaurantId: props.restaurant.id,
   });
+  
 
   // const [menu, setMenu] = useState({
   //   name: '',
@@ -29,15 +31,17 @@ const AddMenu = (props) => {
   //   MenuId: Menu.id,
   // });
 
+  const [csvName, setCsvName] = useState("");
   const [csvFile, setCsvFile] = useState(null);
   const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    dispatch(createMenu(menu));
+    // dispatch(createMenu(menu));
     // await dispatch(createMenu(menu));
     setOpen(false);
   };
@@ -50,7 +54,8 @@ const AddMenu = (props) => {
   };
 
   const submitMenu = () => {
-    dispatch(createMenu(menu));
+    dispatch(createMenu(menu,items));
+    // dispatch(fetchMenus());
     setOpen(false);
   }
 
@@ -68,6 +73,7 @@ const AddMenu = (props) => {
         Papa.parse(file, {
           complete: function (results) {
             const convertedCsvData = convertCsvToObjectArray(results);
+            setItems(convertedCsvData);
             dispatch(setCsvData(convertedCsvData));
           },
         });
@@ -112,6 +118,9 @@ const AddMenu = (props) => {
             variant="standard"
             onChange={onChange}
           />
+          
+          {console.log(csvFile)}
+          <Typography>File Name: {csvName}</Typography>
           <Button variant="contained" component="label">
             Upload Menu
             <input
@@ -119,6 +128,10 @@ const AddMenu = (props) => {
               hidden
               ref={(x) => {
                 setCsvFile(x);
+              }}
+              onChange={(ev)=>{
+                setCsvName(ev.target.files[0].name);
+                // console.log(ev.target.files[0].name)
               }}
             />
           </Button>

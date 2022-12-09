@@ -12,8 +12,7 @@ const Item = conn.define('item', {
     allowNull: false,
     validate: {
       notEmpty: true,
-    },
-    unique: true,
+    }
   },
   price: {
     type: DECIMAL,
@@ -22,6 +21,15 @@ const Item = conn.define('item', {
       notEmpty: true,
     },
   },
+
+  category: {
+    type: STRING,
+  },
+
+  tags: {
+    type: TEXT,
+  },
+
   image: {
     type: TEXT,
     get: function () {

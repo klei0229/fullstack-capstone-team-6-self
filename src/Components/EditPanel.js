@@ -31,6 +31,7 @@ export const convertCsvToObjectArray = (results) => {
       description: element[1],
       price: element[2],
       category: element[3],
+      tags: element[4],
     };
 
     arr.push(obj);

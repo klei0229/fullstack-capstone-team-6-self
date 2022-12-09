@@ -160,7 +160,7 @@ const AddRestaurant = () => {
             variant="standard"
             onChange={onChangeMenu}
           /> */}
-          <Button variant="contained" component="label">
+          {/* <Button variant="contained" component="label">
             Upload Menu
             <input
               type="file"
@@ -169,7 +169,7 @@ const AddRestaurant = () => {
                 setCsvFile(x);
               }}
             />
-          </Button>
+          </Button> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} disabled={csvData.length === 0}>

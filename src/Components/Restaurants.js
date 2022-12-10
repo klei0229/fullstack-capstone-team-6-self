@@ -4,10 +4,11 @@ import BusinessDashboard from './BusinessDashboard';
 import Restaurant from './Restaurant';
 import AddRestaurant from './AddRestaurant';
 
+import { Link } from 'react-router-dom';
 
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
-
+  console.log(adminRestaurants);
   return (
     <div>
       {auth.isAdmin ? (
@@ -18,7 +19,18 @@ const Restaurants = () => {
 
           <ul>
             {adminRestaurants.map((restaurant) => {
-              return <Restaurant key={restaurant.id} restaurant={restaurant} />;
+              // return (
+              //   <li>
+              //     <Link to={`/restaurants/${restaurant.id}`}>
+              //       {restaurant.name}
+              //     </Link>
+              //   </li>
+              // );
+              return (
+                <li>
+                  <Restaurant key={restaurant.id} restaurant={restaurant} />
+                </li>
+              );
             })}
           </ul>
         </div>

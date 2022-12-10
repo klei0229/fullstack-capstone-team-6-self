@@ -22,6 +22,9 @@ const Menu = conn.define('menu', {
       notEmpty: true,
     },
   },
+  preferences: {
+    type: TEXT,
+  },
 });
 
 module.exports = Menu;

@@ -29,7 +29,7 @@ const Restaurant = (props) => {
             <li key={menu.id}>
               {menu.name} <Button>View</Button>
               <Button href={`/api/menus/${menu.id}`}>Edit Data</Button>
-              <Button href={`#/edit/${menu.id}`}>Edit Style</Button>
+              <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
             </li>
           );
           // <h3>{restaurant.name}</h3>

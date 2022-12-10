@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchItem, updateItem, updateMenuItems } from '../store';
+import { fetchItem, fetchItems, updateItem, updateMenuItems } from '../store';
 import { Paper, TextField, Button, Typography } from '@mui/material';
 
 const EditMenuItem = (props) => {
@@ -9,14 +9,13 @@ const EditMenuItem = (props) => {
   const id = props.item.id;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { id } = useParams();
 
   const item = props.item;
   const [itemDetails, setItemDetails] = useState({
-    image: '',
-    name: '',
-    price: '',
-    props: '',
+    image: item.image,
+    name: item.name,
+    price: item.price,
+    props: item.props,
   });
 
   const onChange = (e) => {
@@ -26,9 +25,9 @@ const EditMenuItem = (props) => {
     });
   };
 
-  const update = (e) => {
+  const update = async (e) => {
     e.preventDefault();
-    dispatch(updateItem({ id: id, ...itemDetails }));
+    await dispatch(updateItem({ id: id, ...itemDetails }));
   };
 
   return (

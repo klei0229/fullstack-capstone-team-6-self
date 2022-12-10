@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchItems, fetchMenu, updateMenuItems } from '../store';
+import { fetchItems, fetchMenu, updateMenuItems, updateMenu } from '../store';
 import EditMenuItem from './EditMenuItem';
 import { Paper, TextField, Button, Typography } from '@mui/material';
 
@@ -10,25 +10,21 @@ const EditMenuContent = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [menuItems, setMenuItems] = useState([]);
+  // const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
     dispatch(fetchMenu(id));
   }, [id]);
 
-  // useEffect(() => {
-  //   dispatch(fetchItems());
-  // }, [items]);
-
-  useEffect(() => {
-    dispatch(updateMenuItems(id, items, navigate));
-  }, [items]);
-  // const update = (e) => {
-  //   e.preventDefault();
-  //   dispatch(updateMenuItems(id, items, navigate));
-  // };
-
   const menu = menus.find((menu) => menu.id === id);
+
+  const update = async (e) => {
+    console.log('content update menu: ', menu);
+    console.log('content update items: ', items);
+    e.preventDefault();
+    await dispatch(updateMenuItems(menu, items, navigate));
+    await dispatch(updateMenu(menu, items));
+  };
 
   return (
     <div>
@@ -48,6 +44,7 @@ const EditMenuContent = () => {
             <Button type="submit">Update</Button>
           </form>
         </Paper> */}
+        <Button onClick={update}>Update Menu</Button>
     </div>
   );
 };

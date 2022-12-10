@@ -1,4 +1,4 @@
-//this code is for fetching and storing the corresponding menu and its menu items & menu styles 
+//this code is for fetching and storing the corresponding menu and its menu items & menu styles
 import axios from 'axios';
 
 const menu = (state = {}, action) => {
@@ -6,7 +6,7 @@ const menu = (state = {}, action) => {
     return action.menu;
   }
   if (action.type === 'UPDATE_MENU_ITEMS') {
-    return {...state, ...action.menu}
+    return { ...state, ...action.menu };
   }
   return state;
 };
@@ -18,9 +18,13 @@ export const fetchMenu = (menuId) => {
   };
 };
 
-export const updateMenuItems = (menuId, items, navigate) => {
+export const updateMenuItems = (menu, items, navigate) => {
+  console.log('UPDATE MENU ITEMS: items === ', items);
   return async (dispatch) => {
-    const response = await axios.put(`/api/menu/${menuId}`, { items: items });
+    const response = await axios.put(`/api/menu/${menu.id}`, {
+      ...menu,
+      items: items,
+    });
     dispatch({ type: 'UPDATE_MENU_ITEMS', menu: response.data });
     navigate('/');
   };

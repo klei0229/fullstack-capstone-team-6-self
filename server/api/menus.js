@@ -17,7 +17,6 @@ app.get('/', async (req, res, next) => {
 
 app.get('/:id', async (req, res, next) => {
   try {
-    console.log(req.params.id);
     const menu = await Menu.findByPk(req.params.id, {
       include: [Item],
     });
@@ -29,7 +28,9 @@ app.get('/:id', async (req, res, next) => {
 
 app.put('/:id', async (req, res, next) => {
   try {
-    const menu = await Menu.findByPk(req.params.id);
+    const menu = await Menu.findByPk(req.params.id, {
+      include: [Item],
+    });
     await menu.update(req.body);
     res.send(menu);
   } catch (err) {

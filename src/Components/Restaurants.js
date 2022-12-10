@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
-  console.log(adminRestaurants);
   return (
     <div>
       {auth.isAdmin ? (

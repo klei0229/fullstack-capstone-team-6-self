@@ -44,7 +44,9 @@ const EditMenuContent = () => {
             <Button type="submit">Update</Button>
           </form>
         </Paper> */}
-        <Button onClick={update}>Update Menu</Button>
+      <Button variant="contained" onClick={update}>
+        Update Menu
+      </Button>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
+import BusinessDashboard from './BusinessDashboard';
 import Restaurants from './Restaurants';
 
 const Home = () => {
@@ -11,7 +12,8 @@ const Home = () => {
       <div>
         Welcome {auth.username}!!
         <button onClick={() => dispatch(logout())}>Logout</button>
-        <Restaurants />
+        {/* <Restaurants /> */}
+        <BusinessDashboard></BusinessDashboard>
       </div>
     </div>
   );

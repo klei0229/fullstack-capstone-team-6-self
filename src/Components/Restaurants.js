@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import BusinessDashboard from './BusinessDashboard';
 import Restaurant from './Restaurant';
+import AddRestaurant from './AddRestaurant';
+
 
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
@@ -10,8 +12,10 @@ const Restaurants = () => {
     <div>
       {auth.isAdmin ? (
         <div>
-          <BusinessDashboard />
+          {/* <BusinessDashboard /> */}
           <h1>My Restaurants</h1>
+          <AddRestaurant />
+
           <ul>
             {adminRestaurants.map((restaurant) => {
               return <Restaurant key={restaurant.id} restaurant={restaurant} />;

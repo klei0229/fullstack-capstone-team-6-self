@@ -1,8 +1,14 @@
 import React from 'react';
-import AddRestaurant from './AddRestaurant';
+import Restaurants from './Restaurants';
 
 const BusinessDashboard = () => {
-  return <AddRestaurant />;
+  return (
+    <div>
+      start
+      <Restaurants />
+      end
+    </div>
+  );
 };
 
 export default BusinessDashboard;

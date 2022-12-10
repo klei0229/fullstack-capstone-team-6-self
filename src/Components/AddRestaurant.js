@@ -172,7 +172,9 @@ const AddRestaurant = () => {
           </Button> */}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} disabled={csvData.length === 0}>
+          <Button onClick={handleClose} 
+          // disabled={csvData.length === 0}
+          >
             All Done!
           </Button>
         </DialogActions>

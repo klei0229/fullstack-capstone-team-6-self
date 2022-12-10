@@ -11,10 +11,10 @@ import { useDrag } from 'react-dnd';
 
 export default function MediaCard(props) {
 
+
   console.log(props);
   const [{ isDragging }, drag] = useDrag({
-    item: {
-    },
+    item: props,
     type: 'Card',
     collect: (monitor) => ({
         isDragging: !!monitor.isDragging()

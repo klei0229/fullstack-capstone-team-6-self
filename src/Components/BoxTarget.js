@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMenu } from '../store';
@@ -6,10 +6,15 @@ import { Container, Box } from '@mui/material';
 
 import { ItemTypes } from './utils/items';
 import { useDrop } from 'react-dnd';
-const BoxTarget = () => {
-    
+
+import {CardContext} from './TemplateDND';
+const BoxTarget = (props) => {
+   
+  console.log(props);
+  const {moveToBox} = useContext(CardContext);
   const [{isOver}, drop] = useDrop({
     accept: 'Card',
+    drop: (item, monitor) => {moveToBox(item.name)},
     collect: (monitor) =>({
         isOver : !! monitor.isOver(),
     })
@@ -24,7 +29,9 @@ const BoxTarget = () => {
           height: '500px',
         }}
       >
-        here
+        {props.children}
+
+
       </Box>
     </div>
   );

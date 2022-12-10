@@ -16,7 +16,8 @@ app.get('/', async (req, res, next) => {
 app.put('/:id', async (req, res, next) => {
   try {
     const menu = await Menu.findByPk(req.params.id);
-    res.send(await menu.update(req.body));
+    await menu.update(req.body);
+    res.send(menu);
   } catch (err) {
     next(err);
   }

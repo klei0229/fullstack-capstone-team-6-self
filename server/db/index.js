@@ -51,16 +51,28 @@ const syncAndSeed = async () => {
     }),
   ]);
 
+  const preferences = {
+    padding: '10px',
+    margin: '10px',
+    primaryColor: '#000000',
+    restaurantNameFontSize: 65,
+    categoryNameFontSize: 30,
+    itemNameFontSize: 20,
+    descriptionNameFontSize: 20,
+    fontFamily: 'verdana',
+  };
   const [menu1, menu2] = await Promise.all([
     Menu.create({
       name: 'Breakfast Menu',
       description: '12432423',
       restaurantId: res1.id,
+      preferences: JSON.stringify(preferences),
     }),
     Menu.create({
       name: 'Lunch Menu',
       description: '12343242342353',
       restaurantId: res2.id,
+      preferences: JSON.stringify(preferences),
     }),
   ]);
 

@@ -6,6 +6,7 @@ import csvData from './csvData';
 import restaurants from './restaurants';
 import adminRestaurants from './admin-restaurants';
 import menus from './menus';
+import menuPreferences from './menuPreferences';
 
 const reducer = combineReducers({
   auth,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   restaurants,
   adminRestaurants,
   menus,
+  menuPreferences,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -24,3 +26,4 @@ export * from './csvData';
 export * from './restaurants';
 export * from './admin-restaurants';
 export * from './menus';
+export * from './menuPreferences';

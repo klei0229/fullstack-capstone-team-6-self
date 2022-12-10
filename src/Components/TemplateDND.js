@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMenu } from '../store';
-import { Container } from '@mui/material';
+import { Container, Box } from '@mui/material';
 
 // import Draggable from 'react-draggable';
+import MediaCard from './Dndcard';
+import BoxTarget from './BoxTarget';
 
 const TemplateDND = () => {
   const { menu } = useSelector((state) => state);
@@ -15,6 +17,19 @@ const TemplateDND = () => {
   console.log(params);
   console.log(menu);
 
+  const moveToBox = () => {};
+
+  const array = [
+    {
+      name: 'Card1',
+      isInBox: false,
+    },
+    {
+      name: 'Card2',
+      isInBox: false,
+    },
+  ];
+
   useEffect(() => {
     dispatch(fetchMenu(params));
     console.log(menu);
@@ -24,11 +39,13 @@ const TemplateDND = () => {
     <div>
       DND test
       {menu.name}
-      <Draggable grid={[25, 25]}>
-      <div>
-        
-      </div>
-      </Draggable>
+      {array.filter((item)=>{return item.isInBox === false})
+            .map((item)=>{return (<MediaCard name={item.name} isInBox={false}></MediaCard>)})
+      }
+      
+      <Container maxWidth="lg" sx={{ backgroundColor: 'grey' }}>
+        <BoxTarget></BoxTarget>
+      </Container>
     </div>
   );
 };

@@ -16,6 +16,8 @@ import {
 } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 
+import { DndProvider } from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 
 const App = () => {
   const { auth } = useSelector((state) => state);
@@ -37,9 +39,10 @@ const App = () => {
 
   return (
     <div>
-
+      <DndProvider backend={HTML5Backend}>
       <h1>MenYou</h1>
       {auth.id ? <Home /> : <Login />}
+      <TemplateDND></TemplateDND>
       <Routes>
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/restaurants/:id" element={<Restaurant />} />
@@ -48,6 +51,8 @@ const App = () => {
         <Route path="/menus" element={<Menus />} />
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
       </Routes>
+
+      </DndProvider>
     </div>
   );
 };

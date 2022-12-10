@@ -14,5 +14,7 @@ app.use('/api/auth', require('./api/auth'));
 app.use('/api/restaurants', require('./api/restaurants'));
 app.use('/api/admin-restaurants', require('./api/admin-restaurants'));
 app.use('/api/menus', require('./api/menus'));
+app.use('/api/items', require('./api/items'));
+app.use('/api/menu', require('./api/menu'));
 
 module.exports = app;

@@ -13,7 +13,7 @@ const Menu = conn.define('menu', {
     validate: {
       notEmpty: true,
     },
-    unique: true,
+    // unique: true,
   },
   description: {
     type: STRING,
@@ -21,6 +21,9 @@ const Menu = conn.define('menu', {
     validate: {
       notEmpty: true,
     },
+  },
+  preferences: {
+    type: TEXT,
   },
 });
 

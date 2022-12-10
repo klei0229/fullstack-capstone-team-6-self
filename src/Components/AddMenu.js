@@ -9,47 +9,55 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCsvData, createRestaurant } from '../store';
+import { setCsvData, createMenu, fetchMenus } from '../store';
 
-const AddRestaurant = () => {
+const AddMenu = (props) => {
+
   const { auth, csvData } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [restaurant, setRestaurant] = useState({
+  const [menu, setMenu] = useState({
     name: '',
-    address: '',
-    contact: '',
     description: '',
-    email: '',
-    userId: auth.id,
+    restaurantId: props.restaurant.id,
   });
+  
 
   // const [menu, setMenu] = useState({
   //   name: '',
   //   description: '',
-  //   restaurantId: restaurant.id,
+  //   MenuId: Menu.id,
   // });
 
+  const [csvName, setCsvName] = useState("");
   const [csvFile, setCsvFile] = useState(null);
   const [open, setOpen] = useState(false);
+  const [items, setItems] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    dispatch(createRestaurant(restaurant));
+    // dispatch(createMenu(menu));
     // await dispatch(createMenu(menu));
     setOpen(false);
   };
 
   const onChange = (e) => {
-    setRestaurant({
-      ...restaurant,
+    setMenu({
+      ...menu,
       [e.target.id]: e.target.value,
     });
   };
+
+  const submitMenu = () => {
+    dispatch(createMenu(menu,items));
+    // dispatch(fetchMenus());
+    setOpen(false);
+  }
 
   // const onChangeMenu = (e) => {
   //   setMenu({
@@ -65,6 +73,7 @@ const AddRestaurant = () => {
         Papa.parse(file, {
           complete: function (results) {
             const convertedCsvData = convertCsvToObjectArray(results);
+            setItems(convertedCsvData);
             dispatch(setCsvData(convertedCsvData));
           },
         });
@@ -72,73 +81,22 @@ const AddRestaurant = () => {
     }
   }, [csvFile]);
 
+//   useEffect(()=>{
+    
+//   },[])
+
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
-        Add A Restaurant
+        Add Menu
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Restaurant</DialogTitle>
+        <DialogTitle>Add Menu</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter the restaurant details below:
+            Please enter the menu details below:
           </DialogContentText>
           <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            defaultValue={restaurant.name}
-            label="Restaurant Name"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={onChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="address"
-            defaultValue={restaurant.address}
-            label="Restaurant Address"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={onChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="contact"
-            defaultValue={restaurant.contact}
-            label="Restaurant Phone"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={onChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="description"
-            defaultValue={restaurant.description}
-            label="Restaurant Description"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={onChange}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="email"
-            defaultValue={restaurant.email}
-            label="Restaurant Email"
-            type="email"
-            fullWidth
-            variant="standard"
-            onChange={onChange}
-          />
-          {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -147,7 +105,7 @@ const AddRestaurant = () => {
             type="text"
             fullWidth
             variant="standard"
-            onChange={onChangeMenu}
+            onChange={onChange}
           />
           <TextField
             autoFocus
@@ -158,9 +116,12 @@ const AddRestaurant = () => {
             type="text"
             fullWidth
             variant="standard"
-            onChange={onChangeMenu}
-          /> */}
-          {/* <Button variant="contained" component="label">
+            onChange={onChange}
+          />
+          
+          {console.log(csvFile)}
+          <Typography>File Name: {csvName}</Typography>
+          <Button variant="contained" component="label">
             Upload Menu
             <input
               type="file"
@@ -168,13 +129,15 @@ const AddRestaurant = () => {
               ref={(x) => {
                 setCsvFile(x);
               }}
+              onChange={(ev)=>{
+                setCsvName(ev.target.files[0].name);
+                // console.log(ev.target.files[0].name)
+              }}
             />
-          </Button> */}
+          </Button>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} 
-          // disabled={csvData.length === 0}
-          >
+          <Button onClick={submitMenu} disabled={csvData.length === 0}>
             All Done!
           </Button>
         </DialogActions>
@@ -183,4 +146,4 @@ const AddRestaurant = () => {
   );
 };
 
-export default AddRestaurant;
+export default AddMenu;

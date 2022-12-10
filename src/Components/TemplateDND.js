@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMenu } from '../store';
 import { Container } from '@mui/material';
 
-import Draggable from 'react-draggable';
+// import Draggable from 'react-draggable';
 
 const TemplateDND = () => {
   const { menu } = useSelector((state) => state);

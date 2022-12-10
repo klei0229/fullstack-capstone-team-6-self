@@ -5,6 +5,7 @@ import Restaurants from './Restaurants';
 import Restaurant from './Restaurant';
 import Menu from './Menu';
 import Menus from './Menus';
+import EditMenuContent from './EditMenuContent';
 import TemplateDND from './TemplateDND';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,8 +14,9 @@ import {
   fetchRestaurants,
   fetchAdminRestaurants,
   fetchMenus,
+  fetchItems,
 } from '../store';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
   const { auth } = useSelector((state) => state);
@@ -22,6 +24,7 @@ const App = () => {
   useEffect(() => {
     dispatch(loginWithToken());
     dispatch(fetchMenus());
+    dispatch(fetchItems());
   }, []);
 
   useEffect(() => {
@@ -41,9 +44,9 @@ const App = () => {
       <Routes>
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/restaurants/:id" element={<Restaurant />} />
-        <Route path="/menus/:id" element={<Menu />} />
-
+        <Route path="/menu/:id" element={<EditMenuContent />} />
         <Route path="/menus" element={<Menus />} />
+        <Route path="/menus/:id" element={<Menu />} />
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
       </Routes>
     </div>

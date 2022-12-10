@@ -27,8 +27,8 @@ const Restaurants = () => {
               //   </li>
               // );
               return (
-                <li>
-                  <Restaurant key={restaurant.id} restaurant={restaurant} />
+                <li key={restaurant.id}>
+                  <Restaurant restaurant={restaurant} />
                 </li>
               );
             })}

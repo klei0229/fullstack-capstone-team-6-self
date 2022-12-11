@@ -30,13 +30,11 @@ const Restaurant = (props) => {
           return (
             <li key={menu.id}>
               {menu.name} <Button>View</Button>
-              {/* <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
-              <Button href={`#/menus/${menu.id}`}>Edit Style</Button> */}
               {auth.id === props.restaurant.userId ? (
-                <div>
-                  <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
-                  <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
-                </div>
+                <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
+              ) : null}
+              {auth.id === props.restaurant.userId ? (
+                <Button href={`#/menus.${menu.id}`}>Edit Style</Button>
               ) : null}
             </li>
           );

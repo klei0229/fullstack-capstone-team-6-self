@@ -6,8 +6,9 @@ const auth = (state = {}, action) => {
   return state;
 };
 
-export const logout = () => {
+export const logout = (navigate) => {
   window.localStorage.removeItem('token');
+  navigate('/');
   return { type: 'SET_AUTH', auth: {} };
 };
 

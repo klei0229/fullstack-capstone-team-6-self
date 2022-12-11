@@ -83,7 +83,7 @@ const Register = () => {
           Register
         </Button>
         <Typography
-          endDecorator={<Link to="/auth">Sign up</Link>}
+          endDecorator={<Link to="/login">Sign in</Link>}
           fontSize="sm"
           sx={{ alignSelf: 'center' }}
         >

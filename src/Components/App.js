@@ -7,8 +7,9 @@ import Menu from './Menu';
 import Menus from './Menus';
 import EditMenuContent from './EditMenuContent';
 import TemplateDND from './TemplateDND';
+import Register from './Register';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import {
   loginWithToken,
   fetchRestaurants,
@@ -40,17 +41,20 @@ const App = () => {
   return (
     <div>
       <h1>MenYou</h1>
-      {auth.id ? <Home /> : <Login />}
       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/restaurants/:id" element={<Restaurant />} />
         <Route path="/menu/:id" element={<EditMenuContent />} />
         <Route path="/menus" element={<Menus />} />
         <Route path="/menus/:id" element={<Menu />} />
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
+
       </Routes>
     </div>
   );
 };
 
-export default App;
+export default connect((state) => state)(App);

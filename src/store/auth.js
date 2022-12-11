@@ -38,19 +38,21 @@ export const updateAuth = (auth) => {
   };
 };
 
-export const attemptLogin = (credentials) => {
+export const attemptLogin = (credentials, navigate) => {
   return async (dispatch) => {
     const response = await axios.post('/api/auth', credentials);
     window.localStorage.setItem('token', response.data);
     dispatch(loginWithToken());
+    navigate('/');
   };
 };
 
-export const register = (credentials) => {
+export const register = (credentials, navigate) => {
   return async (dispatch) => {
     const response = await axios.post('/api/auth/register', credentials);
     window.localStorage.setItem('token', response.data);
     dispatch(loginWithToken());
+    navigate('/');
   };
 };
 

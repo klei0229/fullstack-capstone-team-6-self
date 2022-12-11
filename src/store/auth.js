@@ -7,9 +7,11 @@ const auth = (state = {}, action) => {
 };
 
 export const logout = (navigate) => {
-  window.localStorage.removeItem('token');
-  navigate('/');
-  return { type: 'SET_AUTH', auth: {} };
+  return async (dispatch) => {
+    window.localStorage.removeItem('token');
+    dispatch({ type: 'SET_AUTH', auth: {} })
+    navigate('/');
+  }
 };
 
 export const loginWithToken = () => {

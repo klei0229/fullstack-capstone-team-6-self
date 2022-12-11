@@ -51,9 +51,9 @@ const syncAndSeed = async () => {
     }),
   ]);
 
-  const preferences = {
-    padding: '10px',
-    margin: '10px',
+  const defaultPreferences = {
+    padding: '0',
+    margin: '0',
     primaryColor: '#000000',
     restaurantNameFontSize: 65,
     categoryNameFontSize: 30,
@@ -66,13 +66,13 @@ const syncAndSeed = async () => {
       name: 'Breakfast Menu',
       description: '12432423',
       restaurantId: res1.id,
-      preferences: JSON.stringify(preferences),
+      preferences: JSON.stringify(defaultPreferences),
     }),
     Menu.create({
       name: 'Lunch Menu',
       description: '12343242342353',
       restaurantId: res2.id,
-      preferences: JSON.stringify(preferences),
+      preferences: JSON.stringify(defaultPreferences),
     }),
   ]);
 

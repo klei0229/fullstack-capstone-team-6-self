@@ -13,6 +13,7 @@ const menus = (state = [], action) => {
       menu.id === action.menu.id ? action.menu : menu
     );
   }
+
   return state;
 };
 

@@ -6,6 +6,7 @@ import Restaurant from './Restaurant';
 import Menu from './Menu';
 import Menus from './Menus';
 import TemplateDND from './TemplateDND';
+import Register from './Register';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -44,7 +45,8 @@ const App = () => {
         <Route path="/menus/:id" element={<Menu />} />
 
         <Route path="/menus" element={<Menus />} />
-        <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
+        <Route path="/edit/:id" element={<TemplateDND />} />
+        <Route path="/auth/register" element={<Register />} />
       </Routes>
     </div>
   );

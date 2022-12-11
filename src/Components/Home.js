@@ -27,7 +27,7 @@ const Home = () => {
             <br />
             <Avatar src={auth.avatar} />
             <br />
-            <Button variant='outlined' onClick={() => dispatch(logout())}>
+            <Button variant='outlined' onClick={() => dispatch(logout(navigate))}>
               Logout
             </Button>
           </CardContent>

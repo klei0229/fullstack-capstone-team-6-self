@@ -27,14 +27,15 @@ const EditMenuContent = () => {
   };
 
   return (
-    <div>
-      {/* <pre>{JSON.stringify(menu, null, 2)}</pre> */}
-      {menu.items
-        ? menu.items.map((item) => {
-            return <EditMenuItem key={item.id} item={item} />;
-          })
-        : 'nothing to see here...'}
-      {/* <Paper>
+    <Paper>
+      <div>
+        {/* <pre>{JSON.stringify(menu, null, 2)}</pre> */}
+        {menu.items
+          ? menu.items.map((item) => {
+              return <EditMenuItem key={item.id} item={item} />;
+            })
+          : 'nothing to see here...'}
+        {/* <Paper>
           <form onSubmit={update}>
             {menu.items
               ? menu.items.map((item) => {
@@ -44,10 +45,11 @@ const EditMenuContent = () => {
             <Button type="submit">Update</Button>
           </form>
         </Paper> */}
-      <Button variant="contained" onClick={update}>
-        Update Menu
-      </Button>
-    </div>
+        <Button variant="contained" onClick={update}>
+          Update Menu
+        </Button>
+      </div>
+    </Paper>
   );
 };
 

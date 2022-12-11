@@ -34,7 +34,7 @@ const Restaurant = (props) => {
                 <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
               ) : null}
               {auth.id === props.restaurant.userId ? (
-                <Button href={`#/menus.${menu.id}`}>Edit Style</Button>
+                <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
               ) : null}
             </li>
           );

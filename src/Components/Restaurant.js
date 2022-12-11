@@ -1,45 +1,43 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import AddMenu from './AddMenu';
-import { Button } from '@mui/material';
-
-// const Restaurant = () => {
-// const { menus, restaurants } = useSelector((state) => state);
+import { Button, Link } from '@mui/material';
+import { fetchMenus } from '../store';
 
 const Restaurant = (props) => {
-  const { menus, restaurants } = useSelector((state) => state);
+  const { auth, menus, restaurants } = useSelector((state) => state);
   console.log(menus);
   const { id } = useParams();
+  const dispatch = useDispatch();
   // const restaurant = restaurants.find((restaurant) => restaurant.id === id);
   // console.log(menus);
+  // useEffect(() => {
+  //   dispatch(fetchMenus());
+  // }, [id]);
+
   const restaurantMenus = menus.filter(
     (menu) => menu.restaurantId === props.restaurant.id
   );
   return (
     <div>
       <h3>{props.restaurant.name}</h3>
-      
+
       {/* <Button>Add Menu</Button> */}
       <AddMenu restaurant={props.restaurant}></AddMenu>
       <ul>
-        {console.log(restaurantMenus)}
         {restaurantMenus.map((menu) => {
           return (
             <li key={menu.id}>
               {menu.name} <Button>View</Button>
-              <Button href={`/api/menus/${menu.id}`}>Edit Data</Button>
-              <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
+              {auth.id === props.restaurant.userId ? (
+                <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
+              ) : null}
+              {auth.id === props.restaurant.userId ? (
+                <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
+              ) : null}
             </li>
           );
-          // <h3>{restaurant.name}</h3>
-          // <ul>
-          //   {restaurantMenus.map((menu) => {
-          //     return (
-          //       <li key={menu.id}>
-          //         <Link to={`/menus/${menu.id}`}>{menu.name}</Link>
-          //       </li>
-          //     );
         })}
       </ul>
     </div>

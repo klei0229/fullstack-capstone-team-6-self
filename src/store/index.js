@@ -8,6 +8,7 @@ import adminRestaurants from './admin-restaurants';
 import menus from './menus';
 import menu from './menu';
 import menuPreferences from './menuPreferences';
+import items from './items';
 
 const reducer = combineReducers({
   auth,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   menus,
   menu,
   menuPreferences,
+  items,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -30,3 +32,4 @@ export * from './admin-restaurants';
 export * from './menus';
 export * from './menu';
 export * from './menuPreferences';
+export * from './items';

@@ -4,9 +4,7 @@ import Restaurants from './Restaurants';
 const BusinessDashboard = () => {
   return (
     <div>
-      start
       <Restaurants />
-      end
     </div>
   );
 };

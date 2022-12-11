@@ -6,7 +6,7 @@ import { Button, Link } from '@mui/material';
 import { fetchMenus } from '../store';
 
 const Restaurant = (props) => {
-  const { menus, restaurants } = useSelector((state) => state);
+  const { auth, menus, restaurants } = useSelector((state) => state);
   console.log(menus);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -30,8 +30,14 @@ const Restaurant = (props) => {
           return (
             <li key={menu.id}>
               {menu.name} <Button>View</Button>
-              <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
-              <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
+              {/* <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
+              <Button href={`#/menus/${menu.id}`}>Edit Style</Button> */}
+              {auth.id === props.restaurant.userId ? (
+                <div>
+                  <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
+                  <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
+                </div>
+              ) : null}
             </li>
           );
         })}

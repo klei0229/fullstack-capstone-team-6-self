@@ -18,8 +18,6 @@ const TemplateDND = () => {
   // console.log(menus);
   const params = useParams().id;
 
-  console.log(params);
-  console.log(menu);
   
   const array = [
     {
@@ -36,12 +34,10 @@ const TemplateDND = () => {
   const moveToBox = (name) => {
 
 
-    console.log('movetobox called on '+ name)
 
     const subarray = items.filter((element) => {
       return element.name === name;
     });
-    console.log(subarray);
     subarray[0].isInBox = true;
     setItems(
       items
@@ -59,7 +55,6 @@ const TemplateDND = () => {
 
   useEffect(() => {
     dispatch(fetchMenu(params));
-    console.log(menu);
   }, [params]);
 
   return (
@@ -69,7 +64,6 @@ const TemplateDND = () => {
         {menu.name}
         {items
           .filter((item) => {
-            console.log(item)
             return item.isInBox === false;
           })
           .map((item) => {
@@ -79,7 +73,6 @@ const TemplateDND = () => {
           <BoxTarget>
           {items
           .filter((item) => {
-            console.log(item)
             return item.isInBox === true;
           })
           .map((item) => {

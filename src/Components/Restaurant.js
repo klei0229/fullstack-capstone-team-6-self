@@ -29,12 +29,12 @@ const Restaurant = (props) => {
         {restaurantMenus.map((menu) => {
           return (
             <li key={menu.id}>
-              {menu.name} <Button>View</Button>
+              {menu.name} <Button href={`#/menu/preview/${menu.id}`}>View</Button>
               {auth.id === props.restaurant.userId ? (
-                <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
+                <Button href={`#/menu/editContent/${menu.id}`}>Edit Data</Button>
               ) : null}
               {auth.id === props.restaurant.userId ? (
-                <Button href={`#/editstyle/${menu.id}`}>Edit Style</Button>
+                <Button href={`#/menu/editStyle/${menu.id}`}>Edit Style</Button>
               ) : null}
             </li>
           );

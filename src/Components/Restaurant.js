@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AddMenu from './AddMenu';
 import { Button, Link } from '@mui/material';
-import { fetchMenus } from '../store';
+import { fetchMenus, deleteMenu } from '../store';
 
 const Restaurant = (props) => {
   const { auth, menus, restaurants } = useSelector((state) => state);
@@ -34,7 +34,7 @@ const Restaurant = (props) => {
                 <Button href={`#/menu/${menu.id}`}>Edit Data</Button>
               ) : null}
               {auth.id === props.restaurant.userId ? (
-                <Button href={`#/menus/${menu.id}`}>Edit Style</Button>
+                <Button href={`#/editstyle/${menu.id}`}>Edit Style</Button>
               ) : null}
             </li>
           );

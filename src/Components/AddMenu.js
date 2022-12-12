@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { convertCsvToObjectArray } from './EditPanel';
 import Papa from 'papaparse';
 import {
   Button,
@@ -9,21 +8,30 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCsvData, createMenu, fetchMenus } from '../store';
 
 const AddMenu = (props) => {
-
   const { auth, csvData } = useSelector((state) => state);
+  const defaultPreferences = {
+    padding: '0',
+    margin: '0',
+    primaryColor: '#000000',
+    restaurantNameFontSize: 65,
+    categoryNameFontSize: 30,
+    itemNameFontSize: 20,
+    descriptionNameFontSize: 20,
+    fontFamily: 'verdana',
+  };
   const dispatch = useDispatch();
   const [menu, setMenu] = useState({
     name: '',
     description: '',
     restaurantId: props.restaurant.id,
+    preferences: JSON.stringify(defaultPreferences),
   });
-  
 
   // const [menu, setMenu] = useState({
   //   name: '',
@@ -31,7 +39,7 @@ const AddMenu = (props) => {
   //   MenuId: Menu.id,
   // });
 
-  const [csvName, setCsvName] = useState("");
+  const [csvName, setCsvName] = useState('');
   const [csvFile, setCsvFile] = useState(null);
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([]);
@@ -54,10 +62,10 @@ const AddMenu = (props) => {
   };
 
   const submitMenu = () => {
-    dispatch(createMenu(menu,items));
+    dispatch(createMenu(menu, items));
     // dispatch(fetchMenus());
     setOpen(false);
-  }
+  };
 
   // const onChangeMenu = (e) => {
   //   setMenu({
@@ -65,6 +73,26 @@ const AddMenu = (props) => {
   //     [e.target.id]: e.target.value,
   //   });
   // };
+
+  //this function converts the raw data from CSV into a more organized object form
+  const convertCsvToObjectArray = (results) => {
+    results.data.shift(); //removes the table header of the csv
+    results.data.pop(); //removes the last element of the the csv due to the parser creating an extra row with null values
+
+    let arr = [];
+
+    results.data.forEach((element) => {
+      let obj = {
+        name: element[0],
+        description: element[1],
+        price: element[2],
+        category: element[3],
+      };
+
+      arr.push(obj);
+    });
+    return arr;
+  };
 
   useEffect(() => {
     if (csvFile) {
@@ -81,9 +109,9 @@ const AddMenu = (props) => {
     }
   }, [csvFile]);
 
-//   useEffect(()=>{
-    
-//   },[])
+  //   useEffect(()=>{
+
+  //   },[])
 
   return (
     <div>
@@ -118,7 +146,7 @@ const AddMenu = (props) => {
             variant="standard"
             onChange={onChange}
           />
-          
+
           {console.log(csvFile)}
           <Typography>File Name: {csvName}</Typography>
           <Button variant="contained" component="label">
@@ -129,7 +157,7 @@ const AddMenu = (props) => {
               ref={(x) => {
                 setCsvFile(x);
               }}
-              onChange={(ev)=>{
+              onChange={(ev) => {
                 setCsvName(ev.target.files[0].name);
                 // console.log(ev.target.files[0].name)
               }}

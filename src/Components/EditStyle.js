@@ -6,11 +6,17 @@ import EditPanel from './EditPanel';
 import MenuTemplate2 from './Template-2-Subcomponents/MenuTemplate2';
 import { Container, Button, Grid, Typography, Paper } from '@mui/material';
 import { setCsvData, setMenuPreferences } from '../store';
+import { fetchMenus, fetchItems } from '../store';
 
-const Menu = () => {
+const EditStyle = () => {
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
   const menu = menus.find((menu) => menu.id === id);
+
+  useEffect(() => {
+    dispatch(fetchMenus());
+    dispatch(fetchItems());
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -45,7 +51,7 @@ const Menu = () => {
             </Paper>
           </Grid>
           <Grid item xs={9}>
-            <MenuTemplate2></MenuTemplate2>
+            <MenuTemplate2 id={id}></MenuTemplate2>
           </Grid>
         </Grid>
       </div>
@@ -53,4 +59,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default EditStyle;

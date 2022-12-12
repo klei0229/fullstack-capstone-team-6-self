@@ -6,9 +6,12 @@ const auth = (state = {}, action) => {
   return state;
 };
 
-export const logout = () => {
-  window.localStorage.removeItem('token');
-  return { type: 'SET_AUTH', auth: {} };
+export const logout = (navigate) => {
+  return async (dispatch) => {
+    window.localStorage.removeItem('token');
+    dispatch({ type: 'SET_AUTH', auth: {} })
+    navigate('/');
+  }
 };
 
 export const loginWithToken = () => {
@@ -37,19 +40,21 @@ export const updateAuth = (auth) => {
   };
 };
 
-export const attemptLogin = (credentials) => {
+export const attemptLogin = (credentials, navigate) => {
   return async (dispatch) => {
     const response = await axios.post('/api/auth', credentials);
     window.localStorage.setItem('token', response.data);
     dispatch(loginWithToken());
+    navigate('/');
   };
 };
 
-export const register = (credentials) => {
+export const register = (credentials, navigate) => {
   return async (dispatch) => {
     const response = await axios.post('/api/auth/register', credentials);
     window.localStorage.setItem('token', response.data);
     dispatch(loginWithToken());
+    navigate('/');
   };
 };
 

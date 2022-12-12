@@ -1,4 +1,5 @@
 import axios from 'axios';
+import menu from './menu';
 
 const menus = (state = [], action) => {
   if (action.type === 'SET_MENUS') {
@@ -7,6 +8,12 @@ const menus = (state = [], action) => {
   if (action.type === 'CREATE_MENU') {
     return [...state, action.menu];
   }
+  if (action.type === 'UPDATE_MENU') {
+    return state.map((menu) =>
+      menu.id === action.menu.id ? action.menu : menu
+    );
+  }
+
   return state;
 };
 
@@ -36,6 +43,16 @@ export const createMenu = (menu, items) => {
     });
 
     dispatch({ type: 'CREATE_MENU', menu: response.data });
+  };
+};
+
+export const updateMenu = (menu, items) => {
+  return async (dispatch) => {
+    const response = await axios.put(`/api/menus/${menu.id}`, {
+      ...menu,
+      items: items,
+    });
+    dispatch({ type: 'UPDATE_MENU', menu: response.data });
   };
 };
 

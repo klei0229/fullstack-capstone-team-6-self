@@ -26,8 +26,10 @@ import {
 
 import ItemCard from './ItemCard';
 
-const MenuTemplate2 = () => {
-  const { csvData, menuPreferences } = useSelector((state) => state);
+const MenuTemplate2 = ({ id }) => {
+  const { menuPreferences, menus } = useSelector((state) => state);
+  console.log(menuPreferences);
+  const menu = menus.find((menu) => menu.id === id);
 
   const [categories, setCategories] = useState([]);
 
@@ -44,22 +46,24 @@ const MenuTemplate2 = () => {
     refs.current[ev.target.value].scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
-    console.log('csvdata', csvData);
+    console.log('menu', menu);
     //loop thru each item
     //if categories does not include value add it
 
     let arr = [];
 
-    for (let i = 0; i < csvData.length; i++) {
-      console.log(csvData[i]);
-      if (!arr.includes(csvData[i].category)) {
-        arr.push(csvData[i].category);
+    if (menu.items) {
+      for (let i = 0; i < menu.items.length; i++) {
+        console.log(menu.items[i]);
+        if (!arr.includes(menu.items[i].category)) {
+          arr.push(menu.items[i].category);
+        }
       }
     }
 
     // console.log(arr);
     setCategories(arr);
-  }, [csvData]);
+  }, [menu]);
 
   useEffect(() => {
     console.log(menuPreferences);
@@ -141,7 +145,7 @@ const MenuTemplate2 = () => {
                     <Divider></Divider>
                     <br></br>
                     <Grid container spacing={3}>
-                      {csvData
+                      {menu.items
                         .filter((elem) => {
                           return elem.category === category;
                         })

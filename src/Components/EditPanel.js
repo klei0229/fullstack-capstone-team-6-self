@@ -25,24 +25,24 @@ import {
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 //this function converts the raw data from CSV into a more organized object form
-export const convertCsvToObjectArray = (results) => {
-  results.data.shift(); //removes the table header of the csv
-  results.data.pop(); //removes the last element of the the csv due to the parser creating an extra row with null values
+// export const convertCsvToObjectArray = (results) => {
+//   results.data.shift(); //removes the table header of the csv
+//   results.data.pop(); //removes the last element of the the csv due to the parser creating an extra row with null values
 
-  let arr = [];
+//   let arr = [];
 
-  results.data.forEach((element) => {
-    let obj = {
-      name: element[0],
-      description: element[1],
-      price: element[2],
-      category: element[3],
-    };
+//   results.data.forEach((element) => {
+//     let obj = {
+//       name: element[0],
+//       description: element[1],
+//       price: element[2],
+//       category: element[3],
+//     };
 
-    arr.push(obj);
-  });
-  return arr;
-};
+//     arr.push(obj);
+//   });
+//   return arr;
+// };
 
 const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
   console.log(setSelectedTemplate);
@@ -57,8 +57,8 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
   //     category: element[3],
   //     tags: element[4],
   //   };
-  const [csvFile, setCSVFile] = React.useState(null);
-  const [csvData, setCSVData] = React.useState({});
+  // const [csvFile, setCSVFile] = React.useState(null);
+  // const [csvData, setCSVData] = React.useState({});
 
   const [primaryColor, setPrimaryColor] = useState('');
   const [showColorPicker, setShowColorPicker] = useState(false);
@@ -103,20 +103,20 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
 
   /* TODO: remove this component - get data from store instead. No need for csv upload on this page*/
 
-  useEffect(() => {
-    if (csvFile) {
-      csvFile.addEventListener('change', (ev) => {
-        const file = ev.target.files[0];
-        Papa.parse(file, {
-          complete: function (results) {
-            convertCsvToObjectArray(results);
-            //takes the obj passed from papaparse and stores it into redux store to be used in content edit + style edit components
-            dispatch(setCsvData(convertCsvToObjectArray(results)));
-          },
-        });
-      });
-    }
-  }, [csvFile]);
+  // useEffect(() => {
+  //   if (csvFile) {
+  //     csvFile.addEventListener('change', (ev) => {
+  //       const file = ev.target.files[0];
+  //       Papa.parse(file, {
+  //         complete: function (results) {
+  //           convertCsvToObjectArray(results);
+  //           //takes the obj passed from papaparse and stores it into redux store to be used in content edit + style edit components
+  //           dispatch(setCsvData(convertCsvToObjectArray(results)));
+  //         },
+  //       });
+  //     });
+  //   }
+  // }, [csvFile]);
 
   /* TODO: remove this component - get data from store instead. No need for csv upload on this page*/
 
@@ -248,7 +248,7 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
         {/* //Description Font Size END_____________________________________________________________________*/}
 
         {/* TODO: remove this component - get data from store instead. No need for csv upload on this page*/}
-        <Button variant="contained" component="label">
+        {/* <Button variant="contained" component="label">
           Upload File
           <input
             type="file"
@@ -257,7 +257,7 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
               setCSVFile(x);
             }}
           />
-        </Button>
+        </Button> */}
         {/* <Button variant="contained">Create Menu</Button> */}
         <TextField
           // choose template

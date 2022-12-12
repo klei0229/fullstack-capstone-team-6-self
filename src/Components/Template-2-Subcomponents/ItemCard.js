@@ -31,16 +31,6 @@ export default function ItemCard({ props, margin, padding }) {
           sx={{ objectFit: 'cover' }}
         />
         <CardContent>
-          <Button variant="contained" component="label">
-            Upload Image
-            <input
-              type="file"
-              hidden
-              ref={(x) => {
-                setImage(x);
-              }}
-            />
-          </Button>
           <Typography
             gutterBottom
             variant="h6"

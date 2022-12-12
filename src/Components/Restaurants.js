@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
-  console.log(adminRestaurants);
   return (
     <div>
       {auth.isAdmin ? (
@@ -27,8 +26,8 @@ const Restaurants = () => {
               //   </li>
               // );
               return (
-                <li>
-                  <Restaurant key={restaurant.id} restaurant={restaurant} />
+                <li key={restaurant.id}>
+                  <Restaurant restaurant={restaurant} />
                 </li>
               );
             })}

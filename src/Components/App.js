@@ -10,6 +10,8 @@ import TemplateDND from './TemplateDND';
 import Register from './Register';
 import ResponsiveAppBar from './Appbar';
 import ViewMenu from './ViewMenu';
+import BusinessDashboard from './BusinessDashboard';
+import EditStyleDnd from './EditStyleDnd';
 
 import { connect, useSelector, useDispatch } from 'react-redux';
 import {
@@ -46,9 +48,10 @@ const App = () => {
   return (
     <div>
       <DndProvider backend={HTML5Backend}>
-      <h1>MenYou</h1>
-      {auth.id ? <Home /> : <Login />}
-      <TemplateDND></TemplateDND>
+      {/* <h1>MenYou</h1> */}
+      {/* {auth.id ? <BusinessDashboard/> : <Login />} */}
+
+      {/* <TemplateDND></TemplateDND> */}
       {auth.id ? (
         <div>
           <ResponsiveAppBar />
@@ -73,6 +76,7 @@ const App = () => {
         
         <Route path="/menu/editContent/:id" element={<EditMenuContent />} />
         <Route path="/menu/editStyle/:id" element={<EditStyle />} />
+        <Route path="/menu/editStyleFull/:id" element={<EditStyleDnd />} />
         <Route path="/menu/preview/:id" element={<ViewMenu />} />
 
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />

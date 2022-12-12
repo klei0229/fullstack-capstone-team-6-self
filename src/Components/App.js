@@ -8,6 +8,8 @@ import Menus from './Menus';
 import EditMenuContent from './EditMenuContent';
 import TemplateDND from './TemplateDND';
 import Register from './Register';
+import ResponsiveAppBar from './Appbar';
+import ViewMenu from './ViewMenu';
 
 import { connect, useSelector, useDispatch } from 'react-redux';
 import {
@@ -40,17 +42,34 @@ const App = () => {
 
   return (
     <div>
-      <h1>MenYou</h1>
+      {auth.id ? (
+        <div>
+          <ResponsiveAppBar />
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+        </div>
+      ) : (
+        ''
+      )}
+
+      {/* <h1>MenYou</h1> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
         <Route path="/restaurants" element={<Restaurants />} />
+        
         <Route path="/restaurants/:id" element={<Restaurant />} />
-        <Route path="/menu/:id" element={<EditMenuContent />} />
-        <Route path="/menus" element={<Menus />} />
-        <Route path="/editstyle/:id" element={<EditStyle />} />
+        
+        <Route path="/menu/editContent/:id" element={<EditMenuContent />} />
+        <Route path="/menu/editStyle/:id" element={<EditStyle />} />
+        <Route path="/menu/preview/:id" element={<ViewMenu />} />
+
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
+        <Route path="/menus" element={<Menus />} />
       </Routes>
     </div>
   );

@@ -28,6 +28,7 @@ import ItemCard from './ItemCard';
 
 const MenuTemplate2 = ({ id }) => {
   const { menuPreferences, menus } = useSelector((state) => state);
+  console.log(menuPreferences);
   const menu = menus.find((menu) => menu.id === id);
 
   const [categories, setCategories] = useState([]);

@@ -14,7 +14,7 @@ export default function Dndcard2(props) {
 
   console.log(props);
   const [{ isDragging }, drag] = useDrag({
-    item: {...props,type:'Card'},
+    item: {...props},
     type: 'Card',
     collect: (monitor) => ({
         isDragging: !!monitor.isDragging()

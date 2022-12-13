@@ -15,17 +15,17 @@ import { useDrag } from 'react-dnd';
 import Column from './Column';
 
 const Component = (props) => {
-  const [{ isDragging }, drag] = useDrag({
-    item: {...props, isOnMenu:false},
-    type: 'Component',
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
+//   const [{ isDragging }, drag] = useDrag({
+//     item: {...props, isOnMenu:false},
+//     type: 'Component',
+//     collect: (monitor) => ({
+//       isDragging: !!monitor.isDragging(),
+//     }),
+//   });
 
   return (
     <Box
-      ref={drag}
+    //   ref={drag}
       sx={{
         display: 'flex',
         flexDirection: 'row',

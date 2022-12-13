@@ -81,6 +81,13 @@ const EditStyleDnd = () => {
   };
 
   const addComponent = (layout, i, j, k, item) => {
+
+    console.log(item);
+    item.i = i;
+    item.j = j;
+    item.k = k;
+    item.isOnMenu = true;
+
     let newLayout = [...layout];
     newLayout[i][j].splice(k, 0, item);
     console.log(newLayout);
@@ -136,13 +143,19 @@ const EditStyleDnd = () => {
     setLayout(newLayout);
   };
 
-  const renderCard = (item) => {
+  const renderCard = (item,i,j,k) => {
     console.log(item);
     return (
       <DndCard2
         id={item.id}
         name={item.name}
         description={item.description}
+
+
+        isOnMenu={item.isOnMenu}
+        i={item.i}
+        j={item.j}
+        k={item.k}
       ></DndCard2>
     );
   };
@@ -186,6 +199,8 @@ const EditStyleDnd = () => {
                           id={item.id}
                           name={item.name}
                           description={item.description}
+                          isOnMenu={false}
+
                         ></DndCard2>
                         {/* </Component> */}
                       </div>
@@ -225,7 +240,7 @@ const EditStyleDnd = () => {
                                   return (
                                     <>
                                       <Component i={i} j={j} k={k}>
-                                        {renderCard(component)}
+                                        {renderCard(component,i,j,k)}
 
                                       </Component>
                                       <Dropzone

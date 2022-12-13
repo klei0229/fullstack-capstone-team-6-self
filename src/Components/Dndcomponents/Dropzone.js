@@ -11,14 +11,23 @@ const Dropzone = (props) => {
   // console.log(props);
   // console.log(props.layout);
   // console.log(props.i);
-  const { moveToMenu, addComponent, moveComponent, renderCard } = useContext(CardContext);
+  const { moveToMenu, addComponent, moveComponent, renderCard } =
+    useContext(CardContext);
   const [{ isOver }, drop] = useDrop({
     accept: ['Card'],
     drop: (item, monitor) => {
       console.log('drop');
       // moveToMenu(item.id);
+
+      if (item.isOnMenu === false) {
+        addComponent(props.layout, props.i, props.j, props.k, item);
+      } else {
+        console.log('try to move');
+        moveComponent(props.layout, props.i, props.j, props.k, item);
+
+      }
       console.log(item);
-      addComponent(props.layout,props.i,props.j,props.k,item)
+
       // renderCard(item);
 
       // if(!item.hasOwnProperty('isOnMenu')){

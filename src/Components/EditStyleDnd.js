@@ -82,6 +82,13 @@ const EditStyleDnd = () => {
 
   const addComponent = (layout, i, j, k, item) => {
 
+    console.log(items);
+    let tempItems = [...items];
+    let id = item.id;
+
+    tempItems.filter((element)=>{return id === element.id})[0].isInMenu = true;
+
+    console.log(tempItems);
     console.log(item);
     item.i = i;
     item.j = j;
@@ -92,6 +99,7 @@ const EditStyleDnd = () => {
     newLayout[i][j].splice(k, 0, item);
     console.log(newLayout);
     setLayout(newLayout);
+    setItems(tempItems);
   };
 
   const addColumn = (layout, i, j, k, item) => {

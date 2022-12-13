@@ -31,9 +31,9 @@ const Column = (props) => {
         flexDirection: 'column',
         justifyContent: 'center',
         borderStyle: 'solid',
-        borderColor: 'green',
+        borderColor: 'red',
         width: '100%',
-        height: '100%',
+        height: 'fitContent',
       }}
     >
       {props.children}

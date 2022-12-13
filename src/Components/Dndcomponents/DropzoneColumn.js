@@ -17,7 +17,7 @@ const DropzoneColumn = (props) => {
     drop: (item, monitor) => {
       console.log(item);
       if (item.type === 'Card') {
-        addColumn(props.layout, props.i, props.j, props.k);
+        addColumn(props.layout, props.i, props.j, props.k,item);
       } else if (item.type === 'Column') {
         console.log('here');
         console.log(item);
@@ -36,7 +36,7 @@ const DropzoneColumn = (props) => {
         // display:'flex',
         backgroundColor: isOver ? 'green' : 'white',
         width: '35px',
-        height: '100%',
+        height: 'fitContent',
         borderStyle: 'dotted',
       }}
     >

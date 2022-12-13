@@ -16,8 +16,8 @@ import Column from './Column';
 
 const Component = (props) => {
   const [{ isDragging }, drag] = useDrag({
-    item: {...props},
-    type: 'Card',
+    item: {...props, isOnMenu:false},
+    type: 'Component',
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -28,12 +28,12 @@ const Component = (props) => {
       ref={drag}
       sx={{
         display: 'flex',
-        flexDirection: 'Column',
+        flexDirection: 'row',
         justifyContent: 'center',
         borderStyle: 'solid',
         borderColor: 'yellow',
         width: '100%',
-        height: '200px',
+        height: 'fitContent',
       }}
     >
       {props.children}

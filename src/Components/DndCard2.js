@@ -21,7 +21,7 @@ export default function Dndcard2(props) {
     })
   });
   return (
-    <Card ref={drag} sx={{ maxWidth: 345 }}>
+    <Card ref={drag} sx={{ width:'100%', m:'.5rem', maxWidth:"500px" }}>
       <CardMedia
         component="img"
         height="140"

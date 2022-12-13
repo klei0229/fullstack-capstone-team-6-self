@@ -31,9 +31,10 @@ const Row = (props) => {
         flexDirection: 'row',
         justifyContent: 'center',
         borderStyle: 'solid',
-        borderColor: 'yellow',
+        borderColor: 'orange',
         width: '100%',
-        height: '200px',
+        height: 'fitContent',
+        
       }}
     >
       {/* <h1>Row</h1> */}

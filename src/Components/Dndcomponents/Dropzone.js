@@ -11,14 +11,28 @@ const Dropzone = (props) => {
   // console.log(props);
   // console.log(props.layout);
   // console.log(props.i);
-  const { moveToMenu, addComponent } = useContext(CardContext);
+  const { moveToMenu, addComponent, moveComponent, renderCard } = useContext(CardContext);
   const [{ isOver }, drop] = useDrop({
-    accept: 'Card',
+    accept: ['Card'],
     drop: (item, monitor) => {
       console.log('drop');
       // moveToMenu(item.id);
-      console.log(props);
+      console.log(item);
       addComponent(props.layout,props.i,props.j,props.k,item)
+      // renderCard(item);
+
+      // if(!item.hasOwnProperty('isOnMenu')){
+      //   console.log('not on menu');
+      //   item.isOnMenu = true;
+      //   console.log(item.isOnMenu)
+      //   console.log(item);
+      //   addComponent(props.layout,props.i,props.j,props.k,item)
+      // }
+
+      // else if (item.isOnMenu === true){
+      //   console.log('is on menu already');
+      //   moveComponent(props.layout,props.i,props.j,props.k,item);
+      // }
       // console.log(item.id)
     },
     collect: (monitor) => ({

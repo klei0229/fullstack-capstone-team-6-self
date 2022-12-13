@@ -30,16 +30,18 @@ const EditStyleDnd = () => {
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
 
-  const [layout, setLayout] = useState([
-        
-    [
-      [1,2,3],[3,4],[5],
-    ], 
-    [ 
-      [2]
-    ]
+  const [layout, setLayout] = useState([[[]]]);
 
-  ]);
+  // const [layout, setLayout] = useState([
+
+  //   [
+  //     [1,2,3],[3,4],[5],
+  //   ],
+  //   [
+  //     [2]
+  //   ]
+
+  // ]);
 
   const menu = menus.find((menu) => menu.id === id);
   console.log(menu);
@@ -78,60 +80,87 @@ const EditStyleDnd = () => {
     );
   };
 
-const addComponent = (layout,i,j,k,item) => {
-  let newLayout = [...layout];
-  newLayout[i][j].splice(k,0,9);
-  console.log(newLayout);
-  setLayout(newLayout);
-}
+  const addComponent = (layout, i, j, k, item) => {
+    let newLayout = [...layout];
+    newLayout[i][j].splice(k, 0, item);
+    console.log(newLayout);
+    setLayout(newLayout);
+  };
 
-const addColumn = (layout,i,j,k,item)=>{
-  let newLayout = [...layout];
-  newLayout[i].splice(j,0,[9])
-  setLayout(newLayout);  
-}
+  const addColumn = (layout, i, j, k, item) => {
+    console.log(item);
+    let newLayout = [...layout];
+    newLayout[i].splice(j, 0, [item]);
+    setLayout(newLayout);
+  };
 
-const addRow = (layout,i,j,k,item)=>{
-  let newLayout = [...layout];
-  newLayout.splice(i,0,[[9]]);
-  setLayout(newLayout);  
-}
+  const addRow = (layout, i, j, k, item) => {
+    let newLayout = [...layout];
+    newLayout.splice(i, 0, [[item]]);
+    setLayout(newLayout);
+  };
 
-const moveRow = (layout,i,j,k,item)=>{
-  console.log(item);
-  let newLayout = [...layout];
-  let valueToRemove = newLayout[item.i]
-  newLayout.splice(item.i,1);
-  newLayout.splice(i,0,valueToRemove);
+  const moveRow = (layout, i, j, k, item) => {
+    console.log(item);
+    let newLayout = [...layout];
+    let valueToRemove = newLayout[item.i];
+    newLayout.splice(item.i, 1);
+    newLayout.splice(i, 0, valueToRemove);
 
-  console.log(newLayout);
+    console.log(newLayout);
 
-  setLayout(newLayout);  
-}
+    setLayout(newLayout);
+  };
 
-const moveColumn = (layout,i,j,k,item)=>{
-  console.log(item);
-  let newLayout = [...layout];
-  let valueToRemove = newLayout[item.i][item.j]
-  newLayout[item.i].splice(item.j,1);
-  newLayout[i].splice(j,0,valueToRemove);
+  const moveColumn = (layout, i, j, k, item) => {
+    console.log(item);
+    let newLayout = [...layout];
+    let valueToRemove = newLayout[item.i][item.j];
+    newLayout[item.i].splice(item.j, 1);
+    newLayout[i].splice(j, 0, valueToRemove);
 
-  console.log(newLayout);
+    console.log(newLayout);
 
-  setLayout(newLayout);  
-}
+    setLayout(newLayout);
+  };
 
-const moveComponent = (layout,i,j,k,item)=>{
-  let newLayout = [...layout];
-  newLayout.splice(i,0,[[9]]);
-  setLayout(newLayout);  
-}
+  const moveComponent = (layout, i, j, k, item) => {
+    console.log(item);
+    let newLayout = [...layout];
+    let valueToRemove = newLayout[item.i][item.j][item.k];
+    newLayout[item.i][item.j].splice(item.k, 1);
+    newLayout[i][j].splice(k, 0, valueToRemove);
 
+    console.log(newLayout);
 
+    setLayout(newLayout);
+  };
+
+  const renderCard = (item) => {
+    console.log(item);
+    return (
+      <DndCard2
+        id={item.id}
+        name={item.name}
+        description={item.description}
+      ></DndCard2>
+    );
+  };
 
   return (
     <div>
-      <CardContext.Provider value={{ addComponent, moveToMenu, addColumn, addRow, moveColumn, moveComponent, moveRow }}>
+      <CardContext.Provider
+        value={{
+          addComponent,
+          moveToMenu,
+          addColumn,
+          addRow,
+          moveColumn,
+          moveComponent,
+          moveRow,
+          renderCard,
+        }}
+      >
         <div>
           <Grid container>
             <Grid item xs={3}>
@@ -151,11 +180,14 @@ const moveComponent = (layout,i,j,k,item)=>{
                     return (
                       <div>
                         <h1>{item.name}</h1>
+
+                        {/* <Component> */}
                         <DndCard2
                           id={item.id}
                           name={item.name}
                           description={item.description}
                         ></DndCard2>
+                        {/* </Component> */}
                       </div>
                     );
                   })}
@@ -166,58 +198,58 @@ const moveComponent = (layout,i,j,k,item)=>{
               <Container
                 maxWidth="lg"
                 sx={{
-                  backgroundColor: 'blue',
-                  height: '100%',
+                  backgroundColor: 'pink',
+                  height: 'fitContent',
+                  pt:'2rem',
+                  pb:'2rem',
                 }}
               >
-                <div>
-                  <Box>Here</Box>
-
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: 'pink',
-                    }}
-                  >
-                    <Dropzone></Dropzone>
-                    <Row></Row>
-                    <Dropzone></Dropzone>
-                  </Box>
-                </div>
-
-                <hr></hr>
-
-                <DropzoneOuterRow layout={layout} i={0}>0</DropzoneOuterRow>
-                {layout.map((row,i) => {
+                <DropzoneOuterRow layout={layout} i={0}>
+                  0
+                </DropzoneOuterRow>
+                {layout.map((row, i) => {
                   return (
                     <>
                       <Row i={i}>
-                        <DropzoneColumn layout={layout} i={i} j={0}>{i},0</DropzoneColumn>
-                        {row.map((col,j) => {
+                        <DropzoneColumn layout={layout} i={i} j={0}>
+                          {i},0
+                        </DropzoneColumn>
+                        {row.map((col, j) => {
                           return (
                             <>
                               <Column i={i} j={j}>
-                                <Dropzone layout={layout} i={i} j={j} k={0}>{i},{j},0</Dropzone>
-                                {col.map((component,k) => {
+                                <Dropzone layout={layout} i={i} j={j} k={0}>
+                                  {i},{j},0
+                                </Dropzone>
+                                {col.map((component, k) => {
                                   return (
                                     <>
-                                      <Component>
-                                        {component}
+                                      <Component i={i} j={j} k={k}>
+                                        {renderCard(component)}
+
                                       </Component>
-                                      <Dropzone layout={layout} i={i} j={j} k={k+1}> {i},{j},{k+1}</Dropzone>
+                                      <Dropzone
+                                        layout={layout}
+                                        i={i}
+                                        j={j}
+                                        k={k + 1}
+                                      >
+                                        {i},{j},{k + 1}
+                                      </Dropzone>
                                     </>
                                   );
                                 })}
                               </Column>
-                              <DropzoneColumn layout={layout} i={i} j={j+1}>{i},{j+1}</DropzoneColumn>
+                              <DropzoneColumn layout={layout} i={i} j={j + 1}>
+                                {i},{j + 1}
+                              </DropzoneColumn>
                             </>
                           );
                         })}
                       </Row>
-                      <DropzoneOuterRow layout={layout} i={i+1}>{i+1}</DropzoneOuterRow>
+                      <DropzoneOuterRow layout={layout} i={i + 1}>
+                        {i + 1}
+                      </DropzoneOuterRow>
                     </>
                   );
                 })}

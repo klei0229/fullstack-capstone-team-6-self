@@ -104,15 +104,27 @@ const EditStyleDnd = () => {
 
   const addColumn = (layout, i, j, k, item) => {
     console.log(item);
+    let tempItems = [...items];
+    let id = item.id;
+
+    tempItems.filter((element)=>{return id === element.id})[0].isInMenu = true;
     let newLayout = [...layout];
     newLayout[i].splice(j, 0, [item]);
     setLayout(newLayout);
+    setItems(tempItems);
+
   };
 
   const addRow = (layout, i, j, k, item) => {
+    let tempItems = [...items];
+    let id = item.id;
+
+    tempItems.filter((element)=>{return id === element.id})[0].isInMenu = true;
     let newLayout = [...layout];
     newLayout.splice(i, 0, [[item]]);
     setLayout(newLayout);
+    setItems(tempItems);
+
   };
 
   const moveRow = (layout, i, j, k, item) => {

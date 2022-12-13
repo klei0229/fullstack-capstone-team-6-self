@@ -5,14 +5,17 @@ import { useParams } from 'react-router-dom';
 import { Container, Box } from '@mui/material';
 
 import { useDrop } from 'react-dnd';
-import Dropzone from './Dropzone';
+import DropzoneColumn from './DropzoneColumn';
 
 
 import { useDrag } from 'react-dnd';
-const Column = (props) => {
+
+import Column from './Column';
+
+const Typography = (props) => {
   const [{ isDragging }, drag] = useDrag({
-    item: {...props,type:'Column'},
-    type: 'Column',
+    item: {...props, type:'Typography'},
+    type: 'Typography',
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -22,21 +25,19 @@ const Column = (props) => {
     <Box
       ref={drag}
       sx={{
-        // m: '2rem',
-        // p:'2rem',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'center',
         borderStyle: 'solid',
-        borderColor: 'red',
+        borderColor: 'black',
         width: '100%',
         height: 'fitContent',
+        
       }}
     >
       {props.children}
-
     </Box>
   );
 };
 
-export default Column;
+export default Typography;

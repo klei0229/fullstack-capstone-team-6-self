@@ -44,7 +44,6 @@ const EditStyleDnd = () => {
   // ]);
 
   const menu = menus.find((menu) => menu.id === id);
-  console.log(menu);
 
   useEffect(() => {
     dispatch(fetchMenus());
@@ -52,24 +51,18 @@ const EditStyleDnd = () => {
   }, []);
 
   useEffect(() => {
-    console.log(menu);
-
     menu.items.forEach((item) => {
       item.isInMenu = false;
     });
-    console.log(menu);
 
     setItems(menu.items);
   }, [menu]);
 
   const moveToMenu = (id) => {
-    console.log(id);
-    console.log(items);
     const subarray = items.filter((element) => {
       console.log(id);
       return element.id === id;
     });
-    console.log(subarray);
     subarray[0].isInMenu = true;
     setItems(
       items
@@ -81,15 +74,13 @@ const EditStyleDnd = () => {
   };
 
   const addComponent = (layout, i, j, k, item) => {
-
-    console.log(items);
     let tempItems = [...items];
     let id = item.id;
 
-    tempItems.filter((element)=>{return id === element.id})[0].isInMenu = true;
+    tempItems.filter((element) => {
+      return id === element.id;
+    })[0].isInMenu = true;
 
-    console.log(tempItems);
-    console.log(item);
     item.i = i;
     item.j = j;
     item.k = k;
@@ -97,7 +88,6 @@ const EditStyleDnd = () => {
 
     let newLayout = [...layout];
     newLayout[i][j].splice(k, 0, item);
-    console.log(newLayout);
     setLayout(newLayout);
     setItems(tempItems);
   };
@@ -107,71 +97,61 @@ const EditStyleDnd = () => {
     let tempItems = [...items];
     let id = item.id;
 
-    tempItems.filter((element)=>{return id === element.id})[0].isInMenu = true;
+    tempItems.filter((element) => {
+      return id === element.id;
+    })[0].isInMenu = true;
     let newLayout = [...layout];
     newLayout[i].splice(j, 0, [item]);
     setLayout(newLayout);
     setItems(tempItems);
-
   };
 
   const addRow = (layout, i, j, k, item) => {
     let tempItems = [...items];
     let id = item.id;
 
-    tempItems.filter((element)=>{return id === element.id})[0].isInMenu = true;
+    tempItems.filter((element) => {
+      return id === element.id;
+    })[0].isInMenu = true;
     let newLayout = [...layout];
     newLayout.splice(i, 0, [[item]]);
     setLayout(newLayout);
     setItems(tempItems);
-
   };
 
   const moveRow = (layout, i, j, k, item) => {
-    console.log(item);
     let newLayout = [...layout];
     let valueToRemove = newLayout[item.i];
     newLayout.splice(item.i, 1);
     newLayout.splice(i, 0, valueToRemove);
 
-    console.log(newLayout);
-
     setLayout(newLayout);
   };
 
   const moveColumn = (layout, i, j, k, item) => {
-    console.log(item);
     let newLayout = [...layout];
     let valueToRemove = newLayout[item.i][item.j];
     newLayout[item.i].splice(item.j, 1);
     newLayout[i].splice(j, 0, valueToRemove);
 
-    console.log(newLayout);
-
     setLayout(newLayout);
   };
 
   const moveComponent = (layout, i, j, k, item) => {
-    console.log(item);
     let newLayout = [...layout];
     let valueToRemove = newLayout[item.i][item.j][item.k];
     newLayout[item.i][item.j].splice(item.k, 1);
     newLayout[i][j].splice(k, 0, valueToRemove);
 
-    console.log(newLayout);
-
     setLayout(newLayout);
   };
 
-  const renderCard = (item,i,j,k) => {
-    console.log(item);
+  const renderCard = (item, i, j, k) => {
     return (
       <DndCard2
         id={item.id}
         name={item.name}
         description={item.description}
-
-
         isOnMenu={item.isOnMenu}
         i={item.i}
         j={item.j}
@@ -220,7 +200,6 @@ const EditStyleDnd = () => {
                           name={item.name}
                           description={item.description}
                           isOnMenu={false}
-
                         ></DndCard2>
                         {/* </Component> */}
                       </div>
@@ -235,8 +214,8 @@ const EditStyleDnd = () => {
                 sx={{
                   backgroundColor: 'pink',
                   height: 'fitContent',
-                  pt:'2rem',
-                  pb:'2rem',
+                  pt: '2rem',
+                  pb: '2rem',
                 }}
               >
                 <DropzoneOuterRow layout={layout} i={0}>
@@ -260,8 +239,7 @@ const EditStyleDnd = () => {
                                   return (
                                     <>
                                       <Component i={i} j={j} k={k}>
-                                        {renderCard(component,i,j,k)}
-
+                                        {renderCard(component, i, j, k)}
                                       </Component>
                                       <Dropzone
                                         layout={layout}

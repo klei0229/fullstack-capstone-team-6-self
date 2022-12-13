@@ -40,7 +40,11 @@ app.put('/:id', async (req, res, next) => {
 
 app.post('/', async (req, res, next) => {
   try {
-    res.send(await Menu.create(req.body));
+    res.send(
+      await Menu.create(req.body, {
+        include: [Item],
+      })
+    );
   } catch (err) {
     next(err);
   }

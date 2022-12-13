@@ -28,7 +28,7 @@ export const fetchMenus = () => {
 
 export const createMenu = (menu, items) => {
   return async (dispatch) => {
-    const response = await axios.post('/api/menus', menu);
+    const response = await axios.post('/api/menus', { ...menu, items: items });
 
     console.log(items);
 

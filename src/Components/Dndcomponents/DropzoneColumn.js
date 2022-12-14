@@ -30,10 +30,11 @@ const DropzoneColumn = (props) => {
       ref={drop}
       sx={{
         // display:'flex',
-        backgroundColor: isOver ? 'green' : 'grey',
+        // backgroundColor: isOver ? 'cyan' : 'white',
+        backgroundColor: isOver ? 'cyan' : 'grey',
         width: '35px',
         height: 'fitContent',
-        m:'.5rem'
+        // m:'.5rem'
         // borderStyle: 'dotted',
       }}
     >

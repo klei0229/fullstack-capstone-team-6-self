@@ -22,6 +22,8 @@ const Item = conn.define('item', {
     },
   },
 
+  
+
   category: {
     type: STRING,
   },

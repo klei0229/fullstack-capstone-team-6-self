@@ -23,8 +23,9 @@ export default function Dndcard2(props) {
       ref={drag}
       sx={{
         width: 'calc(100%-1rem)',
-        m: '.5rem',
+        // m: '.5rem',
         // maxWidth: '500px',
+        // height:'50px',
         '&:hover': {
           backgroundColor: 'blue',
           opacity: [0.9, 0.8, 0.7],
@@ -36,7 +37,7 @@ export default function Dndcard2(props) {
         height="140"
         src="https://www.foodandwine.com/thmb/gRrfFwDl3N3uBOdWINoJKMqE8kk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/201012-ss-dishes-lamb-ragu-1f516715f31244f295426cf2d50193f2.jpg"
       />
-      <CardContent>
+      <CardContent sx={{height: '50px'}}>
         <Typography gutterBottom variant="h5" component="div">
           {props.name}
         </Typography>

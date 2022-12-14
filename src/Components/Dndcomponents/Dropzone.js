@@ -38,11 +38,16 @@ const Dropzone = (props) => {
     <Box
       ref={drop}
       sx={{
-        backgroundColor: isOver ? 'green' : 'grey',
+        // backgroundColor: isOver ? 'cyan' : 'white',
+        backgroundColor: isOver ? 'cyan' : 'grey',
         width: 'calc(100%-2rem)',
         height: '35px',
+        opacity: [0.9, 0.8, 0.7],
+
+        // mb:'-1rem',
+        // mt:'-1rem'
         // borderStyle: 'solid',
-        m:'.5rem'
+        // m:'.5rem'
       }}
     >
       {props.children}

@@ -29,10 +29,17 @@ export const CardContext = createContext({
 const EditStyleDnd = () => {
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
+  console.log(menus);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
-
-  const [layout, setLayout] = useState([[[]]]);
+console.log(items);
+  const [layout, setLayout] = useState([[[{
+    id:'123',
+    name:'Sample Item',
+    description:"Lorem Ipsum",
+    isOnMenu: true,
+    componentType:'Card'
+  }]]]);
 
   // const [layout, setLayout] = useState([
 
@@ -53,6 +60,8 @@ const EditStyleDnd = () => {
   }, []);
 
   useEffect(() => {
+
+    console.log(menu);
     menu.items.forEach((item) => {
       item.isInMenu = false;
     });
@@ -242,22 +251,24 @@ const EditStyleDnd = () => {
                   pb: '2rem',
                 }}
               >
+          Restaurant Name
+
                 <DropzoneOuterRow layout={layout} i={0}>
-                  0
+                  {/* 0 */}
                 </DropzoneOuterRow>
                 {layout.map((row, i) => {
                   return (
                     <>
                       <Row i={i}>
                         <DropzoneColumn layout={layout} i={i} j={0}>
-                          {i},0
+                          {/* {i},0 */}
                         </DropzoneColumn>
                         {row.map((col, j) => {
                           return (
                             <>
                               <Column i={i} j={j}>
                                 <Dropzone layout={layout} i={i} j={j} k={0}>
-                                  {i},{j},0
+                                  {/* {i},{j},0 */}
                                 </Dropzone>
                                 {col.map((component, k) => {
                                   return (
@@ -272,21 +283,21 @@ const EditStyleDnd = () => {
                                         j={j}
                                         k={k + 1}
                                       >
-                                        {i},{j},{k + 1}
+                                        {/* {i},{j},{k + 1} */}
                                       </Dropzone>
                                     </>
                                   );
                                 })}
                               </Column>
                               <DropzoneColumn layout={layout} i={i} j={j + 1}>
-                                {i},{j + 1}
+                                {/* {i},{j + 1} */}
                               </DropzoneColumn>
                             </>
                           );
                         })}
                       </Row>
                       <DropzoneOuterRow layout={layout} i={i + 1}>
-                        {i + 1}
+                        {/* {i + 1} */}
                       </DropzoneOuterRow>
                     </>
                   );

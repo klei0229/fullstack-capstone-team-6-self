@@ -30,8 +30,8 @@ const Row = (props) => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        borderStyle: 'solid',
-        borderColor: 'orange',
+        // borderStyle: 'solid',
+        // borderColor: 'orange',
         width: '100%',
         height: 'fitContent',
         '&:hover': {

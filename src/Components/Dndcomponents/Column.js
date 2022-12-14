@@ -27,8 +27,8 @@ const Column = (props) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        borderStyle: 'solid',
-        borderColor: 'red',
+        // borderStyle: 'solid',
+        // borderColor: 'red',
         width: '100%',
         height: 'fitContent',
         '&:hover': {

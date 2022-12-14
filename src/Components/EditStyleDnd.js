@@ -32,14 +32,20 @@ const EditStyleDnd = () => {
   console.log(menus);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
-console.log(items);
-  const [layout, setLayout] = useState([[[{
-    id:'123',
-    name:'Sample Item',
-    description:"Lorem Ipsum",
-    isOnMenu: true,
-    componentType:'Card'
-  }]]]);
+  console.log(items);
+  const [layout, setLayout] = useState([
+    [
+      [
+        {
+          id: '123',
+          name: 'Sample Item',
+          description: 'Lorem Ipsum',
+          isOnMenu: true,
+          componentType: 'Card',
+        },
+      ],
+    ],
+  ]);
 
   // const [layout, setLayout] = useState([
 
@@ -60,7 +66,6 @@ console.log(items);
   }, []);
 
   useEffect(() => {
-
     console.log(menu);
     menu.items.forEach((item) => {
       item.isInMenu = false;
@@ -184,7 +189,7 @@ console.log(items);
     } else if (item.componentType === 'Divider') {
       return <hr></hr>;
     } else if (item.componentType === 'Typography') {
-      return (<TypographyComponent></TypographyComponent>);
+      return <TypographyComponent></TypographyComponent>;
     } else if (item.componentType === 'Image') {
       return <ImageComponent></ImageComponent>;
     }
@@ -214,31 +219,40 @@ console.log(items);
                   pb: 2,
                 }}
               >
-                Components
+                <Typography variant='h3'>Components</Typography>
                 <Component componentType="Divider"></Component>
                 <Component componentType="Typography"></Component>
                 <Component componentType="Image"></Component>
-                {items
-                  .filter((item) => {
-                    return item.isInMenu === false;
-                  })
-                  .map((item) => {
-                    return (
-                      <div>
-                        <h1>{item.name}</h1>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    backgroundColor: 'aliceblue',
+                  }}
+                >
+                  <br></br>
 
-                        {/* <Component> */}
-                        <DndCard2
-                          id={item.id}
-                          name={item.name}
-                          description={item.description}
-                          isOnMenu={false}
-                          componentType={'Card'}
-                        ></DndCard2>
-                        {/* </Component> */}
-                      </div>
-                    );
-                  })}
+                  {items
+                    .filter((item) => {
+                      return item.isInMenu === false;
+                    })
+                    .map((item) => {
+                      return (
+                        <>
+                          <DndCard2
+                            id={item.id}
+                            name={item.name}
+                            description={item.description}
+                            price={item.price}
+                            isOnMenu={false}
+                            componentType={'Card'}
+                          ></DndCard2>
+                          <br></br>
+                        </>
+                      );
+                    })}
+                </Box>
               </Paper>
             </Grid>
             <Grid item xs={9}>
@@ -251,8 +265,7 @@ console.log(items);
                   pb: '2rem',
                 }}
               >
-          Restaurant Name
-
+                Restaurant Name
                 <DropzoneOuterRow layout={layout} i={0}>
                   {/* 0 */}
                 </DropzoneOuterRow>

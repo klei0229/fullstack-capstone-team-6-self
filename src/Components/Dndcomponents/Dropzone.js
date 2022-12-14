@@ -41,7 +41,7 @@ const Dropzone = (props) => {
         // backgroundColor: isOver ? 'cyan' : 'white',
         backgroundColor: isOver ? 'cyan' : 'grey',
         width: 'calc(100%-2rem)',
-        height: '35px',
+        height: '15px',
         opacity: [0.9, 0.8, 0.7],
 
         // mb:'-1rem',

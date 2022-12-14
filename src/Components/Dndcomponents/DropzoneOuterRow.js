@@ -40,7 +40,7 @@ const DropzoneOuterRow = (props) => {
         // backgroundColor: isOver ? 'cyan' : 'white',
         backgroundColor: isOver ? 'cyan' : 'grey',
         width: 'calc(100%)',
-        height: '35px',
+        height: '15px',
         // m:'.5rem'
         // borderStyle: 'solid',
       }}

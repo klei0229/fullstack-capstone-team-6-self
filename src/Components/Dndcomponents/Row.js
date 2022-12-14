@@ -35,8 +35,8 @@ const Row = (props) => {
         width: '100%',
         height: 'fitContent',
         '&:hover': {
-            backgroundColor: 'green',
-            opacity: [0.9, 0.8, 0.7],
+            // backgroundColor: 'green',
+            // opacity: [0.9, 0.8, 0.7],
           }
         
       }}

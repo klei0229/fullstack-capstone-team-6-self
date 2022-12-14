@@ -32,7 +32,7 @@ const DropzoneColumn = (props) => {
         // display:'flex',
         // backgroundColor: isOver ? 'cyan' : 'white',
         backgroundColor: isOver ? 'cyan' : 'grey',
-        width: '35px',
+        width: '15px',
         height: 'fitContent',
         // m:'.5rem'
         // borderStyle: 'dotted',

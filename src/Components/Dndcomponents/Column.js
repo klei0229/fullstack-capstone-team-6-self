@@ -32,8 +32,8 @@ const Column = (props) => {
         width: '100%',
         height: 'fitContent',
         '&:hover': {
-          backgroundColor: 'red',
-          opacity: [0.9, 0.8, 0.7],
+          // backgroundColor: 'red',
+          // opacity: [0.9, 0.8, 0.7],
         }
       }}
     >

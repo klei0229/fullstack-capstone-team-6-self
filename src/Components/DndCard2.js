@@ -10,6 +10,7 @@ import { ItemTypes } from './utils/items';
 import { useDrag } from 'react-dnd';
 
 export default function Dndcard2(props) {
+    console.log(props);
   const [{ isDragging }, drag] = useDrag({
     item: { ...props, type: 'Card' },
     type: 'Card',
@@ -22,12 +23,13 @@ export default function Dndcard2(props) {
       raised
       ref={drag}
       sx={{
-        width: 'calc(100%-1rem)',
+        width: '100%',
+        maxWidth:'400px',
         // m: '.5rem',
         // maxWidth: '500px',
         // height:'50px',
         '&:hover': {
-          backgroundColor: 'blue',
+          backgroundColor: 'light-grey',
           opacity: [0.9, 0.8, 0.7],
         },
       }}
@@ -35,6 +37,8 @@ export default function Dndcard2(props) {
       <CardMedia
         component="img"
         height="140"
+        
+        object-fit='contain'
         src="https://www.foodandwine.com/thmb/gRrfFwDl3N3uBOdWINoJKMqE8kk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/201012-ss-dishes-lamb-ragu-1f516715f31244f295426cf2d50193f2.jpg"
       />
       <CardContent sx={{height: '50px'}}>
@@ -43,11 +47,12 @@ export default function Dndcard2(props) {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {props.description}
+
         </Typography>
       </CardContent>
-      <CardActions>
-        {/* <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button> */}
+      <CardActions sx={{backgroundColor:'aliceblue' ,display:'flex', justifyContent:'left'}}>
+        <Button size="small">Price: ${props.price}</Button>
+        <Button size="small">Add to Cart</Button>
       </CardActions>
     </Card>
   );

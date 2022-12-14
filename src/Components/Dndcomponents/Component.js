@@ -28,7 +28,7 @@ const Component = (props) => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        borderStyle: 'solid',
+        // borderStyle: 'solid',
         borderColor: 'black',
         width: '100%',
         height: 'fitContent',

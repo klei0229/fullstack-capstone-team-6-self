@@ -43,8 +43,8 @@ const RenderedComponent = (props) => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',
-          borderStyle: 'solid',
-          borderColor: 'black',
+        //   borderStyle: 'solid',
+        //   borderColor: 'black',
           width: '100%',
           height: 'fitContent',
         }}

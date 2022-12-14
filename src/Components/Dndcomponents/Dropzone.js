@@ -11,12 +11,22 @@ const Dropzone = (props) => {
   const { moveToMenu, addComponent, moveComponent, renderCard } =
     useContext(CardContext);
   const [{ isOver }, drop] = useDrop({
-    accept: ['Card'],
+    accept: ['Card','Component'],
     drop: (item, monitor) => {
-      if (item.isOnMenu === false) {
-        addComponent(props.layout, props.i, props.j, props.k, item);
-      } else {
-        moveComponent(props.layout, props.i, props.j, props.k, item);
+      console.log(item);
+
+      if(item.componentType ==='Card' ){
+        if (item.isOnMenu === false) {
+          addComponent(props.layout, props.i, props.j, props.k, item);
+        } else {
+          moveComponent(props.layout, props.i, props.j, props.k, item);
+        }
+      }
+      else 
+      // (item.componentType === 'Divider' ){
+        {
+          console.log('add a divider')
+        addComponent(props.layout, props.i, props.j, props.k, item)
       }
     },
     collect: (monitor) => ({
@@ -28,10 +38,11 @@ const Dropzone = (props) => {
     <Box
       ref={drop}
       sx={{
-        backgroundColor: isOver ? 'green' : 'white',
-        width: 'calc(100%)',
+        backgroundColor: isOver ? 'green' : 'grey',
+        width: 'calc(100%-2rem)',
         height: '35px',
-        borderStyle: 'solid',
+        // borderStyle: 'solid',
+        m:'.5rem'
       }}
     >
       {props.children}

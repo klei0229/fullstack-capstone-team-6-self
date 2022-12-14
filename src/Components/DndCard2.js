@@ -18,7 +18,19 @@ export default function Dndcard2(props) {
     }),
   });
   return (
-    <Card ref={drag} sx={{ width: '100%', m: '.5rem', maxWidth: '500px' }}>
+    <Card
+      raised
+      ref={drag}
+      sx={{
+        width: 'calc(100%-1rem)',
+        m: '.5rem',
+        // maxWidth: '500px',
+        '&:hover': {
+          backgroundColor: 'blue',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    >
       <CardMedia
         component="img"
         height="140"

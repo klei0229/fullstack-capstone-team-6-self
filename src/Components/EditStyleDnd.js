@@ -17,6 +17,8 @@ import Dropzone from './Dndcomponents/Dropzone';
 import DropzoneOuterRow from './Dndcomponents/DropzoneOuterRow';
 import DropzoneColumn from './Dndcomponents/DropzoneColumn';
 import Component from './Dndcomponents/Component';
+import TypographyComponent from './Dndcomponents/TypographyComponent';
+import ImageComponent from './Dndcomponents/ImageComponent';
 
 export const CardContext = createContext({
   moveToMenu: null,
@@ -58,6 +60,10 @@ const EditStyleDnd = () => {
     setItems(menu.items);
   }, [menu]);
 
+  useEffect(() => {
+    console.log(layout);
+  }, [layout]);
+
   const moveToMenu = (id) => {
     const subarray = items.filter((element) => {
       console.log(id);
@@ -74,36 +80,43 @@ const EditStyleDnd = () => {
   };
 
   const addComponent = (layout, i, j, k, item) => {
-    let tempItems = [...items];
-    let id = item.id;
-
-    tempItems.filter((element) => {
-      return id === element.id;
-    })[0].isInMenu = true;
-
-    item.i = i;
-    item.j = j;
-    item.k = k;
-    item.isOnMenu = true;
-
     let newLayout = [...layout];
+
+    if (item.componentType === 'Card') {
+      let tempItems = [...items];
+      let id = item.id;
+
+      tempItems.filter((element) => {
+        return id === element.id;
+      })[0].isInMenu = true;
+
+      item.i = i;
+      item.j = j;
+      item.k = k;
+      item.isOnMenu = true;
+
+      setItems(tempItems);
+    }
+
     newLayout[i][j].splice(k, 0, item);
     setLayout(newLayout);
-    setItems(tempItems);
   };
 
   const addColumn = (layout, i, j, k, item) => {
     console.log(item);
-    let tempItems = [...items];
-    let id = item.id;
-
-    tempItems.filter((element) => {
-      return id === element.id;
-    })[0].isInMenu = true;
     let newLayout = [...layout];
+
+    if (item.type === 'Card') {
+      let tempItems = [...items];
+      let id = item.id;
+
+      tempItems.filter((element) => {
+        return id === element.id;
+      })[0].isInMenu = true;
+      setItems(tempItems);
+    }
     newLayout[i].splice(j, 0, [item]);
     setLayout(newLayout);
-    setItems(tempItems);
   };
 
   const addRow = (layout, i, j, k, item) => {
@@ -146,18 +159,26 @@ const EditStyleDnd = () => {
     setLayout(newLayout);
   };
 
-  const renderCard = (item, i, j, k) => {
-    return (
-      <DndCard2
-        id={item.id}
-        name={item.name}
-        description={item.description}
-        isOnMenu={item.isOnMenu}
-        i={item.i}
-        j={item.j}
-        k={item.k}
-      ></DndCard2>
-    );
+  const renderComponent = (item) => {
+    if (item.componentType === 'Card') {
+      return (
+        <DndCard2
+          id={item.id}
+          name={item.name}
+          description={item.description}
+          isOnMenu={item.isOnMenu}
+          i={item.i}
+          j={item.j}
+          k={item.k}
+        ></DndCard2>
+      );
+    } else if (item.componentType === 'Divider') {
+      return <hr></hr>;
+    } else if (item.componentType === 'Typography') {
+      return (<TypographyComponent></TypographyComponent>);
+    } else if (item.componentType === 'Image') {
+      return <ImageComponent></ImageComponent>;
+    }
   };
 
   return (
@@ -171,7 +192,7 @@ const EditStyleDnd = () => {
           moveColumn,
           moveComponent,
           moveRow,
-          renderCard,
+          // renderCard,
         }}
       >
         <div>
@@ -185,6 +206,9 @@ const EditStyleDnd = () => {
                 }}
               >
                 Components
+                <Component componentType="Divider"></Component>
+                <Component componentType="Typography"></Component>
+                <Component componentType="Image"></Component>
                 {items
                   .filter((item) => {
                     return item.isInMenu === false;
@@ -200,6 +224,7 @@ const EditStyleDnd = () => {
                           name={item.name}
                           description={item.description}
                           isOnMenu={false}
+                          componentType={'Card'}
                         ></DndCard2>
                         {/* </Component> */}
                       </div>
@@ -208,11 +233,10 @@ const EditStyleDnd = () => {
               </Paper>
             </Grid>
             <Grid item xs={9}>
-              {/* <MenuTemplate2 id={id}></MenuTemplate2> */}
               <Container
                 maxWidth="lg"
                 sx={{
-                  backgroundColor: 'pink',
+                  backgroundColor: 'white',
                   height: 'fitContent',
                   pt: '2rem',
                   pb: '2rem',
@@ -238,9 +262,10 @@ const EditStyleDnd = () => {
                                 {col.map((component, k) => {
                                   return (
                                     <>
-                                      <Component i={i} j={j} k={k}>
-                                        {renderCard(component, i, j, k)}
-                                      </Component>
+                                      {renderComponent(component)}
+                                      {/* <Component i={i} j={j} k={k}> */}
+                                      {/* {renderCard(component, i, j, k)} */}
+                                      {/* </Component> */}
                                       <Dropzone
                                         layout={layout}
                                         i={i}

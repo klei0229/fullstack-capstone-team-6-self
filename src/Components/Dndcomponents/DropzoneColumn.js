@@ -12,9 +12,9 @@ const DropzoneColumn = (props) => {
   const { moveToMenu, addColumn, moveColumn } = useContext(CardContext);
 
   const [{ isOver }, drop] = useDrop({
-    accept: ['Card', 'Column'],
+    accept: ['Card', 'Column', 'Component'],
     drop: (item, monitor) => {
-      if (item.type === 'Card') {
+      if (item.type === 'Card' || item.type === 'Component' ) {
         addColumn(props.layout, props.i, props.j, props.k,item);
       } else if (item.type === 'Column') {
         moveColumn(props.layout, props.i, props.j, props.k, item);
@@ -30,10 +30,11 @@ const DropzoneColumn = (props) => {
       ref={drop}
       sx={{
         // display:'flex',
-        backgroundColor: isOver ? 'green' : 'white',
+        backgroundColor: isOver ? 'green' : 'grey',
         width: '35px',
         height: 'fitContent',
-        borderStyle: 'dotted',
+        m:'.5rem'
+        // borderStyle: 'dotted',
       }}
     >
       {props.children}

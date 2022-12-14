@@ -37,10 +37,11 @@ const DropzoneOuterRow = (props) => {
       ref={drop}
       sx={{
         // display:'flex',
-        backgroundColor: isOver ? 'green' : 'white',
+        backgroundColor: isOver ? 'green' : 'grey',
         width: 'calc(100%)',
         height: '35px',
-        borderStyle: 'solid',
+        m:'.5rem'
+        // borderStyle: 'solid',
       }}
     >
       {props.children}

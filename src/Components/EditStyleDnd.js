@@ -13,6 +13,7 @@ import {
   Box,
   Divider,
   Switch,
+  TextField,
 } from '@mui/material';
 import { setCsvData, setMenuPreferences } from '../store';
 import { fetchMenus, fetchItems } from '../store';
@@ -28,7 +29,6 @@ import DropzoneColumn from './Dndcomponents/DropzoneColumn';
 import Component from './Dndcomponents/Component';
 import TypographyComponent from './Dndcomponents/TypographyComponent';
 import ImageComponent from './Dndcomponents/ImageComponent';
-
 
 export const CardContext = createContext({
   moveToMenu: null,
@@ -235,15 +235,15 @@ const EditStyleDnd = () => {
         }}
       >
         <div>
-          <Typography>Show Dropzones</Typography>
-          <Switch
+          {/* <Typography>Show Dropzones</Typography> */}
+          {/* <Switch
             onChange={() => {
               setSwitchBool(!switchBool);
               console.log(switchBool);
             }}
             defaultChecked
             size="small"
-          />
+          /> */}
           <Grid container>
             <Grid item xs={3}>
               <Paper
@@ -251,14 +251,43 @@ const EditStyleDnd = () => {
                 sx={{
                   pt: 2,
                   pb: 2,
-                  pl: 2,
-                  pr: 2,
+                  pl: '10px',
+                  pr: '10px',
                 }}
               >
-                <Typography variant="h3">Components</Typography>
+                <Typography variant="h3" gutterBottom>
+                  Editing Panel
+                </Typography>
+
+                <TextField
+                  autoFocus
+                  id="templateName"
+                  name="templateName"
+                  label="Template Name"
+                  type="Template Name"
+                  fullWidth
+                  variant="outlined"
+                  defaultValue=""
+                  onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+                />
+ 
+                <br></br>
                 <br></br>
 
-                <Box sx={{display:'flex'}}>
+                <Button
+                  variant="outlined"
+                  component="label"
+                  fullWidth
+                  onClick={() => console.log('todo save to db')}
+                >
+                  Save Settings
+                </Button>
+                <br></br>
+                <br></br>
+                <Typography variant="h4">Components</Typography>
+                <br></br>
+
+                <Box sx={{ display: 'flex' }}>
                   <Component componentType="Divider"></Component>
                   <Component componentType="Typography"></Component>
                   <Component componentType="Image"></Component>
@@ -308,6 +337,15 @@ const EditStyleDnd = () => {
                   pb: '2rem',
                 }}
               >
+                <Typography>Show Dropzones</Typography>
+                <Switch
+                  onChange={() => {
+                    setSwitchBool(!switchBool);
+                    console.log(switchBool);
+                  }}
+                  defaultChecked
+                  size="small"
+                />
                 {/* <br></br> */}
                 {/* here */}
                 <DropzoneOuterRow

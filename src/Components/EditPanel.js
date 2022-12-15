@@ -45,6 +45,7 @@ import {
 // };
 
 const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
+  console.log(menu);
   console.log(setSelectedTemplate);
   const dispatch = useDispatch();
   const { menuPreferences } = useSelector((state) => state);
@@ -123,7 +124,7 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
   return (
     <div>
       <Stack spacing={2} sx={{ padding: '10px' }}>
-        <h1>Editing Panel</h1>
+        <Typography variant='h3'>Editing Panel</Typography>
 
         <TextField
           autoFocus
@@ -272,6 +273,11 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
             return <MenuItem value={template.name}>{template.name}</MenuItem>;
           })}
         </TextField>
+
+        <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>
+          Create Custom
+        </Button>
+
         <Button variant="outlined" component="label" onClick={() => saveToDB()}>
           Save Settings
         </Button>

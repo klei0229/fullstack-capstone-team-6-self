@@ -12,7 +12,10 @@ const Item = conn.define('item', {
     allowNull: false,
     validate: {
       notEmpty: true,
-    }
+    },
+  },
+  description: {
+    type: STRING,
   },
   price: {
     type: DECIMAL,

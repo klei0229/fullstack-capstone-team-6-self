@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Papa from 'papaparse';
-import { setCsvData, setMenuPreferences } from '../store';
+import { setMenuPreferences } from '../store';
 import MenuTemplate2 from './Template-2-Subcomponents/MenuTemplate2';
 import axios from 'axios';
 import { ChromePicker } from 'react-color';
@@ -20,53 +19,39 @@ import {
   AccordionSummary,
   AccordionDetails,
   Stack,
+  Textarea,
 } from '@mui/material';
 
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-//this function converts the raw data from CSV into a more organized object form
-// export const convertCsvToObjectArray = (results) => {
-//   results.data.shift(); //removes the table header of the csv
-//   results.data.pop(); //removes the last element of the the csv due to the parser creating an extra row with null values
-
-//   let arr = [];
-
-//   results.data.forEach((element) => {
-//     let obj = {
-//       name: element[0],
-//       description: element[1],
-//       price: element[2],
-//       category: element[3],
-//     };
-
-//     arr.push(obj);
-//   });
-//   return arr;
-// };
-
-const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
-  console.log(setSelectedTemplate);
+const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
   const dispatch = useDispatch();
+
+  //these are from store
   const { menuPreferences } = useSelector((state) => state);
+  const { menus } = useSelector((state) => state);
+  const menu = menus.find((menu) => menu.id === menuId);
 
-  // results.data.forEach((element) => {
-  //   let obj = {
-  //     name: element[0],
-  //     description: element[1],
-  //     price: element[2],
-  //     category: element[3],
-  //     tags: element[4],
-  //   };
-  // const [csvFile, setCSVFile] = React.useState(null);
-  // const [csvData, setCSVData] = React.useState({});
+  useEffect(() => {
+    console.log('menu changed', menu);
+  }, [menu]);
 
-  const [primaryColor, setPrimaryColor] = useState('');
+  //state variables
+  // const [primaryColor, setPrimaryColor] = useState('');
   const [showColorPicker, setShowColorPicker] = useState(false);
 
-  const templates = [{ name: 'Template 2', value: MenuTemplate2 }];
+  //options - hard coded
+  const fonts = [
+    { name: 'Arial', value: 'arial' },
+    { name: 'Verdana', value: 'verdana' },
+    { name: 'Tahoma', value: 'tahoma' },
+    { name: 'Trebuchet MS', value: 'trebuchet ms' },
+    { name: 'Courier New', value: 'courier new' },
+  ];
 
-  const onChange = (key, value) => {
-    console.log('changed');
+  const templates = ['template2', 'template3'];
+
+  //handles all changes to menu preferences
+  const onPrefChange = (key, value) => {
+    console.log('pref changed');
     console.log(key);
     console.log(value);
 
@@ -76,15 +61,34 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
     dispatch(setMenuPreferences(newMenuPreferencesObj));
   };
 
-  const saveToDB = async () => {
-    console.log('save to DB');
-    const prefResponse = await axios.put(`/api/menus/${menu.id}`, {
-      preferences: JSON.stringify(menuPreferences),
-    });
-    console.log(prefResponse);
+  //handles changes to other menu properties: name, description, template
+  const onChange = (key, value) => {
+    console.log('on change');
+    console.log(key);
+    console.log(value);
+    let newMenuOptionsObj = { ...menuOptions };
+    newMenuOptionsObj[key] = value;
+    setMenuOptions(newMenuOptionsObj);
   };
 
-  //handle color change
+  //console logs everytime menu options changes
+  useEffect(() => {
+    console.log(menuOptions);
+  }, [menuOptions]);
+
+  //saves changes to DB
+  const saveToDB = async () => {
+    console.log('save to DB');
+    const response = await axios.put(`/api/menus/${menu.id}`, {
+      name: menuOptions.menuName,
+      description: menuOptions.menuDescription,
+      template: menuOptions.template,
+      preferences: JSON.stringify(menuPreferences),
+    });
+    console.log(response);
+  };
+
+  //handles change in color picker
   const handleColorChange = (color) => {
     onChange('primaryColor', color.hex);
   };
@@ -93,50 +97,50 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
   //   console.log(primaryColor);
   // }, [menuPreprimaryColor]);
 
-  const fonts = [
-    { name: 'Arial', value: 'arial' },
-    { name: 'Verdana', value: 'verdana' },
-    { name: 'Tahoma', value: 'tahoma' },
-    { name: 'Trebuchet MS', value: 'trebuchet ms' },
-    { name: 'Courier New', value: 'courier new' },
-  ];
-
-  /* TODO: remove this component - get data from store instead. No need for csv upload on this page*/
-
-  // useEffect(() => {
-  //   if (csvFile) {
-  //     csvFile.addEventListener('change', (ev) => {
-  //       const file = ev.target.files[0];
-  //       Papa.parse(file, {
-  //         complete: function (results) {
-  //           convertCsvToObjectArray(results);
-  //           //takes the obj passed from papaparse and stores it into redux store to be used in content edit + style edit components
-  //           dispatch(setCsvData(convertCsvToObjectArray(results)));
-  //         },
-  //       });
-  //     });
-  //   }
-  // }, [csvFile]);
-
-  /* TODO: remove this component - get data from store instead. No need for csv upload on this page*/
-
   return (
     <div>
       <Stack spacing={2} sx={{ padding: '10px' }}>
         <h1>Editing Panel</h1>
 
+        {/*  Choose Template  */}
         <TextField
-          autoFocus
-          id="resName"
-          name="resName"
-          label="Restaurant Name"
-          type="resname"
+          // choose template
+          select
+          fullWidth
+          label="Template"
+          name="template"
+          value={menuOptions.template}
+          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+        >
+          {templates.map((template) => {
+            return <MenuItem value={template}>{template}</MenuItem>;
+          })}
+        </TextField>
+
+        {/*  Menu Name */}
+        <TextField
+          id="menuName"
+          name="menuName"
+          label="Menu Name"
           fullWidth
           variant="outlined"
-          defaultValue=""
+          value={menuOptions.menuName}
           onChange={(ev) => onChange(ev.target.name, ev.target.value)}
         />
 
+        {/*  Menu Description */}
+        <TextField
+          id="menuDescription"
+          name="menuDescription"
+          label="Menu Description"
+          multiline
+          minRows="3"
+          fullWidth
+          variant="outlined"
+          value={menuOptions.menuDescription}
+          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+        />
+        {/*  Font Family */}
         <TextField
           // id="outlined-select-currency"
           select
@@ -144,13 +148,15 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
           label="Font Family"
           name="fontFamily"
           value={menuPreferences.fontFamily}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
         >
           {fonts.map((font) => {
             return <MenuItem value={font.value}>{font.name}</MenuItem>;
           })}
         </TextField>
-        {/* //FontFamily END_____________________________________________________________________*/}
+
+        {/*  Primary Color */}
+
         <Button
           variant="contained"
           sx={{ backgroundColor: menuPreferences.primaryColor }}
@@ -165,113 +171,86 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
           />
         )}
 
-        {/* padding */}
+        {/* Padding */}
         <TextField
           // id="outlined-number"
           label="Padding"
           type="number"
           name="padding"
           value={menuPreferences.padding}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
 
-        {/* margin */}
+        {/* Margin */}
         <TextField
           // id="outlined-number"
           label="Margin"
           type="number"
           name="margin"
           value={menuPreferences.margin}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
 
-        {/* //Restaurant Font Size START_____________________________________________________________________*/}
+        {/* Name Font Size */}
         <TextField
           // id="outlined-number"
           label="Restaurant Name Font Size"
           type="number"
           name="restaurantNameFontSize"
           value={menuPreferences.restaurantNameFontSize}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
-        {/* //Restaurant Font Size END_____________________________________________________________________*/}
 
-        {/* //Category Font Size START_____________________________________________________________________*/}
+        {/* Category Font Size */}
         <TextField
           // id="outlined-number"
           label="Category Font Size"
           type="number"
           name="categoryNameFontSize"
           value={menuPreferences.categoryNameFontSize}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
-        {/* //Category Font Size END_____________________________________________________________________*/}
 
-        {/* //Item Font Size START_____________________________________________________________________*/}
+        {/* //Item Font Size */}
         <TextField
           // id="outlined-number"
           label="Item Font Size"
           type="number"
           name="itemNameFontSize"
           value={menuPreferences.itemNameFontSize}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
-        {/* //Item Font Size END_____________________________________________________________________*/}
 
-        {/* //Description Font Size START_____________________________________________________________________*/}
+        {/* Description Font Size */}
         <TextField
           // id="outlined-number"
           label="Description Font Size"
           type="number"
           name="descriptionNameFontSize"
           value={menuPreferences.descriptionNameFontSize}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
         />
-        {/* //Description Font Size END_____________________________________________________________________*/}
 
-        {/* TODO: remove this component - get data from store instead. No need for csv upload on this page*/}
-        {/* <Button variant="contained" component="label">
-          Upload File
-          <input
-            type="file"
-            hidden
-            ref={(x) => {
-              setCSVFile(x);
-            }}
-          />
-        </Button> */}
-        {/* <Button variant="contained">Create Menu</Button> */}
-        <TextField
-          // choose template
-          select
-          fullWidth
-          label="Template"
-          name="template"
-          value={selectedTemplate}
-          onChange={(e) => setSelectedTemplate(e.target.value)}
-        >
-          {templates.map((template) => {
-            return <MenuItem value={template.name}>{template.name}</MenuItem>;
-          })}
-        </TextField>
+        {/*  Saves Settings  */}
+
         <Button variant="outlined" component="label" onClick={() => saveToDB()}>
           Save Settings
         </Button>

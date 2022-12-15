@@ -8,6 +8,7 @@ const menu = (state = {}, action) => {
   if (action.type === 'UPDATE_MENU_ITEMS') {
     return { ...state, ...action.menu };
   }
+
   return state;
 };
 
@@ -28,6 +29,11 @@ export const updateMenuItems = (menu, items, navigate) => {
     dispatch({ type: 'UPDATE_MENU_ITEMS', menu: response.data });
     navigate('/');
   };
+};
+
+export const updateMenu = (menu, updateObj) => {
+  console.log('update menu:', updateObj);
+  return async (dispatch) => {};
 };
 
 export default menu;

@@ -13,7 +13,7 @@ const DropzoneOuterRow = (props) => {
   // console.log(props.i);
   const { moveToMenu, addComponent, addRow, moveRow } = useContext(CardContext);
   const [{ isOver }, drop] = useDrop({
-    accept: ['Card', 'Row'],
+    accept: ['Card', 'Row', 'Component'],
     drop: (item, monitor) => {
       console.log('drop');
       // moveToMenu(item.id);
@@ -24,6 +24,12 @@ const DropzoneOuterRow = (props) => {
       else if (item.type === 'Row'){
         console.log('move row');
         moveRow(props.layout,props.i,props.j,props.k,item);
+      }
+      else 
+      // (item.componentType === 'Divider' ){
+        {
+          console.log('add a divider')
+        addRow(props.layout, props.i, props.j, props.k, item)
       }
       // console.log(item.id)
     },

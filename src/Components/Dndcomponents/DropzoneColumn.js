@@ -37,6 +37,7 @@ const DropzoneColumn = (props) => {
         height: 'fitContent',
         // m:'.5rem'
         // borderStyle: 'dotted',
+        // opacity: [0.9, 0.8, 0.7],
       }}
     >
       {props.children}

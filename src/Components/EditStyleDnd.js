@@ -29,6 +29,7 @@ import Component from './Dndcomponents/Component';
 import TypographyComponent from './Dndcomponents/TypographyComponent';
 import ImageComponent from './Dndcomponents/ImageComponent';
 
+
 export const CardContext = createContext({
   moveToMenu: null,
   addComponent: null,
@@ -36,8 +37,7 @@ export const CardContext = createContext({
 });
 
 const EditStyleDnd = () => {
-
-  const [switchBool , setSwitchBool] = useState(false);
+  const [switchBool, setSwitchBool] = useState(false);
 
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
@@ -146,16 +146,19 @@ const EditStyleDnd = () => {
   };
 
   const addRow = (layout, i, j, k, item) => {
-    let tempItems = [...items];
-    let id = item.id;
-
-    tempItems.filter((element) => {
-      return id === element.id;
-    })[0].isInMenu = true;
     let newLayout = [...layout];
+    console.log(item);
+    if (item.componentType === 'Card') {
+      let tempItems = [...items];
+      let id = item.id;
+      tempItems.filter((element) => {
+        return id === element.id;
+      })[0].isInMenu = true;
+      setItems(tempItems);
+    }
+
     newLayout.splice(i, 0, [[item]]);
     setLayout(newLayout);
-    setItems(tempItems);
   };
 
   const moveRow = (layout, i, j, k, item) => {
@@ -232,7 +235,15 @@ const EditStyleDnd = () => {
         }}
       >
         <div>
-          <Switch onChange = {()=>{setSwitchBool(!switchBool); console.log(switchBool)}}  defaultChecked size="small" />
+          <Typography>Show Dropzones</Typography>
+          <Switch
+            onChange={() => {
+              setSwitchBool(!switchBool);
+              console.log(switchBool);
+            }}
+            defaultChecked
+            size="small"
+          />
           <Grid container>
             <Grid item xs={3}>
               <Paper
@@ -240,12 +251,21 @@ const EditStyleDnd = () => {
                 sx={{
                   pt: 2,
                   pb: 2,
+                  pl: 2,
+                  pr: 2,
                 }}
               >
                 <Typography variant="h3">Components</Typography>
-                <Component componentType="Divider"></Component>
-                <Component componentType="Typography"></Component>
-                <Component componentType="Image"></Component>
+                <br></br>
+
+                <Box sx={{display:'flex'}}>
+                  <Component componentType="Divider"></Component>
+                  <Component componentType="Typography"></Component>
+                  <Component componentType="Image"></Component>
+                </Box>
+                <br></br>
+                <Divider></Divider>
+                <br></br>
                 <Box
                   sx={{
                     display: 'flex',
@@ -290,21 +310,36 @@ const EditStyleDnd = () => {
               >
                 {/* <br></br> */}
                 {/* here */}
-                <DropzoneOuterRow layout={layout} showGridLines={switchBool} i={0}>
+                <DropzoneOuterRow
+                  layout={layout}
+                  showGridLines={switchBool}
+                  i={0}
+                >
                   {/* 0 */}
                 </DropzoneOuterRow>
                 {layout.map((row, i) => {
                   return (
                     <>
                       <Row i={i}>
-                        <DropzoneColumn layout={layout} i={i} j={0} showGridLines={switchBool}>
+                        <DropzoneColumn
+                          layout={layout}
+                          i={i}
+                          j={0}
+                          showGridLines={switchBool}
+                        >
                           {/* {i},0 */}
                         </DropzoneColumn>
                         {row.map((col, j) => {
                           return (
                             <>
                               <Column i={i} j={j}>
-                                <Dropzone layout={layout} i={i} j={j} k={0} showGridLines={switchBool}>
+                                <Dropzone
+                                  layout={layout}
+                                  i={i}
+                                  j={j}
+                                  k={0}
+                                  showGridLines={switchBool}
+                                >
                                   {/* {i},{j},0 */}
                                 </Dropzone>
                                 {col.map((component, k) => {
@@ -329,14 +364,23 @@ const EditStyleDnd = () => {
                                   );
                                 })}
                               </Column>
-                              <DropzoneColumn layout={layout} i={i} j={j + 1} showGridLines={switchBool}>
+                              <DropzoneColumn
+                                layout={layout}
+                                i={i}
+                                j={j + 1}
+                                showGridLines={switchBool}
+                              >
                                 {/* {i},{j + 1} */}
                               </DropzoneColumn>
                             </>
                           );
                         })}
                       </Row>
-                      <DropzoneOuterRow layout={layout} i={i + 1} showGridLines={switchBool}>
+                      <DropzoneOuterRow
+                        layout={layout}
+                        i={i + 1}
+                        showGridLines={switchBool}
+                      >
                         {/* {i + 1} */}
                       </DropzoneOuterRow>
                     </>

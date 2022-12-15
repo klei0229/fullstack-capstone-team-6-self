@@ -39,15 +39,17 @@ const Dropzone = (props) => {
       ref={drop}
       sx={{
         // backgroundColor: isOver ? 'cyan' : 'white',
-        backgroundColor: isOver ? 'cyan' : 'grey',
+        // backgroundColor: isOver ? 'cyan' : 'grey',
+        backgroundColor: props.showGridLines ?  '': (isOver ? 'yellow' : 'grey'),
         width: 'calc(100%-2rem)',
         height: '15px',
         opacity: [0.9, 0.8, 0.7],
 
-        // mb:'-1rem',
+        // mb:'2rem',
         // mt:'-1rem'
         // borderStyle: 'solid',
         // m:'.5rem'
+        zIndex:'5'
       }}
     >
       {props.children}

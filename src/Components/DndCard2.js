@@ -24,7 +24,7 @@ export default function Dndcard2(props) {
       ref={drag}
       sx={{
         width: '100%',
-        maxWidth:'400px',
+        // maxWidth:'400px',
         // m: '.5rem',
         // maxWidth: '500px',
         // height:'50px',
@@ -32,6 +32,9 @@ export default function Dndcard2(props) {
           backgroundColor: 'light-grey',
           opacity: [0.9, 0.8, 0.7],
         },
+        zIndex:'1',
+        // mt:'-15px',
+        // mb:'-15px'
       }}
     >
       <CardMedia

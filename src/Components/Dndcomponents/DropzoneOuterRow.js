@@ -38,9 +38,12 @@ const DropzoneOuterRow = (props) => {
       sx={{
         // display:'flex',
         // backgroundColor: isOver ? 'cyan' : 'white',
-        backgroundColor: isOver ? 'cyan' : 'grey',
+        backgroundColor: props.showGridLines ?  'white': (isOver ? 'cyan' : 'grey'),
+        // backgroundColor: isOver ? 'cyan' : 'grey',
         width: 'calc(100%)',
         height: '15px',
+        // mt:'-10px',
+        // mb:'-10px'
         // m:'.5rem'
         // borderStyle: 'solid',
       }}

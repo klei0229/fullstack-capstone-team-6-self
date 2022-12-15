@@ -24,6 +24,7 @@ const Column = (props) => {
       sx={{
         // m: '2rem',
         // p:'2rem',
+        // backgroundColor:'red',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -34,7 +35,10 @@ const Column = (props) => {
         '&:hover': {
           // backgroundColor: 'red',
           // opacity: [0.9, 0.8, 0.7],
-        }
+        },
+        // mt:"-13px",
+        // mb:'-13px',
+        zIndex:'1'
       }}
     >
       {props.children}

@@ -4,7 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
 import EditPanel from './EditPanel';
 import MenuTemplate2 from './Template-2-Subcomponents/MenuTemplate2';
-import { Container, Button, Grid, Typography, Paper, Box } from '@mui/material';
+import {
+  Container,
+  Button,
+  Grid,
+  Typography,
+  Paper,
+  Box,
+  Divider,
+  Switch,
+} from '@mui/material';
 import { setCsvData, setMenuPreferences } from '../store';
 import { fetchMenus, fetchItems } from '../store';
 
@@ -27,6 +36,9 @@ export const CardContext = createContext({
 });
 
 const EditStyleDnd = () => {
+
+  const [switchBool , setSwitchBool] = useState(false);
+
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
   console.log(menus);
@@ -181,13 +193,23 @@ const EditStyleDnd = () => {
           name={item.name}
           description={item.description}
           isOnMenu={item.isOnMenu}
+          price={item.price}
           i={item.i}
           j={item.j}
           k={item.k}
         ></DndCard2>
       );
     } else if (item.componentType === 'Divider') {
-      return <hr></hr>;
+      return (
+        <>
+          <Box sx={{ backgroundColor: 'white' }}>
+            <br></br>
+            <Divider />
+            <br></br>
+            {/* <hr></hr> */}
+          </Box>
+        </>
+      );
     } else if (item.componentType === 'Typography') {
       return <TypographyComponent></TypographyComponent>;
     } else if (item.componentType === 'Image') {
@@ -210,6 +232,7 @@ const EditStyleDnd = () => {
         }}
       >
         <div>
+          <Switch onChange = {()=>{setSwitchBool(!switchBool); console.log(switchBool)}}  defaultChecked size="small" />
           <Grid container>
             <Grid item xs={3}>
               <Paper
@@ -219,7 +242,7 @@ const EditStyleDnd = () => {
                   pb: 2,
                 }}
               >
-                <Typography variant='h3'>Components</Typography>
+                <Typography variant="h3">Components</Typography>
                 <Component componentType="Divider"></Component>
                 <Component componentType="Typography"></Component>
                 <Component componentType="Image"></Component>
@@ -265,22 +288,23 @@ const EditStyleDnd = () => {
                   pb: '2rem',
                 }}
               >
-                Restaurant Name
-                <DropzoneOuterRow layout={layout} i={0}>
+                {/* <br></br> */}
+                {/* here */}
+                <DropzoneOuterRow layout={layout} showGridLines={switchBool} i={0}>
                   {/* 0 */}
                 </DropzoneOuterRow>
                 {layout.map((row, i) => {
                   return (
                     <>
                       <Row i={i}>
-                        <DropzoneColumn layout={layout} i={i} j={0}>
+                        <DropzoneColumn layout={layout} i={i} j={0} showGridLines={switchBool}>
                           {/* {i},0 */}
                         </DropzoneColumn>
                         {row.map((col, j) => {
                           return (
                             <>
                               <Column i={i} j={j}>
-                                <Dropzone layout={layout} i={i} j={j} k={0}>
+                                <Dropzone layout={layout} i={i} j={j} k={0} showGridLines={switchBool}>
                                   {/* {i},{j},0 */}
                                 </Dropzone>
                                 {col.map((component, k) => {
@@ -295,21 +319,24 @@ const EditStyleDnd = () => {
                                         i={i}
                                         j={j}
                                         k={k + 1}
+                                        showGridLines={switchBool}
                                       >
                                         {/* {i},{j},{k + 1} */}
                                       </Dropzone>
+                                      {/* here */}
+                                      {/* <br></br> */}
                                     </>
                                   );
                                 })}
                               </Column>
-                              <DropzoneColumn layout={layout} i={i} j={j + 1}>
+                              <DropzoneColumn layout={layout} i={i} j={j + 1} showGridLines={switchBool}>
                                 {/* {i},{j + 1} */}
                               </DropzoneColumn>
                             </>
                           );
                         })}
                       </Row>
-                      <DropzoneOuterRow layout={layout} i={i + 1}>
+                      <DropzoneOuterRow layout={layout} i={i + 1} showGridLines={switchBool}>
                         {/* {i + 1} */}
                       </DropzoneOuterRow>
                     </>

@@ -31,7 +31,8 @@ const DropzoneColumn = (props) => {
       sx={{
         // display:'flex',
         // backgroundColor: isOver ? 'cyan' : 'white',
-        backgroundColor: isOver ? 'cyan' : 'grey',
+        // backgroundColor: isOver ? 'cyan' : 'grey',
+        backgroundColor: props.showGridLines ?  'white': (isOver ? 'cyan' : 'grey'),
         width: '15px',
         height: 'fitContent',
         // m:'.5rem'

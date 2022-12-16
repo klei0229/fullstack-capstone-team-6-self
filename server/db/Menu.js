@@ -25,6 +25,9 @@ const Menu = conn.define('menu', {
   preferences: {
     type: TEXT,
   },
+  template: {
+    type: STRING,
+  },
 });
 
 module.exports = Menu;

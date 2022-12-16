@@ -26,9 +26,9 @@ import {
 
 import ItemCard from './ItemCard';
 
-const MenuTemplate2 = ({ id }) => {
+const MenuTemplate2 = ({ id, menuOptions }) => {
   const { menuPreferences, menus } = useSelector((state) => state);
-  console.log(menuPreferences);
+  //console.log(menuPreferences);
   const menu = menus.find((menu) => menu.id === id);
 
   const [categories, setCategories] = useState([]);
@@ -46,7 +46,7 @@ const MenuTemplate2 = ({ id }) => {
     refs.current[ev.target.value].scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
-    console.log('menu', menu);
+    //console.log('menu', menu);
     //loop thru each item
     //if categories does not include value add it
 
@@ -54,19 +54,19 @@ const MenuTemplate2 = ({ id }) => {
 
     if (menu.items) {
       for (let i = 0; i < menu.items.length; i++) {
-        console.log(menu.items[i]);
+        //console.log(menu.items[i]);
         if (!arr.includes(menu.items[i].category)) {
           arr.push(menu.items[i].category);
         }
       }
     }
 
-    // console.log(arr);
+    // //console.log(arr);
     setCategories(arr);
   }, [menu]);
 
   useEffect(() => {
-    console.log(menuPreferences);
+    //console.log(menuPreferences);
   }, [menuPreferences]);
 
   return (
@@ -81,6 +81,8 @@ const MenuTemplate2 = ({ id }) => {
           }
         >
           <br></br>
+
+          {/* menu name */}
           <Typography
             variant="h3"
             align="center"
@@ -90,10 +92,21 @@ const MenuTemplate2 = ({ id }) => {
               color: menuPreferences.primaryColor,
             }}
           >
-            {/* TODO: save this to a separate menu reducer */}
-            {menuPreferences.resName}
+            {menuOptions.menuName}
           </Typography>
 
+          {/* menu description */}
+          <Typography
+            variant="body1"
+            align="center"
+            sx={{
+              fontSize: menuPreferences.descriptionNameFontSize,
+              fontFamily: menuPreferences.fontFamily,
+              color: menuPreferences.primaryColor,
+            }}
+          >
+            {menuOptions.menuDescription}
+          </Typography>
           <Container
             sx={{
               display: 'flex',

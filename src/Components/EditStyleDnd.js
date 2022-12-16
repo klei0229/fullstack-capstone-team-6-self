@@ -47,6 +47,7 @@ const EditStyleDnd = () => {
   const { menus } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
+  const [templateName, setTemplateName] = useState('My Template');
   const [layout, setLayout] = useState([
     [
       [
@@ -84,7 +85,7 @@ const EditStyleDnd = () => {
 
   useEffect(() => {
 
-    console.log(menu);
+    // console.log(menu);
     menu.items.forEach((item) => {
       item.isInMenu = false;
     });
@@ -98,21 +99,39 @@ const EditStyleDnd = () => {
 
 
   const saveToDB = async () => {
-    console.log('invoked save to db');
+    // console.log('invoked save to db');
 
-    console.log(menuPreferences);
+    
+    // console.log('menu preferences before alterations');
+    // console.log(menuPreferences);
     let tempMenuPreferences = {...menuPreferences};
-    tempMenuPreferences.useDnd = true;
-    let dndSettings = {
+    
+    let template = {
+      name: templateName,
       layout:layout,
+      type:'custom'
     };
+    
+    let array;
+    //if there is a property templates, then add new template to array
+    if(tempMenuPreferences.hasOwnProperty('templates')){
+      array = [...tempMenuPreferences.templates]
+    }
+    //no property exists, create the property and intialize an empty array
+    else{
+      array = [];
+    }
 
-    tempMenuPreferences.dndSettings = dndSettings;
+    array.push(template);
+    tempMenuPreferences.templates = array;
+    
+    // console.log(tempMenuPreferences);
 
     const prefResponse = await axios.put(`/api/menus/${menu.id}`, {
       preferences: JSON.stringify(tempMenuPreferences),
     });
-      console.log(prefResponse);
+      // console.log(prefResponse);
+      
     };
   
   const moveToMenu = (id) => {
@@ -182,6 +201,7 @@ const EditStyleDnd = () => {
     newLayout.splice(i, 0, [[item]]);
     setLayout(newLayout);
   };
+
 
   const moveRow = (layout, i, j, k, item) => {
     let newLayout = [...layout];
@@ -286,10 +306,11 @@ const EditStyleDnd = () => {
                   name="templateName"
                   label="Template Name"
                   type="Template Name"
+                  value={templateName}
                   fullWidth
                   variant="outlined"
                   defaultValue=""
-                  onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+                  onChange={(ev) => {setTemplateName(ev.target.value)}}
                 />
  
                 <br></br>
@@ -300,9 +321,9 @@ const EditStyleDnd = () => {
                   component="label"
                   fullWidth
                   onClick={() => { saveToDB();
-                    console.log(layout);
-                    console.log(menuPreferences)
-                    console.log('todo save to db')
+                    // console.log(layout);
+                    // console.log(menuPreferences)
+                    // console.log('todo save to db')
                   }
                 }
                 >

@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AddMenu from './AddMenu';
 import { Button, Link } from '@mui/material';
-import { fetchMenus, deleteMenu } from '../store';
+import { fetchMenus, fetchItems, deleteMenu } from '../store';
 
 const Restaurant = (props) => {
   const { auth, menus, restaurants } = useSelector((state) => state);
-  console.log(menus);
+  // console.log(menus);
   const { id } = useParams();
   const dispatch = useDispatch();
   // const restaurant = restaurants.find((restaurant) => restaurant.id === id);
   // console.log(menus);
-  // useEffect(() => {
-  //   dispatch(fetchMenus());
-  // }, [id]);
+  useEffect(() => {
+    dispatch(fetchMenus());
+    dispatch(fetchItems());
+  }, []);
 
   const restaurantMenus = menus.filter(
     (menu) => menu.restaurantId === props.restaurant.id

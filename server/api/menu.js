@@ -4,17 +4,6 @@ const { Menu, Item } = require('../db');
 
 app.use(express.json());
 
-app.get('/', async (req, res, next) => {
-  try {
-    const menus = await Menu.findAll({
-      include: [Item],
-    });
-    res.send(menus);
-  } catch (err) {
-    next(err);
-  }
-});
-
 app.get('/:id', async (req, res, next) => {
   try {
     const menu = await Menu.findByPk(req.params.id, {
@@ -38,26 +27,5 @@ app.put('/:id', async (req, res, next) => {
   }
 });
 
-app.post('/', async (req, res, next) => {
-  try {
-    res.send(
-      await Menu.create(req.body, {
-        include: [Item],
-      })
-    );
-  } catch (err) {
-    next(err);
-  }
-});
-
-app.delete('/:id', async (req, res, next) => {
-  try {
-    const menu = await Menu.findByPk(req.params.id);
-    await menu.destroy();
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
-  }
-});
 
 module.exports = app;

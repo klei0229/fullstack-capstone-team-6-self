@@ -15,8 +15,8 @@ Restaurant.hasMany(Menu);
 Menu.belongsTo(Restaurant);
 Menu.hasMany(Item);
 Item.belongsTo(Menu);
-Category.hasMany(Item);
-Item.belongsTo(Category);
+// Category.hasMany(Item);
+// Item.belongsTo(Category);
 User.hasOne(Access);
 Access.belongsTo(User);
 Restaurant.hasOne(Access);
@@ -51,16 +51,28 @@ const syncAndSeed = async () => {
     }),
   ]);
 
+  const defaultPreferences = {
+    padding: '0',
+    margin: '0',
+    primaryColor: '#000000',
+    restaurantNameFontSize: 65,
+    categoryNameFontSize: 30,
+    itemNameFontSize: 20,
+    descriptionNameFontSize: 20,
+    fontFamily: 'verdana',
+  };
   const [menu1, menu2] = await Promise.all([
     Menu.create({
       name: 'Breakfast Menu',
       description: '12432423',
       restaurantId: res1.id,
+      preferences: JSON.stringify(defaultPreferences),
     }),
     Menu.create({
       name: 'Lunch Menu',
       description: '12343242342353',
       restaurantId: res2.id,
+      preferences: JSON.stringify(defaultPreferences),
     }),
   ]);
 

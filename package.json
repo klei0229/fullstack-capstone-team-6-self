@@ -18,6 +18,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/joy": "^5.0.0-alpha.57",
     "@mui/material": "^5.10.16",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
@@ -28,6 +30,7 @@
     "papaparse": "^5.3.2",
     "pg": "^8.8.0",
     "querystring": "^0.2.1",
+    "react-color": "^2.19.3",
     "sequelize": "^6.25.3"
   },
   "devDependencies": {

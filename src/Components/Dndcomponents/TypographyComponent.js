@@ -13,7 +13,6 @@ import Column from './Column';
 import RenderedComponent from './RenderedComponent';
 
 const TypographyComponent = (props) => {
-  console.log(props);
   const [{ isDragging }, drag] = useDrag({
     item: { ...props, type: 'Component' },
     type: 'Component',

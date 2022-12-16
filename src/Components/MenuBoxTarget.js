@@ -10,7 +10,6 @@ import { useDrop } from 'react-dnd';
 import {CardContext} from './EditStyleDnd';
 const MenuBoxTarget = (props) => {
    
-  console.log(props);
   const {moveToMenu} = useContext(CardContext);
   const [{isOver}, drop] = useDrop({
     accept: 'Card',

@@ -10,7 +10,7 @@ import { ItemTypes } from './utils/items';
 import { useDrag } from 'react-dnd';
 
 export default function Dndcard2(props) {
-    console.log(props);
+    // console.log(props);
   const [{ isDragging }, drag] = useDrag({
     item: { ...props, type: 'Card' },
     type: 'Card',

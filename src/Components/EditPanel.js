@@ -45,7 +45,7 @@ import {
 // };
 
 const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
-  console.log(menu);
+  // console.log(menu);
   console.log(setSelectedTemplate);
   const dispatch = useDispatch();
   const { menuPreferences } = useSelector((state) => state);
@@ -67,7 +67,7 @@ const EditPanel = ({ selectedTemplate, setSelectedTemplate, menu }) => {
   const templates = [{ name: 'Template 2', value: MenuTemplate2 }];
 
   const onChange = (key, value) => {
-    console.log('changed');
+    // console.log('changed');
     console.log(key);
     console.log(value);
 

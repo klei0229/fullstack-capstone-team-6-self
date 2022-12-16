@@ -12,7 +12,7 @@ import { useDrag } from 'react-dnd';
 export default function MediaCard(props) {
 
 
-  console.log(props);
+  // console.log(props);
   const [{ isDragging }, drag] = useDrag({
     item: props,
     type: 'Card',

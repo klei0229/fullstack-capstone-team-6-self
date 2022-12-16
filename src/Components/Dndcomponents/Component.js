@@ -44,15 +44,22 @@ const Component = (props) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        borderStyle: 'solid',
-        borderColor: '#686868',
+        // borderStyle: 'solid',
+        // borderColor: '#686868',
+        backgroundColor:'aliceblue',
         width: '75%',
         height: 'fitContent',
         borderWidth: '1px',
         ml: '.3rem',
         mr: '.3rem',
         borderRadius: '5px',
-      }}
+      
+      '&:hover': {
+        // backgroundColor: 'light-grey',
+        opacity: [0.9, 0.8, 0.7],
+      },
+    }
+    }
     >
       <br></br>
       {

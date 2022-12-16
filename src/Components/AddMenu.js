@@ -63,7 +63,7 @@ const AddMenu = (props) => {
 
   const submitMenu = () => {
 
-    console.log(items);
+    // console.log(items);
     dispatch(createMenu(menu, items));
     // dispatch(fetchMenus());
     setOpen(false);

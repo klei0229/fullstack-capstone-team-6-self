@@ -12,7 +12,6 @@ import { useDrag } from 'react-dnd';
 import Column from './Column';
 
 const RenderedComponent = (props) => {
-    console.log(props);
   const [{ isDragging }, drag] = useDrag({
     item: { ...props, type: 'Component' },
     type: 'Component',

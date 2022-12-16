@@ -29,6 +29,8 @@ import DropzoneColumn from './Dndcomponents/DropzoneColumn';
 import Component from './Dndcomponents/Component';
 import TypographyComponent from './Dndcomponents/TypographyComponent';
 import ImageComponent from './Dndcomponents/ImageComponent';
+import axios from 'axios';
+
 
 export const CardContext = createContext({
   moveToMenu: null,
@@ -39,12 +41,12 @@ export const CardContext = createContext({
 const EditStyleDnd = () => {
   const [switchBool, setSwitchBool] = useState(false);
 
+  
+
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
-  console.log(menus);
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
-  console.log(items);
   const [layout, setLayout] = useState([
     [
       [
@@ -58,6 +60,9 @@ const EditStyleDnd = () => {
       ],
     ],
   ]);
+
+  const [menuPreferences, setMenuPreferences] = useState({});
+
 
   // const [layout, setLayout] = useState([
 
@@ -78,21 +83,40 @@ const EditStyleDnd = () => {
   }, []);
 
   useEffect(() => {
+
     console.log(menu);
     menu.items.forEach((item) => {
       item.isInMenu = false;
     });
 
     setItems(menu.items);
+    setMenuPreferences(JSON.parse(menu.preferences),);
   }, [menu]);
 
   useEffect(() => {
-    console.log(layout);
   }, [layout]);
 
+
+  const saveToDB = async () => {
+    console.log('invoked save to db');
+
+    console.log(menuPreferences);
+    let tempMenuPreferences = {...menuPreferences};
+    tempMenuPreferences.useDnd = true;
+    let dndSettings = {
+      layout:layout,
+    };
+
+    tempMenuPreferences.dndSettings = dndSettings;
+
+    const prefResponse = await axios.put(`/api/menus/${menu.id}`, {
+      preferences: JSON.stringify(tempMenuPreferences),
+    });
+      console.log(prefResponse);
+    };
+  
   const moveToMenu = (id) => {
     const subarray = items.filter((element) => {
-      console.log(id);
       return element.id === id;
     });
     subarray[0].isInMenu = true;
@@ -129,7 +153,6 @@ const EditStyleDnd = () => {
   };
 
   const addColumn = (layout, i, j, k, item) => {
-    console.log(item);
     let newLayout = [...layout];
 
     if (item.type === 'Card') {
@@ -147,7 +170,6 @@ const EditStyleDnd = () => {
 
   const addRow = (layout, i, j, k, item) => {
     let newLayout = [...layout];
-    console.log(item);
     if (item.componentType === 'Card') {
       let tempItems = [...items];
       let id = item.id;
@@ -239,7 +261,6 @@ const EditStyleDnd = () => {
           {/* <Switch
             onChange={() => {
               setSwitchBool(!switchBool);
-              console.log(switchBool);
             }}
             defaultChecked
             size="small"
@@ -278,7 +299,12 @@ const EditStyleDnd = () => {
                   variant="outlined"
                   component="label"
                   fullWidth
-                  onClick={() => console.log('todo save to db')}
+                  onClick={() => { saveToDB();
+                    console.log(layout);
+                    console.log(menuPreferences)
+                    console.log('todo save to db')
+                  }
+                }
                 >
                   Save Settings
                 </Button>
@@ -341,7 +367,6 @@ const EditStyleDnd = () => {
                 <Switch
                   onChange={() => {
                     setSwitchBool(!switchBool);
-                    console.log(switchBool);
                   }}
                   defaultChecked
                   size="small"

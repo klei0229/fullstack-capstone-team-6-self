@@ -13,7 +13,6 @@ const Dropzone = (props) => {
   const [{ isOver }, drop] = useDrop({
     accept: ['Card','Component'],
     drop: (item, monitor) => {
-      console.log(item);
 
       if(item.componentType ==='Card' ){
         if (item.isOnMenu === false) {
@@ -25,7 +24,6 @@ const Dropzone = (props) => {
       else 
       // (item.componentType === 'Divider' ){
         {
-          console.log('add a divider')
         addComponent(props.layout, props.i, props.j, props.k, item)
       }
     },

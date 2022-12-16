@@ -10,7 +10,7 @@ import { useDrop } from 'react-dnd';
 import {CardContext} from './TemplateDND';
 const BoxTarget = (props) => {
    
-  console.log(props);
+  // console.log(props);
   const {moveToBox} = useContext(CardContext);
   const [{isOver}, drop] = useDrop({
     accept: 'Card',

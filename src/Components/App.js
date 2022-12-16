@@ -9,6 +9,7 @@ import {
   fetchRestaurants,
   fetchAdminRestaurants,
   fetchMenus,
+  fetchGoogleUser,
 } from '../store';
 import { Link, Routes, Route } from 'react-router-dom';
 
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/admin-restaurants/:id" element={<Restaurants />} />
         <Route path="/menus" element={<Menus />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </div>
   );

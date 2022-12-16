@@ -53,4 +53,22 @@ export const register = (credentials) => {
   };
 };
 
+export const fetchGoogleUser = () => {
+  const access_token = window.location.href.split('=')[1].toString();
+  const accessToken = access_token;
+
+  return async (dispatch) => {
+    const response = await axios.get(
+      'https://www.googleapis.com/auth/userinfo.profile',
+      {
+        header: {
+          accept: 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    dispatch({ type: 'SET_AUTH', auth: response.data });
+  };
+};
+
 export default auth;

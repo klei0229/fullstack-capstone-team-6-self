@@ -40,15 +40,14 @@ const EditMenuContent = () => {
         {menu.items
           ? menu.items.map((item) => {
               return (
-                <div>
+                <div key={item.name}>
                   <ItemCard
-                  sx={{justifyContent: 'space-between'}}
-                  key={item.name}
-                  props={item}
-                  margin={25}
-                  padding={25}
-                ></ItemCard>
-                <br />
+                    sx={{ justifyContent: 'space-between' }}
+                    props={item}
+                    margin={25}
+                    padding={25}
+                  ></ItemCard>
+                  <br />
                 </div>
               );
             })

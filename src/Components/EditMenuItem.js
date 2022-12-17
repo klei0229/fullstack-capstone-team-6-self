@@ -13,6 +13,7 @@ import PreviewMenu from './PreviewMenu';
 const EditMenuItem = (props) => {
   const id = props.item.id;
   const dispatch = useDispatch();
+  const currentImage = props.item.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80";
 
   const item = props.item;
   const [itemDetails, setItemDetails] = useState({
@@ -90,7 +91,7 @@ const EditMenuItem = (props) => {
             />
           </Button>
           <CardActions>
-            <PreviewMenu item={itemDetails} image={data} itemId={id} />
+            <PreviewMenu item={itemDetails} image={data || currentImage} itemId={id} />
             <Button className="done" type="submit">
               Done Editing
             </Button>

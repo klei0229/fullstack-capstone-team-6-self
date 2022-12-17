@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   Container,
+  Stack,
   Button,
   Grid,
   Slider,
@@ -22,11 +23,9 @@ import {
   IconButton,
 } from '@mui/material';
 
-// import SearchIcon from '@mui/icons-material/Search';
+import Item from './Item';
 
-import ItemCard from './ItemCard';
-
-const MenuTemplate2 = ({ id, menuOptions }) => {
+const MenuTemplate3 = ({ id, menuOptions }) => {
   const { menuPreferences, menus } = useSelector((state) => state);
   console.log(menuPreferences);
   const menu = menus.find((menu) => menu.id === id);
@@ -45,6 +44,7 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
     // ref.current?.scrollIntoView({ behavior: "smooth" });
     refs.current[ev.target.value].scrollIntoView({ behavior: 'smooth' });
   };
+
   useEffect(() => {
     console.log('menu', menu);
     //loop thru each item
@@ -66,6 +66,10 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
   }, [menu]);
 
   useEffect(() => {
+    console.log(categories);
+  }, [categories]);
+
+  useEffect(() => {
     console.log(menuPreferences);
   }, [menuPreferences]);
 
@@ -81,7 +85,6 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
           }
         >
           <br></br>
-
           {/* menu name */}
           <Typography
             variant="h3"
@@ -107,77 +110,46 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
           >
             {menuOptions.menuDescription}
           </Typography>
-          <Container
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-            <Container
-              sx={{
-                width: '100%',
-                // backgroundColor: 'orange',
-                mr: '1rem',
-              }}
-            >
-              <br></br>
-              <Divider></Divider>
-              <br></br>
-              {categories.map((category, index) => {
-                return (
-                  <Button variant="text" value={index} onClick={handleClick}>
-                    {category}
-                  </Button>
-                );
-              })}
-            </Container>
 
-            <Container
-              sx={
-                {
-                  // backgroundColor: 'green'
-                }
-              }
-            >
-              {categories.map((category, index) => {
-                return (
-                  <div
-                    key={index}
-                    ref={(element) => {
-                      refs.current[index] = element;
+          <Container>
+            {categories.map((category, index) => {
+              return (
+                <div
+                  key={index}
+                  ref={(element) => {
+                    refs.current[index] = element;
+                  }}
+                >
+                  <br></br>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: menuPreferences.categoryNameFontSize,
+                      textTransform: 'uppercase',
                     }}
                   >
-                    <br></br>
-                    <Typography
-                      variant="h5"
-                      sx={{ fontSize: menuPreferences.categoryNameFontSize }}
-                    >
-                      {category}
-                    </Typography>
-                    <Divider></Divider>
-                    <br></br>
-                    <Grid container spacing={3}>
-                      {menu.items
-                        .filter((elem) => {
-                          return elem.category === category;
-                        })
-                        .map((elem) => {
-                          return (
-                            <Grid item lg={4}>
-                              <ItemCard
-                                props={elem}
-                                margin={menuPreferences.margin}
-                                padding={menuPreferences.padding}
-                              ></ItemCard>
-                            </Grid>
-                          );
-                        })}
-                    </Grid>
-                  </div>
-                );
-              })}
-            </Container>
+                    {category}
+                  </Typography>
+                  <br></br>
+                  <br></br>
+
+                  {menu.items
+                    .filter((elem) => elem.category === category)
+                    .map((elem) => {
+                      return (
+                        <>
+                          <Item
+                            props={elem}
+                            margin={menuPreferences.margin}
+                            padding={menuPreferences.padding}
+                          ></Item>
+                          <br></br>
+                        </>
+                      );
+                    })}
+                </div>
+              );
+            })}
           </Container>
         </Container>
       </ThemeProvider>
@@ -185,4 +157,4 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
   );
 };
 
-export default MenuTemplate2;
+export default MenuTemplate3;

@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
 import EditPanel from './EditPanel';
 import MenuTemplate2 from './Template-2-Subcomponents/MenuTemplate2';
+import MenuTemplate3 from './Template-3-Subcomponents/MenuTemplate3';
 import { Container, Button, Grid, Typography, Paper } from '@mui/material';
 import { setCsvData, setMenuPreferences } from '../store';
 import { fetchMenus, fetchItems } from '../store';
@@ -12,6 +13,24 @@ const EditStyle = () => {
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
   const menu = menus.find((menu) => menu.id === id);
+  const template = menu.template;
+
+  //states for styling edits
+  const [menuOptions, setMenuOptions] = useState({
+    menuName: '',
+    menuDescription: '',
+    template: '',
+  });
+
+  //initialize menu options using menu object from DB
+  useEffect(() => {
+    const newMenuOptionsObj = {
+      menuName: menu.name,
+      menuDescription: menu.description,
+      template: menu.template,
+    };
+    setMenuOptions(newMenuOptionsObj);
+  }, [menu]);
 
   useEffect(() => {
     dispatch(fetchMenus());
@@ -21,8 +40,7 @@ const EditStyle = () => {
   const dispatch = useDispatch();
 
   const { auth } = useSelector((state) => state);
-  const [selectedTemplate, setSelectedTemplate] = React.useState('');
-  const templates = [{ name: 'Template 2', value: MenuTemplate2 }];
+  // const templates = [{ name: 'Template 2', value: MenuTemplate2 }];
 
   useEffect(() => {
     dispatch(setMenuPreferences(JSON.parse(menu.preferences)));
@@ -44,14 +62,19 @@ const EditStyle = () => {
               }}
             >
               <EditPanel
-                selectedTemplate={selectedTemplate}
-                setSelectedTemplate={setSelectedTemplate}
-                menu={menu}
+                menuId={menu.id}
+                menuOptions={menuOptions}
+                setMenuOptions={setMenuOptions}
               ></EditPanel>
             </Paper>
           </Grid>
           <Grid item xs={9}>
-            <MenuTemplate2 id={id}></MenuTemplate2>
+            {menuOptions.template === 'template2' && (
+              <MenuTemplate2 id={id} menuOptions={menuOptions}></MenuTemplate2>
+            )}
+            {menuOptions.template === 'template3' && (
+              <MenuTemplate3 id={id} menuOptions={menuOptions}></MenuTemplate3>
+            )}
           </Grid>
         </Grid>
       </div>

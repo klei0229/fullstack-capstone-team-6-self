@@ -45,13 +45,6 @@ app.post('/', async (req, res, next) => {
         include: [Item],
       })
     );
-    menu.items.forEach((item) => {
-      if (item.image) {
-        const imagePath = item.image.replace('C:\\fakepath\\', '');
-        console.log('image path in POST (menu): ', imagePath);
-        item.image = imagePath;
-      }
-    });
   } catch (err) {
     next(err);
   }

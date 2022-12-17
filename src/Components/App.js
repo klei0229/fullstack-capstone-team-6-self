@@ -20,6 +20,7 @@ import {
   fetchItems,
 } from '../store';
 import { Routes, Route } from 'react-router-dom';
+import PreviewMenu from './PreviewMenu';
 
 const App = () => {
   const { auth } = useSelector((state) => state);
@@ -61,15 +62,17 @@ const App = () => {
         <Route path="/register" element={<Register />} />
 
         <Route path="/restaurants" element={<Restaurants />} />
-        
+
         <Route path="/restaurants/:id" element={<Restaurant />} />
-        
+
         <Route path="/menu/editContent/:id" element={<EditMenuContent />} />
         <Route path="/menu/editStyle/:id" element={<EditStyle />} />
         <Route path="/menu/preview/:id" element={<ViewMenu />} />
 
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
         <Route path="/menus" element={<Menus />} />
+        <Route path="/items/" element={<PreviewMenu />} />
+        <Route path="/items/:id" element={<PreviewMenu />} />
       </Routes>
     </div>
   );

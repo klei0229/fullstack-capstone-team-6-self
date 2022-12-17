@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateItem } from '../store';
 import {
@@ -8,6 +8,7 @@ import {
   Button,
   CardContent,
 } from '@mui/material';
+import PreviewMenu from './PreviewMenu';
 
 const EditMenuItem = (props) => {
   const id = props.item.id;
@@ -15,11 +16,25 @@ const EditMenuItem = (props) => {
 
   const item = props.item;
   const [itemDetails, setItemDetails] = useState({
-    image: '',
     name: item.name,
     price: item.price,
     props: item.props,
   });
+  const [image, setImage] = useState(null);
+  const [data, setData] = useState('');
+
+  useEffect(() => {
+    if (image) {
+      image.addEventListener('change', (ev) => {
+        const file = ev.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', () => {
+          setData(reader.result);
+        });
+      });
+    }
+  }, [image]);
 
   const onChange = (e) => {
     setItemDetails({
@@ -30,7 +45,7 @@ const EditMenuItem = (props) => {
 
   const update = async (e) => {
     e.preventDefault();
-    await dispatch(updateItem({ id, ...itemDetails }));
+    await dispatch(updateItem({ id, image: data, ...itemDetails }));
   };
 
   return (
@@ -59,11 +74,12 @@ const EditMenuItem = (props) => {
               name="image"
               type="file"
               hidden
-              value={itemDetails.image ?? ''}
-              onChange={onChange}
+              ref={(x) => setImage(x)}
+              onChange={(e) => setData(e.target.files[0].name)}
             />
           </Button>
           <CardActions>
+            <PreviewMenu item={itemDetails} image={data} itemId={id} />
             <Button type="submit">Done Editing</Button>
           </CardActions>
         </form>

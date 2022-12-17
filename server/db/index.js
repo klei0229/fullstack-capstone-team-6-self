@@ -27,13 +27,12 @@ Access.belongsTo(Restaurant);
 Item.belongsToMany(Designation, { through: ItemDesignation });
 Designation.belongsToMany(Item, { through: ItemDesignation });
 
-const getImage = (path)=> {
-  return new Promise((resolve, reject)=> {
-    fs.readFile(path, 'base64', (err, data)=> {
-      if(err){
+const getImage = (path) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'base64', (err, data) => {
+      if (err) {
         reject(err);
-      }
-      else {
+      } else {
         resolve(data);
       }
     });
@@ -49,9 +48,22 @@ const syncAndSeed = async () => {
     User.create({ username: 'ethyl', password: '123' }),
   ]);
 
-  const pancakeImg = await getImage(path.join(__dirname, '../../static/pancakes.png'));
-  const hashbrownImg = await getImage(path.join(__dirname, '../../static/hashbrowns.png'));
+  const pancakeImg = await getImage(
+    path.join(__dirname, '../../static/pancakes.png')
+  );
+  const hashbrownImg = await getImage(
+    path.join(__dirname, '../../static/hashbrowns.png')
+  );
   const eggImg = await getImage(path.join(__dirname, '../../static/eggs.png'));
+  const friedPickleImg = await getImage(
+    path.join(__dirname, '../../static/friedPickles.png')
+  );
+  const greekSaladImg = await getImage(
+    path.join(__dirname, '../../static/greekSalad.png')
+  );
+  const sundaeImg = await getImage(
+    path.join(__dirname, '../../static/sundae.png')
+  );
 
   const [res1, res2] = await Promise.all([
     Restaurant.create({
@@ -129,7 +141,8 @@ const syncAndSeed = async () => {
     Item.create({
       name: 'eggs',
       image: eggImg,
-      description: 'just a whole lotta runny drippy yolky cheesy fried crazy goodness',
+      description:
+        'just a whole lotta runny drippy yolky cheesy fried crazy goodness',
       price: 1.99,
       menuId: menu1.id,
       category: 'breakfast',
@@ -137,7 +150,8 @@ const syncAndSeed = async () => {
     Item.create({
       name: 'hashbrowns',
       image: hashbrownImg,
-      description: 'taters taters taters taters taters taters taters taters taters taters taters taters taters taters taters',
+      description:
+        'taters taters taters taters taters taters taters taters taters taters taters taters taters taters taters',
       price: 3.99,
       menuId: menu1.id,
       category: 'breakfast',
@@ -193,6 +207,35 @@ const syncAndSeed = async () => {
     }),
   ]);
 
+  const [food10, food11, food12] = await Promise.all([
+    Item.create({
+      name: 'Fried Pickles',
+      image: friedPickleImg,
+      description: 'Pickles.  Fried.  With a tangy dressing.  Get into it!',
+      price: 8.99,
+      menuId: menu2.id,
+      category: 'starters',
+    }),
+    Item.create({
+      name: 'Greek Salad',
+      image: greekSaladImg,
+      description:
+        'Huge enough to be a main course, especially if you add grilled chicken ($8.99 additional)!',
+      price: 18.99,
+      menuId: menu2.id,
+      category: 'mains',
+    }),
+    Item.create({
+      name: 'Sundae with Chocolate Syrup & Sprinkles',
+      image: sundaeImg,
+      description:
+        'The perfect finish to your meal - Indulge your inner child and ask for extra sprinkles!',
+      price: 12.99,
+      menuId: menu2.id,
+      category: 'starters',
+    }),
+  ]);
+
   ItemDesignation.create({ itemId: food2.id, designationId: spicy.id });
 
   return {
@@ -221,6 +264,9 @@ const syncAndSeed = async () => {
       food7,
       food8,
       food9,
+      food10,
+      food11,
+      food12,
     },
     // categories: {
     //   breakfast,

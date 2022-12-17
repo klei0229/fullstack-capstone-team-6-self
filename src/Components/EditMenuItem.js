@@ -17,6 +17,7 @@ const EditMenuItem = (props) => {
   const item = props.item;
   const [itemDetails, setItemDetails] = useState({
     name: item.name,
+    description: item.description ?? '',
     price: item.price,
     props: item.props,
   });
@@ -45,6 +46,8 @@ const EditMenuItem = (props) => {
 
   const update = async (e) => {
     e.preventDefault();
+    const theButton = e.target.querySelector('.done');
+    theButton.innerHTML = '✅ Updated!';
     await dispatch(updateItem({ id, image: data, ...itemDetails }));
   };
 
@@ -57,6 +60,14 @@ const EditMenuItem = (props) => {
             label="Dish Name"
             placeholder={item.name}
             value={itemDetails.name}
+            onInput={onChange}
+          />
+          <br />
+          <TextField
+            name="description"
+            label="Dish Description"
+            placeholder={item.description}
+            value={itemDetails.description}
             onInput={onChange}
           />
           <br />
@@ -80,7 +91,9 @@ const EditMenuItem = (props) => {
           </Button>
           <CardActions>
             <PreviewMenu item={itemDetails} image={data} itemId={id} />
-            <Button type="submit">Done Editing</Button>
+            <Button className="done" type="submit">
+              Done Editing
+            </Button>
           </CardActions>
         </form>
       </CardContent>

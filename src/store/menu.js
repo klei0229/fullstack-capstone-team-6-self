@@ -31,9 +31,4 @@ export const updateMenuItems = (menu, items, navigate) => {
   };
 };
 
-export const updateMenu = (menu, updateObj) => {
-  console.log('update menu:', updateObj);
-  return async (dispatch) => {};
-};
-
 export default menu;

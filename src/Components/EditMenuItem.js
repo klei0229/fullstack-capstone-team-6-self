@@ -25,8 +25,8 @@ const EditMenuItem = (props) => {
 
   useEffect(() => {
     if (image) {
-      image.addEventListener('change', (ev) => {
-        const file = ev.target.files[0];
+      image.addEventListener('change', (e) => {
+        const file = e.target.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.addEventListener('load', () => {

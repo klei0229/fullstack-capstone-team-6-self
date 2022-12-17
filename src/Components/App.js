@@ -17,6 +17,7 @@ import {
   fetchRestaurants,
   fetchAdminRestaurants,
   fetchMenus,
+  fetchGoogleUser,
   fetchItems,
 } from '../store';
 import { Routes, Route } from 'react-router-dom';
@@ -70,6 +71,7 @@ const App = () => {
 
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
         <Route path="/menus" element={<Menus />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </div>
   );

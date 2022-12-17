@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchItems, fetchMenu, updateMenuItems, updateMenu } from '../store';
 import EditMenuItem from './EditMenuItem';
 import { Box, Paper, Button } from '@mui/material';
+import ItemCard from './Template-2-Subcomponents/ItemCard';
 
 const EditMenuContent = () => {
   const { menus, items } = useSelector((state) => state);
@@ -35,8 +36,26 @@ const EditMenuContent = () => {
             : 'nothing to see here...'}
         </div>
       </Paper>
+      <div>
+        {menu.items
+          ? menu.items.map((item) => {
+              return (
+                <div>
+                  <ItemCard
+                  sx={{justifyContent: 'space-between'}}
+                  key={item.name}
+                  props={item}
+                  margin={25}
+                  padding={25}
+                ></ItemCard>
+                <br />
+                </div>
+              );
+            })
+          : 'no dishes to show yet!'}
+      </div>
       <Button
-        sx={{ alignSelf: 'flex-start', ml: 5, width: 256 }}
+        sx={{ alignSelf: 'flex-start', ml: 15, width: 256 }}
         variant="contained"
         onClick={update}
       >

@@ -7,43 +7,41 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 import { Link } from 'react-router-dom';
 
+const RestaurantCard = ({restaurant}) => {
+  return (
+    <Card key={restaurant.id}>
+      <CardContent>
+        <Typography gutterBottom variant="h6" component="div">
+          {restaurant.name} @ {restaurant.address}
+        </Typography>
+        <Typography gutterBottom variant="body1" color="GrayText" mt={2}>
+          {restaurant.contact} / {restaurant.email}
+        </Typography>
+        <FastfoodIcon />
+        {/* <Avatar>{restaurant.logo}</Avatar> */}
+        <Typography gutterBottom variant="body2" color="GrayText" mt={2}>
+          {restaurant.description}
+        </Typography>
+        <Restaurant restaurant={restaurant} />
+      </CardContent>
+    </Card>
+  );
+};
+
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
   return (
     <div>
       {auth.isAdmin ? (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h1">My Restaurants</Typography>
+          <Typography gutterBottom variant="h1" alignSelf="center">
+            My Restaurants
+          </Typography>
+          <AddRestaurant />
+          <hr />
           <ul>
             {adminRestaurants.map((restaurant) => {
-              return (
-                <Card key={restaurant.id}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
-                      {restaurant.name} @ {restaurant.address}
-                    </Typography>
-                    <Typography
-                      gutterBottom
-                      variant="body1"
-                      color="GrayText"
-                      mt={2}
-                    >
-                      {restaurant.contact} / {restaurant.email}
-                    </Typography>
-                    <FastfoodIcon />
-                    {/* <Avatar>{restaurant.logo}</Avatar> */}
-                    <Typography
-                      gutterBottom
-                      variant="body2"
-                      color="GrayText"
-                      mt={2}
-                    >
-                      {restaurant.description}
-                    </Typography>
-                    <Restaurant restaurant={restaurant} />
-                  </CardContent>
-                </Card>
-              );
+              return <RestaurantCard restaurant={restaurant} />;
             })}
           </ul>
         </Box>
@@ -52,34 +50,7 @@ const Restaurants = () => {
           <Typography variant="h1">All Restaurants</Typography>
           <ul>
             {restaurants.map((restaurant) => {
-              return (
-                <Card key={restaurant.id}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
-                      {restaurant.name} @ {restaurant.address}
-                    </Typography>
-                    <Typography
-                      gutterBottom
-                      variant="body1"
-                      color="GrayText"
-                      mt={2}
-                    >
-                      {restaurant.contact} / {restaurant.email}
-                    </Typography>
-                    <FastfoodIcon />
-                    {/* <Avatar>{restaurant.logo}</Avatar> */}
-                    <Typography
-                      gutterBottom
-                      variant="body2"
-                      color="GrayText"
-                      mt={2}
-                    >
-                      {restaurant.description}
-                    </Typography>
-                    <Restaurant restaurant={restaurant} />
-                  </CardContent>
-                </Card>
-              );
+              return <RestaurantCard restaurant={restaurant} />
             })}
           </ul>
         </Box>

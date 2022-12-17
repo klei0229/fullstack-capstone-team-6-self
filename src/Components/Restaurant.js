@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AddMenu from './AddMenu';
-import { Button, Link } from '@mui/material';
+import { Box, Button, Link, List, ListItem, ListItemText } from '@mui/material';
 import { fetchMenus, fetchItems, deleteMenu } from '../store';
 
 const Restaurant = (props) => {
@@ -21,13 +21,13 @@ const Restaurant = (props) => {
     (menu) => menu.restaurantId === props.restaurant.id
   );
   return (
-    <div>
-      <AddMenu restaurant={props.restaurant}></AddMenu>
-      <ul>
+    <Box>
+      <AddMenu restaurant={props.restaurant} />
+      <List>
         {restaurantMenus.map((menu) => {
           return (
-            <li key={menu.id}>
-              {menu.name}{' '}
+            <ListItem key={menu.id}>
+              <ListItemText>{menu.name}</ListItemText>
               <Button href={`#/menu/preview/${menu.id}`}>View</Button>
               {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editContent/${menu.id}`}>
@@ -37,11 +37,11 @@ const Restaurant = (props) => {
               {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editStyle/${menu.id}`}>Edit Style</Button>
               ) : null}
-            </li>
+            </ListItem>
           );
         })}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

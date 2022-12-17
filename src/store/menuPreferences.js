@@ -1,21 +1,9 @@
 import axios from 'axios';
 
-const menuPreferences = (
-  state = {
-    // restaurantNameFontSize: 55,
-    // categoryNameFontSize: 24,
-    // itemNameFontSize: 18,
-    // descriptionNameFontSize: 18,
-    // fontFamily: 'verdana',
-    // padding
-    // margin
-  },
-  action
-) => {
+const menuPreferences = (state = {}, action) => {
   if (action.type === 'SET_MENU_PREFERENCES') {
     return action.data;
   }
-
   return state;
 };
 

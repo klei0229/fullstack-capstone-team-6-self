@@ -44,19 +44,23 @@ const EditMenuContent = () => {
         flexWrap: 'wrap',
       }}
     >
-      <Paper elevation={3} sx={{ width: '75%' }}>
+      <Paper elevation={3} sx={{ width: '80%', mt: 5 }}>
         <div>
           {menu.items
             ? menu.items.map((item) => {
                 return (
-                  <Grid container sx={{alignItems: 'center'}} key={item.id}>
-                    <Grid item xs={10}>
+                  <Grid
+                    container
+                    sx={{ alignItems: 'space-evenly', backgroundColor: 'aliceblue' }}
+                    key={item.id}
+                  >
+                    <Grid item xs={8}>
                       <EditMenuItem
                         sx={{ alignSelf: 'flex-start' }}
                         item={item}
                       />
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={4}>
                       <Card
                         key={item.id}
                         sx={{
@@ -98,10 +102,10 @@ const EditMenuContent = () => {
                           </CardContent>
                         </CardActionArea>
                         <CardActions
-                          // display="flex"
+                          display="flex"
                           sx={{
                             backgroundColor: 'aliceblue',
-                            // justifyContent: 'space-around',
+                            justifyContent: 'space-around',
                           }}
                         >
                           <Typography variant="body2" color="text.secondary">
@@ -119,6 +123,7 @@ const EditMenuContent = () => {
       <Button
         sx={{ alignSelf: 'flex-start', ml: 15, width: 256 }}
         variant="contained"
+        size='large'
         onClick={update}
       >
         Update Menu

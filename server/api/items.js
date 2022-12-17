@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router();
-const { Item } = require('../db');
+const { Item, Menu } = require('../db');
 
 app.use(express.json());
 
@@ -13,9 +13,20 @@ app.get('/', async (req, res, next) => {
   }
 });
 
-app.put('/:id', async (req, res, next) => {
+app.get('/:id', async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id);
+    res.send(item);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put('/:id', async (req, res, next) => {
+  try {
+    const item = await Item.findByPk(req.params.id, {
+      include: [Menu],
+    });
     res.send(await item.update(req.body));
   } catch (err) {
     next(err);
@@ -24,7 +35,8 @@ app.put('/:id', async (req, res, next) => {
 
 app.post('/', async (req, res, next) => {
   try {
-    res.send(await Item.create(req.body));
+    const item = await Item.create(req.body);
+    res.send(item);
   } catch (err) {
     next(err);
   }

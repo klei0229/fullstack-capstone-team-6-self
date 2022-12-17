@@ -2,7 +2,11 @@ const express = require('express');
 const app = express.Router();
 const { User } = require('../db');
 const { isLoggedIn } = require('./middleware');
+const dotenv = require('dotenv');
+const axios = require('axios');
+const querystring = require('querystring');
 
+dotenv.config();
 module.exports = app;
 
 app.post('/', async (req, res, next) => {

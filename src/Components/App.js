@@ -19,9 +19,11 @@ import {
   fetchRestaurants,
   fetchAdminRestaurants,
   fetchMenus,
+  fetchGoogleUser,
   fetchItems,
 } from '../store';
 import { Routes, Route } from 'react-router-dom';
+import PreviewMenu from './PreviewMenu';
 
 import { DndProvider } from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
@@ -71,9 +73,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
 
         <Route path="/restaurants" element={<Restaurants />} />
-        
         <Route path="/restaurants/:id" element={<Restaurant />} />
-        
         <Route path="/menu/editContent/:id" element={<EditMenuContent />} />
         <Route path="/menu/editStyle/:id" element={<EditStyle />} />
         <Route path="/menu/editStyleFull/:id" element={<EditStyleDnd />} />
@@ -81,6 +81,10 @@ const App = () => {
 
         <Route path="/edit/:id" element={<TemplateDND></TemplateDND>} />
         <Route path="/menus" element={<Menus />} />
+
+        <Route path="/items/" element={<PreviewMenu />} />
+        <Route path="/items/:id" element={<PreviewMenu />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
 
       </DndProvider>

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchItems, fetchMenu, updateMenuItems, updateMenu } from '../store';
 import EditMenuItem from './EditMenuItem';
-import { Paper, TextField, Button, Typography } from '@mui/material';
+import { Box, Paper, Button } from '@mui/material';
 
 const EditMenuContent = () => {
   const { menus, items } = useSelector((state) => state);
@@ -25,18 +25,24 @@ const EditMenuContent = () => {
   };
 
   return (
-    <Paper>
-      <div>
-        {menu.items
-          ? menu.items.map((item) => {
-              return <EditMenuItem key={item.id} item={item} />;
-            })
-          : 'nothing to see here...'}
-        <Button variant="contained" onClick={update}>
-          Update Menu
-        </Button>
-      </div>
-    </Paper>
+    <Box sx={{ display: 'flex', alignItems: 'space-around', flexWrap: 'wrap' }}>
+      <Paper elevation={3} sx={{ width: 650 }}>
+        <div>
+          {menu.items
+            ? menu.items.map((item) => {
+                return <EditMenuItem key={item.id} item={item} />;
+              })
+            : 'nothing to see here...'}
+        </div>
+      </Paper>
+      <Button
+        sx={{ alignSelf: 'flex-start', ml: 5, width: 256 }}
+        variant="contained"
+        onClick={update}
+      >
+        Update Menu
+      </Button>
+    </Box>
   );
 };
 

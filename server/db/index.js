@@ -37,16 +37,18 @@ const syncAndSeed = async () => {
   const [res1, res2] = await Promise.all([
     Restaurant.create({
       name: 'Yummy Town',
-      address: '123',
-      contact: '123',
-      email: '123@gmail.com',
+      address: '123 Houston Street, New York, NY 10002',
+      description: 'Located in the heart of NYC\'s Lower East Side, we specialize in the yummiest of comfort cuisine.',
+      contact: '646-555-5555',
+      email: 'moejoe@gmail.com',
       userId: moe.id,
     }),
     Restaurant.create({
       name: 'Yummy Town2',
-      address: '234',
-      contact: '1234',
-      email: '1234@gmail.com',
+      address: '234 1st Avenue, New York, NY 10002',
+      description: 'Where your belly can speak its love language',
+      contact: '212-888-8888',
+      email: 'lady_lucille@gmail.com',
       userId: lucy.id,
     }),
   ]);

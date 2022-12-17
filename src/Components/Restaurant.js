@@ -22,9 +22,6 @@ const Restaurant = (props) => {
   );
   return (
     <div>
-      <h3>{props.restaurant.name}</h3>
-
-      {/* <Button>Add Menu</Button> */}
       <AddMenu restaurant={props.restaurant}></AddMenu>
       <ul>
         {restaurantMenus.map((menu) => {

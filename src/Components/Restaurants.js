@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import BusinessDashboard from './BusinessDashboard';
+import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
 import Restaurant from './Restaurant';
 import AddRestaurant from './AddRestaurant';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 import { Link } from 'react-router-dom';
 
@@ -11,37 +12,77 @@ const Restaurants = () => {
   return (
     <div>
       {auth.isAdmin ? (
-        <div>
-          {/* <BusinessDashboard /> */}
-          <h1>My Restaurants</h1>
-          <AddRestaurant />
-
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h1">My Restaurants</Typography>
           <ul>
             {adminRestaurants.map((restaurant) => {
-              // return (
-              //   <li>
-              //     <Link to={`/restaurants/${restaurant.id}`}>
-              //       {restaurant.name}
-              //     </Link>
-              //   </li>
-              // );
               return (
-                <li key={restaurant.id}>
-                  <Restaurant restaurant={restaurant} />
-                </li>
+                <Card key={restaurant.id}>
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {restaurant.name} @ {restaurant.address}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="body1"
+                      color="GrayText"
+                      mt={2}
+                    >
+                      {restaurant.contact} / {restaurant.email}
+                    </Typography>
+                    <FastfoodIcon />
+                    {/* <Avatar>{restaurant.logo}</Avatar> */}
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      color="GrayText"
+                      mt={2}
+                    >
+                      {restaurant.description}
+                    </Typography>
+                    <Restaurant restaurant={restaurant} />
+                  </CardContent>
+                </Card>
               );
             })}
           </ul>
-        </div>
+        </Box>
       ) : (
-        <div>
-          <h1>All Restaurants</h1>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h1">All Restaurants</Typography>
           <ul>
             {restaurants.map((restaurant) => {
-              return <Restaurant key={restaurant.id} restaurant={restaurant} />;
+              return (
+                <Card key={restaurant.id}>
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {restaurant.name} @ {restaurant.address}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="body1"
+                      color="GrayText"
+                      mt={2}
+                    >
+                      {restaurant.contact} / {restaurant.email}
+                    </Typography>
+                    <FastfoodIcon />
+                    {/* <Avatar>{restaurant.logo}</Avatar> */}
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      color="GrayText"
+                      mt={2}
+                    >
+                      {restaurant.description}
+                    </Typography>
+                    <Restaurant restaurant={restaurant} />
+                  </CardContent>
+                </Card>
+              );
             })}
           </ul>
-        </div>
+        </Box>
       )}
     </div>
   );

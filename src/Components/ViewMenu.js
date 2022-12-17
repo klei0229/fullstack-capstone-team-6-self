@@ -34,7 +34,7 @@ const EditStyle = () => {
   return (
     <div>
       
-            <MenuTemplate2 id={id}></MenuTemplate2>
+            <MenuTemplate2 id={id} menuOptions={menuPreferences}></MenuTemplate2>
          
     </div>
   );

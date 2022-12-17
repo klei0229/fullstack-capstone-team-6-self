@@ -145,13 +145,11 @@ const Login = () => {
         />
 
         <button>Login</button>
-      </form>
       <div>
         <a href="/google/login">
           <h4> Login with Google </h4>
         </a>
       </div>
-    </div>
         <Button sx={{ mt: 1 }} onClick={login}>
           Log in
         </Button>

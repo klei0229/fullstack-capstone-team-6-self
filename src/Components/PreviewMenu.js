@@ -35,11 +35,12 @@ const PreviewMenu = (props) => {
               <CardMedia
                 component="img"
                 height="150px"
-                src={image ?? null}
+                src={image ?? 'No image available'}
               />
             </CardActionArea>
           </Card>
           <DialogContentText>{item.price}</DialogContentText>
+          <DialogContentText>{item.description}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>All Done!</Button>

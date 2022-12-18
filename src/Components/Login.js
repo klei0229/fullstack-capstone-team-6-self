@@ -143,8 +143,6 @@ const Login = () => {
           value={credentials.password}
           onChange={onChange}
         />
-
-        <button>Login</button>
       <div>
         <a href="/google/login">
           <h4> Login with Google </h4>

@@ -13,10 +13,14 @@ import PreviewMenu from './PreviewMenu';
 const EditMenuItem = (props) => {
   const id = props.item.id;
   const dispatch = useDispatch();
+  const currentImage =
+    props.item.image ||
+    'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80';
 
   const item = props.item;
   const [itemDetails, setItemDetails] = useState({
     name: item.name,
+    description: item.description ?? '',
     price: item.price,
     props: item.props,
   });
@@ -45,6 +49,8 @@ const EditMenuItem = (props) => {
 
   const update = async (e) => {
     e.preventDefault();
+    const theButton = e.target.querySelector('.done');
+    theButton.innerHTML = '✅ Updated!';
     await dispatch(updateItem({ id, image: data, ...itemDetails }));
   };
 
@@ -57,6 +63,14 @@ const EditMenuItem = (props) => {
             label="Dish Name"
             placeholder={item.name}
             value={itemDetails.name}
+            onInput={onChange}
+          />
+          <br />
+          <TextField
+            name="description"
+            label="Dish Description"
+            placeholder={item.description}
+            value={itemDetails.description}
             onInput={onChange}
           />
           <br />
@@ -78,9 +92,15 @@ const EditMenuItem = (props) => {
               onChange={(e) => setData(e.target.files[0].name)}
             />
           </Button>
-          <CardActions>
-            <PreviewMenu item={itemDetails} image={data} itemId={id} />
-            <Button type="submit">Done Editing</Button>
+          <CardActions sx={{ alignItems: 'space-between' }}>
+            <PreviewMenu
+              item={itemDetails}
+              image={data || currentImage}
+              itemId={id}
+            />
+            <Button className="done" type="submit">
+              Done Editing
+            </Button>
           </CardActions>
         </form>
       </CardContent>

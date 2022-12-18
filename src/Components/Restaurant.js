@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AddMenu from './AddMenu';
-import { Button, Link } from '@mui/material';
+import { Box, Button, Link, List, ListItem, ListItemText } from '@mui/material';
 import { fetchMenus, fetchItems, deleteMenu } from '../store';
 
 const Restaurant = (props) => {
@@ -20,17 +20,19 @@ const Restaurant = (props) => {
   const restaurantMenus = menus.filter(
     (menu) => menu.restaurantId === props.restaurant.id
   );
-  return (
-    <div>
-      <h3>{props.restaurant.name}</h3>
 
-      {/* <Button>Add Menu</Button> */}
-      <AddMenu restaurant={props.restaurant}></AddMenu>
-      <ul>
+  return (
+    <Box>
+      {auth.id === props.restaurant.userId ? (
+        <AddMenu restaurant={props.restaurant} />
+      ) : null}
+      <List>
         {restaurantMenus.map((menu) => {
           return (
-            <li key={menu.id}>
-              {menu.name}{' '}
+            <ListItem divider key={menu.id}>
+              <ListItemText>
+                <strong>{menu.name}</strong>
+              </ListItemText>
               <Button href={`#/menu/preview/${menu.id}`}>View</Button>
               {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editContent/${menu.id}`}>
@@ -43,11 +45,12 @@ const Restaurant = (props) => {
               {/* {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editStyleFull/${menu.id}`}>Edit Via Dnd</Button>
               ) : null} */}
-            </li>
+            {/* </li> */}
+            </ListItem>
           );
         })}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

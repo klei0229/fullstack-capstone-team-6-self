@@ -10,14 +10,13 @@ import TemplateDND from './TemplateDND';
 import Register from './Register';
 import ResponsiveAppBar from './Appbar';
 import ViewMenu from './ViewMenu';
-import BusinessDashboard from './BusinessDashboard';
+// import BusinessDashboard from './BusinessDashboard';
 import EditStyleDnd from './EditStyleDnd';
 
 import { connect, useSelector, useDispatch } from 'react-redux';
 import {
   loginWithToken,
   fetchRestaurants,
-  fetchAdminRestaurants,
   fetchMenus,
   fetchGoogleUser,
   fetchItems,
@@ -38,11 +37,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (auth.isAdmin) {
-      dispatch(fetchAdminRestaurants(auth));
-    } else {
-      dispatch(fetchRestaurants());
-    }
+    dispatch(fetchRestaurants());
   }, [auth]);
 
   // useEffect(()=>{},[menus])

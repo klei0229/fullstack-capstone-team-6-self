@@ -44,7 +44,6 @@ const RestaurantCard = ({ restaurant }) => {
           <CardMedia
             sx={{ width: 150, height: 150, border: 2, borderColor: "GrayText", borderRadius: 1 }}
             component="img"
-            borderColor="text.primary"
             src={restaurant.logo}
           />
         </CardActionArea>
@@ -78,7 +77,7 @@ const Restaurants = () => {
         <ul>
           {restaurantsManaged.map((restaurant) => {
             return (
-              <div>
+              <div key={restaurant.id}>
                 <br />
                 <RestaurantCard restaurant={restaurant} />
                 <br />
@@ -93,7 +92,7 @@ const Restaurants = () => {
         <ul>
           {otherRestaurants.map((restaurant) => {
             return (
-              <div>
+              <div key={restaurant.id}>
                 <br />
                 <RestaurantCard restaurant={restaurant} />
                 <br />

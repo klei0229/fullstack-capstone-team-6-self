@@ -1,22 +1,46 @@
+import {
+  Avatar,
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Paper,
+  Typography,
+} from '@mui/material';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const OnlineUsers = () => {
-  const { onlineUsers } = useSelector((state) => state);
-  console.log(onlineUsers);
+  const { auth, onlineUsers } = useSelector((state) => state);
   return (
-    <div>
-      <ul>
-        {onlineUsers.map((user) => {
-          return (
-            <div key={user.id}>
-              <h3>{user.username}</h3>
-              <img src={user.avatar} />
-            </div>
-          );
-        })}
-      </ul>
-    </div>
+    <Paper maxWidth="lg" sx={{ backgroundColor: 'aliceblue' }}>
+      <Grid container>
+        {onlineUsers
+          .filter((user) => user.id !== auth.id)
+          .map((user) => {
+            return (
+              <Card
+                key={user.id}
+                sx={{ width: 350, margin: '25px', padding: '25px' }}
+              >
+                <CardActionArea>
+                  <Avatar src={user.avatar} />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      sx={{ fontSize: 20 }}
+                    >
+                      {user.username}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            );
+          })}
+      </Grid>
+    </Paper>
   );
 };
 

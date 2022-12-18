@@ -1,15 +1,28 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Restaurants from './Restaurants';
-import { Card, CardActions, CardContent, Container, Paper } from '@mui/material';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  Paper,
+} from '@mui/material';
 import Login from './Login';
 
 const Home = () => {
   const { auth } = useSelector((state) => state);
 
   return (
-    <Paper sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', backgroundColor: 'whitesmoke', width: '100%' }}>
-      <Card>
+    <Paper
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        backgroundColor: 'whitesmoke',
+      }}
+    >
+      <Card sx={{justifyContent: 'center', width: '75%'}}>
         {auth.id ? (
           <div>
             <CardActions>

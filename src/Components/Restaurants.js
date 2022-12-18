@@ -14,10 +14,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 const RestaurantCard = ({ restaurant }) => {
   return (
-    <Card
-      sx={{ backgroundColor: 'aliceblue' }}
-      key={restaurant.id}
-    >
+    <Card sx={{ backgroundColor: 'aliceblue' }} key={restaurant.id}>
       <CardContent>
         <Typography gutterBottom variant="h3" component="div">
           {restaurant.name}
@@ -30,7 +27,7 @@ const RestaurantCard = ({ restaurant }) => {
         </Typography>
         <FastfoodIcon />
         {/* <Avatar>{restaurant.logo}</Avatar> */}
-        <Typography gutterBottom variant="body1" alignSelf="center" my={2}>
+        <Typography gutterBottom paragraph my={2}>
           {restaurant.description}
         </Typography>
         <Restaurant restaurant={restaurant} />
@@ -51,15 +48,9 @@ const Restaurants = () => {
   );
 
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
+    <Container sx={{ textAlign: 'center' }}>
       <Box>
-        <Typography gutterBottom variant="h1" alignSelf="center">
+        <Typography gutterBottom variant="h1">
           My Restaurants
         </Typography>
         <AddRestaurant />
@@ -75,14 +66,9 @@ const Restaurants = () => {
           })}
         </ul>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'flex-start',
-          alignItems: 'space-around',
-        }}
-      >
+      <hr />
+      <hr />
+      <Box>
         <Typography variant="h1">All Restaurants</Typography>
         <ul>
           {otherRestaurants.map((restaurant) => {

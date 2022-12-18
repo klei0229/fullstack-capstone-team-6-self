@@ -13,6 +13,7 @@ import ViewMenu from './ViewMenu';
 // import BusinessDashboard from './BusinessDashboard';
 import EditStyleDnd from './EditStyleDnd';
 import Users from './Users';
+import OnlineUsers from './OnlineUsers';
 
 import { connect, useSelector, useDispatch } from 'react-redux';
 import {
@@ -109,6 +110,7 @@ const _App = () => {
           <Route path="/items/:id" element={<PreviewMenu />} />
           <Route path="/home" element={<Home />} />
           <Route path="/users" element={<Users />} />
+          <Route path='/onlineUsers' element={<OnlineUsers />} />
         </Routes>
       </DndProvider>
     </div>

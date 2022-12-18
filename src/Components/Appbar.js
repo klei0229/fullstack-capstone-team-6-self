@@ -26,6 +26,7 @@ import { logout } from '../store';
 
 const settings = [
   { name: 'Profile', url: '#/profile' },
+  { name: "Who's Online?", url: '#/onlineUsers'}
   // { name: 'Cart', url: '#/cart' },
   // { name: 'Orders', url: '#/orders' },
 ];

@@ -5,6 +5,7 @@ import { logout } from '../store';
 import EditPanel from './EditPanel';
 import MenuTemplate2 from './Template-2-Subcomponents/MenuTemplate2';
 import MenuTemplate3 from './Template-3-Subcomponents/MenuTemplate3';
+import DNDTemplate from './Dndcomponents/DNDTemplate'
 import { Container, Button, Grid, Typography, Paper } from '@mui/material';
 import { setCsvData, setMenuPreferences } from '../store';
 import { fetchMenus, fetchItems } from '../store';
@@ -22,20 +23,39 @@ const EditStyle = () => {
     template: '',
   });
 
+  const [templates, setTemplates] = useState([]);
+
+  // console.log(menuOptions);
+
+  useEffect(() => {
+    console.log(menuOptions);
+
+    console.log(menu);
+  }, [menuOptions]);
+
   //initialize menu options using menu object from DB
   useEffect(() => {
+
+
+    console.log(menu);
     const newMenuOptionsObj = {
       menuName: menu.name,
       menuDescription: menu.description,
       template: menu.template,
     };
     setMenuOptions(newMenuOptionsObj);
+    setTemplates(JSON.parse(menu.preferences).templates);
+
   }, [menu]);
 
   useEffect(() => {
     dispatch(fetchMenus());
     dispatch(fetchItems());
   }, []);
+
+  useEffect(()=>{
+    console.log(templates);
+  },[templates])
 
   const dispatch = useDispatch();
 
@@ -44,10 +64,40 @@ const EditStyle = () => {
 
   useEffect(() => {
     dispatch(setMenuPreferences(JSON.parse(menu.preferences)));
-    console.log('set menu preferences', JSON.parse(menu.preferences));
+    // console.log('set menu preferences', JSON.parse(menu.preferences));
   }, [menu]);
 
   const { menuPreferences } = useSelector((state) => state);
+
+  const renderTemplate = (menuOptions) => {
+
+    // console.log(menuOptions)
+    if (menuOptions.template === 'template2') {
+      // console.log('true');
+      return <MenuTemplate2 id={id} menuOptions={menuOptions}></MenuTemplate2>;
+    }
+    else if (menuOptions.template === 'template3') {
+      return <MenuTemplate3 id={id} menuOptions={menuOptions}></MenuTemplate3>;
+    }
+    else{
+      console.log(menuOptions.template);
+
+      const template = templates.filter((template)=>{return template.name === menuOptions.template})
+
+      if(template.length !== 0){
+        
+        const layout = template[0].layout
+        console.log(layout);
+        return <DNDTemplate layout={layout}> </DNDTemplate>
+      }
+      // console.log(template);
+
+      // return 
+
+      //return dnd 
+    }
+    
+  };
 
   return (
     <div>
@@ -69,12 +119,7 @@ const EditStyle = () => {
             </Paper>
           </Grid>
           <Grid item xs={9}>
-            {menuOptions.template === 'template2' && (
-              <MenuTemplate2 id={id} menuOptions={menuOptions}></MenuTemplate2>
-            )}
-            {menuOptions.template === 'template3' && (
-              <MenuTemplate3 id={id} menuOptions={menuOptions}></MenuTemplate3>
-            )}
+            {renderTemplate(menuOptions)}
           </Grid>
         </Grid>
       </div>

@@ -26,7 +26,7 @@ const EditStyle = () => {
 
   useEffect(() => {
     dispatch(setMenuPreferences(JSON.parse(menu.preferences)));
-    console.log('set menu preferences', JSON.parse(menu.preferences));
+    // console.log('set menu preferences', JSON.parse(menu.preferences));
   }, [menu]);
 
   const { menuPreferences } = useSelector((state) => state);

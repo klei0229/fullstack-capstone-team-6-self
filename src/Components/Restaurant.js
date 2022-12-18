@@ -7,7 +7,7 @@ import { fetchMenus, fetchItems, deleteMenu } from '../store';
 
 const Restaurant = (props) => {
   const { auth, menus, restaurants } = useSelector((state) => state);
-  console.log(menus);
+  // console.log(menus);
   const { id } = useParams();
   const dispatch = useDispatch();
   // const restaurant = restaurants.find((restaurant) => restaurant.id === id);
@@ -42,6 +42,10 @@ const Restaurant = (props) => {
               {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editStyle/${menu.id}`}>Edit Style</Button>
               ) : null}
+              {/* {auth.id === props.restaurant.userId ? (
+                <Button href={`#/menu/editStyleFull/${menu.id}`}>Edit Via Dnd</Button>
+              ) : null} */}
+            {/* </li> */}
             </ListItem>
           );
         })}

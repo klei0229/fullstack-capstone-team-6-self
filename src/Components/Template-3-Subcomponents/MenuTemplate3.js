@@ -27,7 +27,7 @@ import Item from './Item';
 
 const MenuTemplate3 = ({ id, menuOptions }) => {
   const { menuPreferences, menus } = useSelector((state) => state);
-  console.log(menuPreferences);
+  // console.log(menuPreferences);
   const menu = menus.find((menu) => menu.id === id);
 
   const [categories, setCategories] = useState([]);
@@ -46,7 +46,7 @@ const MenuTemplate3 = ({ id, menuOptions }) => {
   };
 
   useEffect(() => {
-    console.log('menu', menu);
+    // console.log('menu', menu);
     //loop thru each item
     //if categories does not include value add it
 
@@ -54,7 +54,7 @@ const MenuTemplate3 = ({ id, menuOptions }) => {
 
     if (menu.items) {
       for (let i = 0; i < menu.items.length; i++) {
-        console.log(menu.items[i]);
+        // console.log(menu.items[i]);
         if (!arr.includes(menu.items[i].category)) {
           arr.push(menu.items[i].category);
         }
@@ -66,11 +66,11 @@ const MenuTemplate3 = ({ id, menuOptions }) => {
   }, [menu]);
 
   useEffect(() => {
-    console.log(categories);
+    // console.log(categories);
   }, [categories]);
 
   useEffect(() => {
-    console.log(menuPreferences);
+    // console.log(menuPreferences);
   }, [menuPreferences]);
 
   return (

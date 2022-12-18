@@ -23,6 +23,8 @@ import {
 } from '@mui/material';
 
 const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
+  console.log('menu options', menuOptions);
+
   const dispatch = useDispatch();
 
   //these are from store
@@ -32,11 +34,21 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
 
   useEffect(() => {
     console.log('menu changed', menu);
+    // console.log(JSON.parse(menu.preferences));
+    const customTemplates = JSON.parse(menu.preferences).templates;
+    // console.log(customTemplates);
+    if (menuPreferences.hasOwnProperty('templates')) {
+      // setCustomTemplateList(menuPreferences.templates);
+      setTemplates([...templates,...customTemplates])
+    }
+
   }, [menu]);
 
   //state variables
   // const [primaryColor, setPrimaryColor] = useState('');
   const [showColorPicker, setShowColorPicker] = useState(false);
+
+  const [customTemplateList, setCustomTemplateList] = useState([]);
 
   //options - hard coded
   const fonts = [
@@ -47,29 +59,55 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     { name: 'Courier New', value: 'courier new' },
   ];
 
-  const templates = ['template2', 'template3'];
+  // const templates = ['template2', 'template3'];
+  const [templates, setTemplates] = useState([
+    {
+      name: 'template2',
+      type: 'default',
+    },
+    {
+      name: 'template3',
+      type: 'default',
+    },
+  ]);
+  // console.log(templates);
 
   //handles all changes to menu preferences
   const onPrefChange = (key, value) => {
-    console.log('pref changed');
-    console.log(key);
-    console.log(value);
+    // console.log('pref changed');
+    // console.log(key);
+    // console.log(value);
 
     let newMenuPreferencesObj = { ...menuPreferences };
     newMenuPreferencesObj[key] = value;
-    console.log(newMenuPreferencesObj);
+    // console.log(newMenuPreferencesObj);
     dispatch(setMenuPreferences(newMenuPreferencesObj));
   };
 
   //handles changes to other menu properties: name, description, template
   const onChange = (key, value) => {
-    console.log('on change');
-    console.log(key);
-    console.log(value);
+    // console.log('on change');
+    // console.log(key);
+    // console.log(value);
     let newMenuOptionsObj = { ...menuOptions };
     newMenuOptionsObj[key] = value;
     setMenuOptions(newMenuOptionsObj);
   };
+
+
+  const onTemplateChange = (ev)=> {
+    console.log(ev.target.name)
+    console.log(ev.target.value)
+
+    console.log(templates);
+
+    let menuObj = {...menuOptions};
+    console.log(menuObj);
+
+    menuObj[ev.target.name] = ev.target.value;
+    setMenuOptions(menuObj);
+  }
+
 
   //console logs everytime menu options changes
   useEffect(() => {
@@ -78,14 +116,14 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
 
   //saves changes to DB
   const saveToDB = async () => {
-    console.log('save to DB');
+    // console.log('save to DB');
     const response = await axios.put(`/api/menus/${menu.id}`, {
       name: menuOptions.menuName,
       description: menuOptions.menuDescription,
       template: menuOptions.template,
       preferences: JSON.stringify(menuPreferences),
     });
-    console.log(response);
+    // console.log(response);
   };
 
   //handles change in color picker
@@ -100,22 +138,27 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
   return (
     <div>
       <Stack spacing={2} sx={{ padding: '10px' }}>
-        <h1>Editing Panel</h1>
+        <Typography variant="h3">Editing Panel</Typography>
 
         {/*  Choose Template  */}
         <TextField
-          // choose template
           select
           fullWidth
           label="Template"
           name="template"
+          // defaultValue={'template2'}
           value={menuOptions.template}
-          onChange={(ev) => onChange(ev.target.name, ev.target.value)}
+          onChange={onTemplateChange}
         >
           {templates.map((template) => {
-            return <MenuItem value={template}>{template}</MenuItem>;
+            return <MenuItem value={template.name}>{template.name}</MenuItem>;
           })}
+
         </TextField>
+
+        <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>
+          Create Template
+        </Button>
 
         {/*  Menu Name */}
         <TextField

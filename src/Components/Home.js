@@ -18,11 +18,11 @@ const Home = () => {
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         backgroundColor: 'whitesmoke',
       }}
     >
-      <Card sx={{justifyContent: 'center', width: '75%'}}>
+      <Card sx={{justifyContent: 'center', width: '75%', height: '100%'}}>
         {auth.id ? (
           <div>
             <CardActions>

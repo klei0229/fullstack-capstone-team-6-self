@@ -23,12 +23,16 @@ const Restaurant = (props) => {
 
   return (
     <Box>
-      <AddMenu restaurant={props.restaurant} />
+      {auth.id === props.restaurant.userId ? (
+        <AddMenu restaurant={props.restaurant} />
+      ) : null}
       <List>
         {restaurantMenus.map((menu) => {
           return (
-            <ListItem key={menu.id}>
-              <ListItemText>{menu.name}</ListItemText>
+            <ListItem divider key={menu.id}>
+              <ListItemText>
+                <strong>{menu.name}</strong>
+              </ListItemText>
               <Button href={`#/menu/preview/${menu.id}`}>View</Button>
               {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editContent/${menu.id}`}>

@@ -1,20 +1,31 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Avatar,
   Box,
   Card,
+  CardActionArea,
   CardContent,
+  CardMedia,
   Container,
+  Divider,
   Typography,
 } from '@mui/material';
 import Restaurant from './Restaurant';
 import AddRestaurant from './AddRestaurant';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 const RestaurantCard = ({ restaurant }) => {
   return (
-    <Card sx={{ backgroundColor: 'aliceblue' }} key={restaurant.id}>
+    <Card
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        backgroundColor: 'aliceblue',
+      }}
+      key={restaurant.id}
+    >
       <CardContent>
         <Typography gutterBottom variant="h3" component="div">
           {restaurant.name}
@@ -23,10 +34,20 @@ const RestaurantCard = ({ restaurant }) => {
           {restaurant.address}
         </Typography>
         <Typography gutterBottom variant="body2" color="GrayText" my={2}>
-          {restaurant.contact} / {restaurant.email}
+          <PhoneAndroidIcon />
+          {restaurant.contact}
+          <br />
+          <ContactMailIcon />
+          {' ' + restaurant.email}
         </Typography>
-        <FastfoodIcon />
-        {/* <Avatar>{restaurant.logo}</Avatar> */}
+        <CardActionArea>
+          <CardMedia
+            sx={{ width: 150, height: 150, border: 2, borderColor: "GrayText", borderRadius: 1 }}
+            component="img"
+            borderColor="text.primary"
+            src={restaurant.logo}
+          />
+        </CardActionArea>
         <Typography gutterBottom paragraph my={2}>
           {restaurant.description}
         </Typography>
@@ -66,8 +87,7 @@ const Restaurants = () => {
           })}
         </ul>
       </Box>
-      <hr />
-      <hr />
+      <Divider />
       <Box>
         <Typography variant="h1">All Restaurants</Typography>
         <ul>

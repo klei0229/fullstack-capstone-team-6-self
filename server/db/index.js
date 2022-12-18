@@ -64,6 +64,12 @@ const syncAndSeed = async () => {
   const sundaeImg = await getImage(
     path.join(__dirname, '../../static/sundae.png')
   );
+  const yummyTownLogo = await getImage(
+    path.join(__dirname, '../../static/yt_logo.png')
+  );
+  const yummyTown2Logo = await getImage(
+    path.join(__dirname, '../../static/yt2_logo.png')
+  )
 
   const [res1, res2] = await Promise.all([
     Restaurant.create({
@@ -74,6 +80,7 @@ const syncAndSeed = async () => {
       contact: '646-555-5555',
       email: 'moejoe@gmail.com',
       userId: moe.id,
+      logo: yummyTownLogo,
     }),
     Restaurant.create({
       name: 'Yummy Town II',
@@ -82,6 +89,7 @@ const syncAndSeed = async () => {
       contact: '212-888-8888',
       email: 'lucille_bluth@gmail.com',
       userId: lucy.id,
+      logo: yummyTown2Logo,
     }),
   ]);
 
@@ -235,7 +243,7 @@ const syncAndSeed = async () => {
         'The perfect finish to your meal - Indulge your inner child and ask for extra sprinkles!',
       price: 12.99,
       menuId: menu2.id,
-      category: 'starters',
+      category: 'desserts',
     }),
   ]);
 

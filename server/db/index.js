@@ -69,7 +69,7 @@ const syncAndSeed = async () => {
   );
   const yummyTown2Logo = await getImage(
     path.join(__dirname, '../../static/yt2_logo.png')
-  )
+  );
 
   const [res1, res2] = await Promise.all([
     Restaurant.create({

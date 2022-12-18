@@ -25,10 +25,6 @@ const Restaurant = conn.define('restaurant', {
   },
   description: {
     type: STRING,
-    validate: {
-      notEmpty: false,
-    },
-    unique: true,
   },
   contact: {
     type: STRING,

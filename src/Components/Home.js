@@ -1,46 +1,41 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../store';
-import BusinessDashboard from './BusinessDashboard';
-import { Avatar, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
-import Login from './Login';
+import { useSelector } from 'react-redux';
 import Restaurants from './Restaurants';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  Paper,
+} from '@mui/material';
+import Login from './Login';
 
 const Home = () => {
   const { auth } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   return (
-    <Card>
-      {auth.id ? (
-        <div>
+    <Paper
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        backgroundColor: 'whitesmoke',
+      }}
+    >
+      <Card sx={{justifyContent: 'center', width: '75%', height: '100%'}}>
+        {auth.id ? (
+          <div>
+            <CardActions>
+              <Restaurants />
+            </CardActions>
+          </div>
+        ) : (
           <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color='text.secondary'
-              variant='h1'
-              gutterBottom
-            >
-              Welcome, {auth.username}!
-            </Typography>
-            <br />
-            <Avatar src={auth.avatar} />
-            <br />
-            <Button variant='outlined' onClick={() => dispatch(logout(navigate))}>
-              Logout
-            </Button>
+            <Login />
           </CardContent>
-          <CardActions>
-            <BusinessDashboard />
-          </CardActions>
-        </div>
-      ) : (
-        <CardContent>
-          <Login />
-        </CardContent>
-      )}
-    </Card>
+        )}
+      </Card>
+    </Paper>
   );
 };
 

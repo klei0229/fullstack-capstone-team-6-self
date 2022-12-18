@@ -43,14 +43,14 @@ export const palette = {
 };
 
 export const sheetStyle = {
-  width: 300,
+  width: 400,
   mx: 'auto',
   my: 4,
   py: 3,
   px: 2,
   display: 'flex',
   flexDirection: 'column',
-  gap: 2,
+  gap: 4,
   borderRadius: 'sm',
   boxShadow: 'md',
 };

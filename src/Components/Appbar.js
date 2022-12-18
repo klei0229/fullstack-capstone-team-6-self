@@ -18,6 +18,7 @@ import InputBase from '@mui/material/InputBase';
 import { Badge, Icon } from '@mui/material';
 import ShoppingCartSharpIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 import Link from '@mui/material/Link';
 
@@ -44,6 +45,7 @@ function ResponsiveAppBar() {
   const { auth } = useSelector((state) => state);
   const [cartItems, setCart] = useState([]);
   const { cart } = useSelector((state) => state);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCart(cart);
@@ -290,7 +292,7 @@ function ResponsiveAppBar() {
               <MenuItem
                 onClick={() => {
                   
-                  dispatch(logout());
+                  dispatch(logout(navigate));
                 }}
               >
                 <Typography>Logout</Typography>

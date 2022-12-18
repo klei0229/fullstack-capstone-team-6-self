@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -13,7 +14,7 @@ import { useSelector } from 'react-redux';
 const OnlineUsers = () => {
   const { auth, onlineUsers } = useSelector((state) => state);
   return (
-    <Paper maxWidth="lg" sx={{ backgroundColor: 'aliceblue' }}>
+    <Paper sx={{ maxWidth: 'lg', backgroundColor: 'aliceblue' }}>
       <Grid container>
         {onlineUsers
           .filter((user) => user.id !== auth.id)
@@ -36,6 +37,7 @@ const OnlineUsers = () => {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
+                <Button variant="contained">Invite to Table</Button>
               </Card>
             );
           })}

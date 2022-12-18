@@ -1,26 +1,28 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import BusinessDashboard from './BusinessDashboard';
-import { Card, CardActions, CardContent } from '@mui/material';
+import Restaurants from './Restaurants';
+import { Card, CardActions, CardContent, Container } from '@mui/material';
 import Login from './Login';
 
 const Home = () => {
   const { auth } = useSelector((state) => state);
 
   return (
-    <Card>
-      {auth.id ? (
-        <div>
-          <CardActions>
-            <BusinessDashboard />
-          </CardActions>
-        </div>
-      ) : (
-        <CardContent>
-          <Login />
-        </CardContent>
-      )}
-    </Card>
+    <Container sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', backgroundColor: 'mintcream' }}>
+      <Card>
+        {auth.id ? (
+          <div>
+            <CardActions>
+              <Restaurants />
+            </CardActions>
+          </div>
+        ) : (
+          <CardContent>
+            <Login />
+          </CardContent>
+        )}
+      </Card>
+    </Container>
   );
 };
 

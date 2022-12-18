@@ -1,15 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Typography,
+} from '@mui/material';
 import Restaurant from './Restaurant';
 import AddRestaurant from './AddRestaurant';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 
-import { Link } from 'react-router-dom';
-
-const RestaurantCard = ({restaurant}) => {
+const RestaurantCard = ({ restaurant }) => {
   return (
-    <Card key={restaurant.id}>
+    <Card
+      sx={{ backgroundColor: 'aliceblue', alignSelf: 'center' }}
+      key={restaurant.id}
+    >
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           {restaurant.name} @ {restaurant.address}
@@ -30,32 +38,57 @@ const RestaurantCard = ({restaurant}) => {
 
 const Restaurants = () => {
   const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
+
+  const restaurantsManaged = restaurants.filter(
+    (restaurant) => restaurant.userId === auth.id
+  );
+
+  const otherRestaurants = restaurants.filter(
+    (restaurant) => restaurant.userId !== auth.id
+  );
+
+  console.log('restaurants managed: ', restaurantsManaged);
   return (
-    <div>
-      {auth.isAdmin ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography gutterBottom variant="h1" alignSelf="center">
-            My Restaurants
-          </Typography>
-          <AddRestaurant />
-          <hr />
-          <ul>
-            {adminRestaurants.map((restaurant) => {
-              return <RestaurantCard restaurant={restaurant} />;
-            })}
-          </ul>
-        </Box>
-      ) : (
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h1">All Restaurants</Typography>
-          <ul>
-            {restaurants.map((restaurant) => {
-              return <RestaurantCard restaurant={restaurant} />
-            })}
-          </ul>
-        </Box>
-      )}
-    </div>
+    <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box>
+        <Typography gutterBottom variant="h1" alignSelf="center">
+          My Restaurants
+        </Typography>
+        <AddRestaurant />
+        <ul>
+          {restaurantsManaged.map((restaurant) => {
+            return (
+              <div>
+                <br />
+                <RestaurantCard restaurant={restaurant} />
+                <br />
+              </div>
+            );
+          })}
+        </ul>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-start',
+          alignItems: 'space-around',
+        }}
+      >
+        <Typography variant="h1">All Restaurants</Typography>
+        <ul>
+          {otherRestaurants.map((restaurant) => {
+            return (
+              <div>
+                <br />
+                <RestaurantCard restaurant={restaurant} />
+                <br />
+              </div>
+            );
+          })}
+        </ul>
+      </Box>
+    </Container>
   );
 };
 

@@ -20,6 +20,7 @@ const Restaurant = (props) => {
   const restaurantMenus = menus.filter(
     (menu) => menu.restaurantId === props.restaurant.id
   );
+
   return (
     <Box>
       <AddMenu restaurant={props.restaurant} />

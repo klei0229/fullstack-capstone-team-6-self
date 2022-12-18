@@ -15,19 +15,22 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 const RestaurantCard = ({ restaurant }) => {
   return (
     <Card
-      sx={{ backgroundColor: 'aliceblue', alignSelf: 'center' }}
+      sx={{ backgroundColor: 'aliceblue' }}
       key={restaurant.id}
     >
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
-          {restaurant.name} @ {restaurant.address}
+        <Typography gutterBottom variant="h3" component="div">
+          {restaurant.name}
         </Typography>
-        <Typography gutterBottom variant="body1" color="GrayText" mt={2}>
+        <Typography gutterBottom variant="body1" my={2}>
+          {restaurant.address}
+        </Typography>
+        <Typography gutterBottom variant="body2" color="GrayText" my={2}>
           {restaurant.contact} / {restaurant.email}
         </Typography>
         <FastfoodIcon />
         {/* <Avatar>{restaurant.logo}</Avatar> */}
-        <Typography gutterBottom variant="body2" color="GrayText" mt={2}>
+        <Typography gutterBottom variant="body1" alignSelf="center" my={2}>
           {restaurant.description}
         </Typography>
         <Restaurant restaurant={restaurant} />
@@ -37,7 +40,7 @@ const RestaurantCard = ({ restaurant }) => {
 };
 
 const Restaurants = () => {
-  const { auth, restaurants, adminRestaurants } = useSelector((state) => state);
+  const { auth, restaurants } = useSelector((state) => state);
 
   const restaurantsManaged = restaurants.filter(
     (restaurant) => restaurant.userId === auth.id
@@ -47,9 +50,14 @@ const Restaurants = () => {
     (restaurant) => restaurant.userId !== auth.id
   );
 
-  console.log('restaurants managed: ', restaurantsManaged);
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       <Box>
         <Typography gutterBottom variant="h1" alignSelf="center">
           My Restaurants

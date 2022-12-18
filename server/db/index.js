@@ -38,17 +38,18 @@ const syncAndSeed = async () => {
     Restaurant.create({
       name: 'Yummy Town',
       address: '123 Houston Street, New York, NY 10002',
-      description: 'Located in the heart of NYC\'s Lower East Side, we specialize in the yummiest of comfort cuisine.',
+      description:
+        "Located in the heart of NYC's Lower East Side, we specialize in the yummiest of comfort cuisine.",
       contact: '646-555-5555',
       email: 'moejoe@gmail.com',
       userId: moe.id,
     }),
     Restaurant.create({
-      name: 'Yummy Town2',
+      name: 'Yummy Town II',
       address: '234 1st Avenue, New York, NY 10002',
       description: 'Where your belly can speak its love language',
       contact: '212-888-8888',
-      email: 'lady_lucille@gmail.com',
+      email: 'lucille_bluth@gmail.com',
       userId: lucy.id,
     }),
   ]);

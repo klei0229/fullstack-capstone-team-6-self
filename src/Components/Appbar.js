@@ -24,18 +24,17 @@ import Link from '@mui/material/Link';
 
 import { logout } from '../store';
 
-
-
 const settings = [
   { name: 'Profile', url: '#/profile' },
+  { name: "Who's Online?", url: '#/onlineUsers'}
   // { name: 'Cart', url: '#/cart' },
   // { name: 'Orders', url: '#/orders' },
 ];
 
 const pages = [
-//   { name: 'Home', url: '/' },
+  //   { name: 'Home', url: '/' },
   { name: 'My Restaurants', url: '/' },
-//   { name: 'Create Menu', url: '#/createMenu' },
+  //   { name: 'Create Menu', url: '#/createMenu' },
 ];
 
 const companyName = 'MenYou';
@@ -167,7 +166,6 @@ function ResponsiveAppBar() {
           >
             {companyName}
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -226,23 +224,19 @@ function ResponsiveAppBar() {
           >
             {companyName}
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link underline="hover" key={page.url} href={page.url}>
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{mr:2,ml:2, my: 2, color: "white", display: "block" }}
+                  sx={{ mr: 2, ml: 2, my: 2, color: 'white', display: 'block' }}
                 >
-                  <Typography variant="h6">
-                    
-                  {page.name}
-                  </Typography>
+                  <Typography variant="h6">{page.name}</Typography>
                 </Button>
               </Link>
             ))}
           </Box>
-          Welcome, {auth.username}! 
+          Welcome, {auth.username}!
           <Box sx={{ flexGrow: 0 }}>
             {/* <IconButton href="#/cart" sx={{ p: 0, ml: 2, mr: 2 }}>
               <Badge badgeContent={cart.lineItems.length} color="secondary">
@@ -256,12 +250,14 @@ function ResponsiveAppBar() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
                 {/* <Avatar src="/broken-image.jpg"></Avatar> */}
-                
-                
-                <AccountCircleIcon
-                  style={{ fill: 'white' }}
-                  fontSize="large"
-                ></AccountCircleIcon>
+                {auth.avatar ? (
+                  <Avatar src={auth.avatar} />
+                ) : (
+                  <AccountCircleIcon
+                    style={{ fill: 'white' }}
+                    fontSize="large"
+                  ></AccountCircleIcon>
+                )}
               </IconButton>
             </Tooltip>
 
@@ -284,14 +280,15 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <MenuItem key={setting.url}>
                   <Link underline="hover" href={setting.url}>
-                    <Typography sx={{color:"black"}}textAlign="center">{setting.name}</Typography>
+                    <Typography sx={{ color: 'black' }} textAlign="center">
+                      {setting.name}
+                    </Typography>
                   </Link>
                 </MenuItem>
               ))}
 
               <MenuItem
                 onClick={() => {
-                  
                   dispatch(logout(navigate));
                 }}
               >

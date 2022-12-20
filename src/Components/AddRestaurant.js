@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   TextField,
@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRestaurant } from '../store';
@@ -22,6 +23,22 @@ const AddRestaurant = () => {
     email: '',
     userId: auth.id,
   });
+  const [image, setImage] = useState(null);
+  const [data, setData] = useState('');
+  const [fileName, setFileName] = useState('');
+
+  useEffect(() => {
+    if (image) {
+      image.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', () => {
+          setData(reader.result);
+        });
+      });
+    }
+  }, [image]);
 
   const [open, setOpen] = useState(false);
 
@@ -30,8 +47,14 @@ const AddRestaurant = () => {
   };
 
   const handleClose = () => {
-    dispatch(createRestaurant(restaurant));
+    dispatch(createRestaurant({ logo: data, ...restaurant }));
     setOpen(false);
+  };
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0].name;
+    setData(file);
+    setFileName(file);
   };
 
   const onChange = (e) => {
@@ -107,6 +130,17 @@ const AddRestaurant = () => {
             variant="standard"
             onChange={onChange}
           />
+          <Typography>File Name: {fileName}</Typography>
+          <Button variant="contained" component="label">
+            Upload Image
+            <input
+              name="image"
+              type="file"
+              hidden
+              ref={(x) => setImage(x)}
+              onChange={handleUpload}
+            />
+          </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>All Done!</Button>

@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, createContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
@@ -45,6 +45,7 @@ const EditStyleDnd = () => {
 
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [templateName, setTemplateName] = useState('My Template');
@@ -321,6 +322,8 @@ const EditStyleDnd = () => {
                   component="label"
                   fullWidth
                   onClick={() => { saveToDB();
+                    nav(`/menu/editStyle/${id}`)
+
                     // console.log(layout);
                     // console.log(menuPreferences)
                     // console.log('todo save to db')

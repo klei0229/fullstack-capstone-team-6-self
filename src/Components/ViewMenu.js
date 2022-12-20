@@ -13,6 +13,7 @@ const EditStyle = () => {
   const { menus } = useSelector((state) => state);
   const menu = menus.find((menu) => menu.id === id);
 
+  console.log(menu);
   useEffect(() => {
     dispatch(fetchMenus());
     dispatch(fetchItems());

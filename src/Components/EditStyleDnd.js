@@ -52,13 +52,13 @@ const EditStyleDnd = () => {
   const [layout, setLayout] = useState([
     [
       [
-        {
-          id: '123',
-          name: 'Sample Item',
-          description: 'Lorem Ipsum',
-          isOnMenu: true,
-          componentType: 'Card',
-        },
+        // {
+        //   id: '123',
+        //   name: 'Sample Item',
+        //   description: 'Lorem Ipsum',
+        //   isOnMenu: true,
+        //   componentType: 'Card',
+        // },
       ],
     ],
   ]);
@@ -286,8 +286,9 @@ const EditStyleDnd = () => {
             defaultChecked
             size="small"
           /> */}
-          <Grid container>
-            <Grid item xs={3}>
+          
+          <Grid container >
+            <Grid item xs={3} sx={{maxHeight:'2000px',overflowY:'auto'}}>
               <Paper
                 elevation="10"
                 sx={{

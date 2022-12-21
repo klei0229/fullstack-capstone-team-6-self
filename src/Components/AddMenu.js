@@ -31,6 +31,7 @@ const AddMenu = (props) => {
     description: '',
     restaurantId: props.restaurant.id,
     preferences: JSON.stringify(defaultPreferences),
+    template:'template2'
   });
 
   // const [menu, setMenu] = useState({
@@ -64,6 +65,8 @@ const AddMenu = (props) => {
   const submitMenu = () => {
 
     // console.log(items);
+    console.log(menu);
+    console.log(items);
     dispatch(createMenu(menu, items));
     // dispatch(fetchMenus());
     setOpen(false);

@@ -36,13 +36,18 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     console.log('menu changed', menu);
     // console.log(JSON.parse(menu.preferences));
     const customTemplates = JSON.parse(menu.preferences).templates;
-    // console.log(customTemplates);
-    if (menuPreferences.hasOwnProperty('templates')) {
+    console.log(customTemplates);
+    console.log(templates);
+
+
+
+    if (JSON.parse(menu.preferences).hasOwnProperty('templates')) {
       // setCustomTemplateList(menuPreferences.templates);
+      console.log('true');
       setTemplates([...templates,...customTemplates])
     }
 
-  }, [menu]);
+  }, [menu,menus]);
 
   //state variables
   // const [primaryColor, setPrimaryColor] = useState('');
@@ -59,17 +64,20 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     { name: 'Courier New', value: 'courier new' },
   ];
 
+
+const defaultTemplates = [
+  {
+    name: 'template2',
+    type: 'default',
+  },
+  {
+    name: 'template3',
+    type: 'default',
+  },
+]
+
   // const templates = ['template2', 'template3'];
-  const [templates, setTemplates] = useState([
-    {
-      name: 'template2',
-      type: 'default',
-    },
-    {
-      name: 'template3',
-      type: 'default',
-    },
-  ]);
+  const [templates, setTemplates] = useState(defaultTemplates);
   // console.log(templates);
 
   //handles all changes to menu preferences

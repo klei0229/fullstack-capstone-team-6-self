@@ -30,18 +30,19 @@ export const createMenu = (menu, items) => {
   return async (dispatch) => {
     const response = await axios.post('/api/menus', { ...menu, items: items });
 
-    console.log(items);
+    // console.log(items);
 
-    items.forEach(async (item) => {
-      try {
-        const newItem = { ...item, menuId: response.data.id };
-        console.log(newItem);
-        const responseItem = await axios.post('/api/items', newItem);
-      } catch (ex) {
-        console.log(ex);
-      }
-    });
+    // items.forEach(async (item) => {
+    //   try {
+    //     const newItem = { ...item, menuId: response.data.id };
+    //     console.log(newItem);
+    //     const responseItem = await axios.post('/api/items', newItem);
+    //   } catch (ex) {
+    //     console.log(ex);
+    //   }
+    // });
 
+    console.log(response.data);
     dispatch({ type: 'CREATE_MENU', menu: response.data });
   };
 };

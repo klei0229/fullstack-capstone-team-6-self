@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, createContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
@@ -45,19 +45,20 @@ const EditStyleDnd = () => {
 
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [templateName, setTemplateName] = useState('My Template');
   const [layout, setLayout] = useState([
     [
       [
-        {
-          id: '123',
-          name: 'Sample Item',
-          description: 'Lorem Ipsum',
-          isOnMenu: true,
-          componentType: 'Card',
-        },
+        // {
+        //   id: '123',
+        //   name: 'Sample Item',
+        //   description: 'Lorem Ipsum',
+        //   isOnMenu: true,
+        //   componentType: 'Card',
+        // },
       ],
     ],
   ]);
@@ -285,8 +286,9 @@ const EditStyleDnd = () => {
             defaultChecked
             size="small"
           /> */}
-          <Grid container>
-            <Grid item xs={3}>
+          
+          <Grid container >
+            <Grid item xs={3} sx={{maxHeight:'2000px',overflowY:'auto'}}>
               <Paper
                 elevation="10"
                 sx={{
@@ -321,6 +323,8 @@ const EditStyleDnd = () => {
                   component="label"
                   fullWidth
                   onClick={() => { saveToDB();
+                    nav(`/menu/editStyle/${id}`)
+
                     // console.log(layout);
                     // console.log(menuPreferences)
                     // console.log('todo save to db')

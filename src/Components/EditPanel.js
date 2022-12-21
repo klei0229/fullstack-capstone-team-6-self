@@ -39,15 +39,12 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     console.log(customTemplates);
     console.log(templates);
 
-
-
     if (JSON.parse(menu.preferences).hasOwnProperty('templates')) {
       // setCustomTemplateList(menuPreferences.templates);
       console.log('true');
-      setTemplates([...templates,...customTemplates])
+      setTemplates([...templates, ...customTemplates]);
     }
-
-  }, [menu,menus]);
+  }, [menu, menus]);
 
   //state variables
   // const [primaryColor, setPrimaryColor] = useState('');
@@ -64,17 +61,16 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     { name: 'Courier New', value: 'courier new' },
   ];
 
-
-const defaultTemplates = [
-  {
-    name: 'template2',
-    type: 'default',
-  },
-  {
-    name: 'template3',
-    type: 'default',
-  },
-]
+  const defaultTemplates = [
+    {
+      name: 'template2',
+      type: 'default',
+    },
+    {
+      name: 'template3',
+      type: 'default',
+    },
+  ];
 
   // const templates = ['template2', 'template3'];
   const [templates, setTemplates] = useState(defaultTemplates);
@@ -102,20 +98,18 @@ const defaultTemplates = [
     setMenuOptions(newMenuOptionsObj);
   };
 
-
-  const onTemplateChange = (ev)=> {
-    console.log(ev.target.name)
-    console.log(ev.target.value)
+  const onTemplateChange = (ev) => {
+    console.log(ev.target.name);
+    console.log(ev.target.value);
 
     console.log(templates);
 
-    let menuObj = {...menuOptions};
+    let menuObj = { ...menuOptions };
     console.log(menuObj);
 
     menuObj[ev.target.name] = ev.target.value;
     setMenuOptions(menuObj);
-  }
-
+  };
 
   //console logs everytime menu options changes
   useEffect(() => {
@@ -136,7 +130,7 @@ const defaultTemplates = [
 
   //handles change in color picker
   const handleColorChange = (color) => {
-    onChange('primaryColor', color.hex);
+    onPrefChange('primaryColor', color.hex);
   };
 
   // useEffect(() => {
@@ -161,7 +155,6 @@ const defaultTemplates = [
           {templates.map((template) => {
             return <MenuItem value={template.name}>{template.name}</MenuItem>;
           })}
-
         </TextField>
 
         <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>

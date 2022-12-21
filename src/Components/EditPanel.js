@@ -39,9 +39,8 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     // console.log(customTemplates);
     if (menuPreferences.hasOwnProperty('templates')) {
       // setCustomTemplateList(menuPreferences.templates);
-      setTemplates([...templates,...customTemplates])
+      setTemplates([...templates, ...customTemplates]);
     }
-
   }, [menu]);
 
   //state variables
@@ -62,11 +61,13 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
   // const templates = ['template2', 'template3'];
   const [templates, setTemplates] = useState([
     {
-      name: 'template2',
+      name: 'Grid View',
+      value: 'template2',
       type: 'default',
     },
     {
-      name: 'template3',
+      name: 'List View',
+      value: 'template3',
       type: 'default',
     },
   ]);
@@ -94,20 +95,19 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     setMenuOptions(newMenuOptionsObj);
   };
 
-
-  const onTemplateChange = (ev)=> {
-    console.log(ev.target.name)
-    console.log(ev.target.value)
+  //handles changes to template
+  const onTemplateChange = (ev) => {
+    console.log(ev.target.name);
+    console.log(ev.target.value);
 
     console.log(templates);
 
-    let menuObj = {...menuOptions};
+    let menuObj = { ...menuOptions };
     console.log(menuObj);
 
     menuObj[ev.target.name] = ev.target.value;
     setMenuOptions(menuObj);
-  }
-
+  };
 
   //console logs everytime menu options changes
   useEffect(() => {
@@ -128,7 +128,7 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
 
   //handles change in color picker
   const handleColorChange = (color) => {
-    onChange('primaryColor', color.hex);
+    onPrefChange('primaryColor', color.hex);
   };
 
   // useEffect(() => {
@@ -151,9 +151,8 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
           onChange={onTemplateChange}
         >
           {templates.map((template) => {
-            return <MenuItem value={template.name}>{template.name}</MenuItem>;
+            return <MenuItem value={template.value}>{template.name}</MenuItem>;
           })}
-
         </TextField>
 
         <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>
@@ -213,6 +212,19 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
             onChangeComplete={handleColorChange}
           />
         )}
+
+        {/* Columns */}
+        <TextField
+          // id="outlined-number"
+          label="Columns"
+          type="number"
+          name="columns"
+          value={menuPreferences.columns}
+          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
 
         {/* Padding */}
         <TextField

@@ -151,10 +151,7 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
                     <br></br>
                     <Typography
                       variant="h5"
-                      sx={{
-                        fontSize: menuPreferences.categoryNameFontSize,
-                        fontFamily: menuPreferences.fontFamily,
-                      }}
+                      sx={{ fontSize: menuPreferences.categoryNameFontSize }}
                     >
                       {category}
                     </Typography>
@@ -167,7 +164,7 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
                         })
                         .map((elem) => {
                           return (
-                            <Grid item lg={12 / menuPreferences.columns}>
+                            <Grid item lg={4}>
                               <ItemCard
                                 props={elem}
                                 margin={menuPreferences.margin}

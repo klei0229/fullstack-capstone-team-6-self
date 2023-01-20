@@ -136,7 +136,7 @@ const defaultTemplates = [
 
   //handles change in color picker
   const handleColorChange = (color) => {
-    onChange('primaryColor', color.hex);
+    onPrefChange('primaryColor', color.hex);
   };
 
   // useEffect(() => {

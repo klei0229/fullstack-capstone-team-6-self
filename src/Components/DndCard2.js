@@ -10,7 +10,7 @@ import { ItemTypes } from './utils/items';
 import { useDrag } from 'react-dnd';
 
 export default function Dndcard2(props) {
-    // console.log(props);
+    console.log(props);
   const [{ isDragging }, drag] = useDrag({
     item: { ...props, type: 'Card' },
     type: 'Card',
@@ -42,7 +42,8 @@ export default function Dndcard2(props) {
         height="140"
         
         object-fit='contain'
-        src="https://www.foodandwine.com/thmb/gRrfFwDl3N3uBOdWINoJKMqE8kk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/201012-ss-dishes-lamb-ragu-1f516715f31244f295426cf2d50193f2.jpg"
+        src= {props.image ?? "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"}
+        // src="https://www.foodandwine.com/thmb/gRrfFwDl3N3uBOdWINoJKMqE8kk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/201012-ss-dishes-lamb-ragu-1f516715f31244f295426cf2d50193f2.jpg"
       />
       <CardContent sx={{height: '50px'}}>
         <Typography gutterBottom variant="h5" component="div">

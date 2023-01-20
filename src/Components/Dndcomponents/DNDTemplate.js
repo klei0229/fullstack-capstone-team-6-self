@@ -33,6 +33,8 @@ import TypographyComponent from './TypographyComponent';
 import ImageComponent from './ImageComponent';
 
 const renderComponent = (item) => {
+
+  console.log(item);
   if (item.componentType === 'Card') {
     return (
       <DndCard2
@@ -41,6 +43,7 @@ const renderComponent = (item) => {
         description={item.description}
         isOnMenu={item.isOnMenu}
         price={item.price}
+        image={item.image}
         i={item.i}
         j={item.j}
         k={item.k}
@@ -83,6 +86,8 @@ const DNDTemplate = (props) => {
           pb: '2rem',
         }}
       >
+                        <Typography variant='h1' align='center'>The Diner</Typography>
+
         <DropzoneOuterRow layout={layout} i={0} showGridLines={true}>
           {/* 0 */}
         </DropzoneOuterRow>

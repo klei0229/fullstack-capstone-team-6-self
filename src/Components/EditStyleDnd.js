@@ -240,6 +240,7 @@ const EditStyleDnd = () => {
           description={item.description}
           isOnMenu={item.isOnMenu}
           price={item.price}
+          image={item.image}
           i={item.i}
           j={item.j}
           k={item.k}
@@ -369,6 +370,7 @@ const EditStyleDnd = () => {
                             description={item.description}
                             price={item.price}
                             isOnMenu={false}
+                            image={item.image}
                             componentType={'Card'}
                           ></DndCard2>
                           <br></br>
@@ -396,6 +398,8 @@ const EditStyleDnd = () => {
                   defaultChecked
                   size="small"
                 />
+
+                <Typography variant='h1' align='center'>The Diner</Typography>
                 {/* <br></br> */}
                 {/* here */}
                 <DropzoneOuterRow

@@ -60,7 +60,6 @@ const TemplateDND = () => {
   return (
     <div>
       <CardContext.Provider value={{ moveToBox }}>
-        DND test
         {menu.name}
         {items
           .filter((item) => {

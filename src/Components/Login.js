@@ -10,8 +10,8 @@ import {
 } from '@mui/material/styles';
 import { extendTheme as extendJoyTheme } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
-import Typography from '@mui/joy/Typography';
-import TextField from '@mui/joy/TextField';
+import {Typography, TextField} from '@mui/material';
+// import TextField from '@mui/material';
 import Button from '@mui/joy/Button';
 import { Link } from 'react-router-dom';
 import { blue, grey } from '@mui/material/colors';

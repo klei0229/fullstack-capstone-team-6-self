@@ -36,12 +36,18 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     console.log('menu changed', menu);
     // console.log(JSON.parse(menu.preferences));
     const customTemplates = JSON.parse(menu.preferences).templates;
-    // console.log(customTemplates);
-    if (menuPreferences.hasOwnProperty('templates')) {
+    console.log(customTemplates);
+    console.log(templates);
+
+
+
+    if (JSON.parse(menu.preferences).hasOwnProperty('templates')) {
       // setCustomTemplateList(menuPreferences.templates);
-      setTemplates([...templates, ...customTemplates]);
+      console.log('true');
+      setTemplates([...templates,...customTemplates])
     }
-  }, [menu]);
+
+  }, [menu,menus]);
 
   //state variables
   // const [primaryColor, setPrimaryColor] = useState('');
@@ -58,19 +64,20 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     { name: 'Courier New', value: 'courier new' },
   ];
 
+
+const defaultTemplates = [
+  {
+    name: 'template2',
+    type: 'default',
+  },
+  {
+    name: 'template3',
+    type: 'default',
+  },
+]
+
   // const templates = ['template2', 'template3'];
-  const [templates, setTemplates] = useState([
-    {
-      name: 'Grid View',
-      value: 'template2',
-      type: 'default',
-    },
-    {
-      name: 'List View',
-      value: 'template3',
-      type: 'default',
-    },
-  ]);
+  const [templates, setTemplates] = useState(defaultTemplates);
   // console.log(templates);
 
   //handles all changes to menu preferences
@@ -95,19 +102,20 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     setMenuOptions(newMenuOptionsObj);
   };
 
-  //handles changes to template
-  const onTemplateChange = (ev) => {
-    console.log(ev.target.name);
-    console.log(ev.target.value);
+
+  const onTemplateChange = (ev)=> {
+    console.log(ev.target.name)
+    console.log(ev.target.value)
 
     console.log(templates);
 
-    let menuObj = { ...menuOptions };
+    let menuObj = {...menuOptions};
     console.log(menuObj);
 
     menuObj[ev.target.name] = ev.target.value;
     setMenuOptions(menuObj);
-  };
+  }
+
 
   //console logs everytime menu options changes
   useEffect(() => {
@@ -128,7 +136,7 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
 
   //handles change in color picker
   const handleColorChange = (color) => {
-    onPrefChange('primaryColor', color.hex);
+    onChange('primaryColor', color.hex);
   };
 
   // useEffect(() => {
@@ -151,8 +159,9 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
           onChange={onTemplateChange}
         >
           {templates.map((template) => {
-            return <MenuItem value={template.value}>{template.name}</MenuItem>;
+            return <MenuItem value={template.name}>{template.name}</MenuItem>;
           })}
+
         </TextField>
 
         <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>
@@ -212,19 +221,6 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
             onChangeComplete={handleColorChange}
           />
         )}
-
-        {/* Columns */}
-        <TextField
-          // id="outlined-number"
-          label="Columns"
-          type="number"
-          name="columns"
-          value={menuPreferences.columns}
-          onChange={(ev) => onPrefChange(ev.target.name, ev.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
 
         {/* Padding */}
         <TextField

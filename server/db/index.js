@@ -78,16 +78,12 @@ const syncAndSeed = async () => {
   );
 
   const [moe, lucy, larry, ethyl] = await Promise.all([
-    User.create({
-      username: 'moe',
-      password: '123',
-      isAdmin: true,
-      avatar: moeAvatar,
-    }),
+    User.create({ username: 'moe', password: '123', isAdmin: true, avatar: moeAvatar }),
     User.create({ username: 'lucy', password: '123', avatar: lucyAvatar }),
     User.create({ username: 'larry', password: '123', avatar: larryAvatar }),
     User.create({ username: 'ethyl', password: '123', avatar: ethylAvatar }),
   ]);
+  
 
   const [res1, res2] = await Promise.all([
     Restaurant.create({
@@ -120,7 +116,6 @@ const syncAndSeed = async () => {
     itemNameFontSize: 20,
     descriptionNameFontSize: 20,
     fontFamily: 'verdana',
-    columns: 3,
   };
   const [menu1, menu2, menu3] = await Promise.all([
     Menu.create({

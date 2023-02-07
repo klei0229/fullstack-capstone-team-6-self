@@ -107,8 +107,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
+    username: 'moe',
+    password: '123',
   });
 
   const onChange = (ev) => {

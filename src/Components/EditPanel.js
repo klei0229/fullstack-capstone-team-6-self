@@ -32,22 +32,45 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
   const { menus } = useSelector((state) => state);
   const menu = menus.find((menu) => menu.id === menuId);
 
+  const [templates, setTemplates] = useState([
+    {
+      name: 'template2',
+      type: 'default',
+    },
+    {
+      name: 'template3',
+      type: 'default',
+    },
+  ]);
+
+  const defaultTemplates = [
+    {
+      name: 'template2',
+      type: 'default',
+    },
+    {
+      name: 'template3',
+      type: 'default',
+    },
+  ]
+
+
+  useEffect(() => {
+    console.log(templates);
+  }, []);
+
   useEffect(() => {
     console.log('menu changed', menu);
     // console.log(JSON.parse(menu.preferences));
     const customTemplates = JSON.parse(menu.preferences).templates;
-    console.log(customTemplates);
-    console.log(templates);
+    console.log('customTemplates', customTemplates);
 
-
-
+    //on menu change, add the customtemplates onto templates to be rendered in select
     if (JSON.parse(menu.preferences).hasOwnProperty('templates')) {
       // setCustomTemplateList(menuPreferences.templates);
-      console.log('true');
-      setTemplates([...templates,...customTemplates])
+      setTemplates([...defaultTemplates, ...customTemplates]);
     }
-
-  }, [menu,menus]);
+  }, [menu]);
 
   //state variables
   // const [primaryColor, setPrimaryColor] = useState('');
@@ -65,19 +88,7 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
   ];
 
 
-const defaultTemplates = [
-  {
-    name: 'template2',
-    type: 'default',
-  },
-  {
-    name: 'template3',
-    type: 'default',
-  },
-]
-
   // const templates = ['template2', 'template3'];
-  const [templates, setTemplates] = useState(defaultTemplates);
   // console.log(templates);
 
   //handles all changes to menu preferences
@@ -102,20 +113,18 @@ const defaultTemplates = [
     setMenuOptions(newMenuOptionsObj);
   };
 
-
-  const onTemplateChange = (ev)=> {
-    console.log(ev.target.name)
-    console.log(ev.target.value)
+  const onTemplateChange = (ev) => {
+    console.log(ev.target.name);
+    console.log(ev.target.value);
 
     console.log(templates);
 
-    let menuObj = {...menuOptions};
+    let menuObj = { ...menuOptions };
     console.log(menuObj);
 
     menuObj[ev.target.name] = ev.target.value;
     setMenuOptions(menuObj);
-  }
-
+  };
 
   //console logs everytime menu options changes
   useEffect(() => {
@@ -161,7 +170,6 @@ const defaultTemplates = [
           {templates.map((template) => {
             return <MenuItem value={template.name}>{template.name}</MenuItem>;
           })}
-
         </TextField>
 
         <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>

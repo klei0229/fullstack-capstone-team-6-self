@@ -39,6 +39,10 @@ export const CardContext = createContext({
 });
 
 const EditStyleDnd = () => {
+
+  const navigate = useNavigate();
+
+
   const [switchBool, setSwitchBool] = useState(false);
 
   
@@ -323,8 +327,7 @@ const EditStyleDnd = () => {
                   component="label"
                   fullWidth
                   onClick={() => { saveToDB();
-                    nav(`/menu/editStyle/${id}`)
-
+                    navigate(`/menu/editStyle/${id}`)
                     // console.log(layout);
                     // console.log(menuPreferences)
                     // console.log('todo save to db')

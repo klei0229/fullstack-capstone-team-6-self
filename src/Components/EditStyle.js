@@ -14,7 +14,19 @@ const EditStyle = () => {
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
   const menu = menus.find((menu) => menu.id === id);
-  const template = menu.template;
+
+  console.log('hello world')
+
+  //debugger
+  useEffect(() => {
+    console.log('id',id);
+    console.log('menus',menus);
+    console.log('menu',menu);
+
+
+
+  }, []);
+
 
   //states for styling edits
   const [menuOptions, setMenuOptions] = useState({
@@ -25,11 +37,12 @@ const EditStyle = () => {
 
   const [templates, setTemplates] = useState([]);
 
-  // console.log(menuOptions);
+
+
+
 
   useEffect(() => {
     console.log(menuOptions);
-
     console.log(menu);
   }, [menuOptions]);
 
@@ -45,8 +58,6 @@ const EditStyle = () => {
 
   //initialize menu options using menu object from DB
   useEffect(() => {
-
-
     console.log(menu);
     const newMenuOptionsObj = {
       menuName: menu.name,
@@ -54,6 +65,7 @@ const EditStyle = () => {
       template: menu.template,
     };
     setMenuOptions(newMenuOptionsObj);
+    console.log('setting templates')
     setTemplates(JSON.parse(menu.preferences).templates);
 
   }, [menu]);
@@ -61,6 +73,9 @@ const EditStyle = () => {
   useEffect(() => {
     dispatch(fetchMenus());
     dispatch(fetchItems());
+
+
+
   }, []);
 
   useEffect(()=>{
@@ -92,6 +107,7 @@ const EditStyle = () => {
     else{
       console.log(menuOptions.template);
 
+      console.log(templates)
       const template = templates.filter((template)=>{return template.name === menuOptions.template})
 
       if(template.length !== 0){

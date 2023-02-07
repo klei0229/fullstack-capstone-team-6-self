@@ -52,8 +52,7 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
       name: 'template3',
       type: 'default',
     },
-  ]
-
+  ];
 
   useEffect(() => {
     console.log(templates);
@@ -86,7 +85,6 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     { name: 'Trebuchet MS', value: 'trebuchet ms' },
     { name: 'Courier New', value: 'courier new' },
   ];
-
 
   // const templates = ['template2', 'template3'];
   // console.log(templates);
@@ -171,9 +169,13 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
             return <MenuItem value={template.name}>{template.name}</MenuItem>;
           })}
         </TextField>
+        {/*  Saves Settings  */}
 
+        <Button variant="outlined" component="label" onClick={() => saveToDB()}>
+          Save Settings
+        </Button>
         <Button variant="outlined" href={`#/menu/editStyleFull/${menu.id}`}>
-          Create Template
+          Create Template (Drag and Drop)
         </Button>
 
         {/*  Menu Name */}
@@ -307,12 +309,6 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
             shrink: true,
           }}
         />
-
-        {/*  Saves Settings  */}
-
-        <Button variant="outlined" component="label" onClick={() => saveToDB()}>
-          Save Settings
-        </Button>
       </Stack>
     </div>
   );

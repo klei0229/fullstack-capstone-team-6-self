@@ -15,12 +15,15 @@ import DNDTemplate from './Dndcomponents/DNDTemplate'
 const EditStyle = () => {
   const { id } = useParams();
   const { menus } = useSelector((state) => state);
-  console.log(menus);
   const menu = menus.find((menu) => menu.id === id);
-  console.log(menu);
-
+  
   console.log(menu);
   useEffect(() => {
+    
+    console.log(menu);
+    console.log(menus);
+
+
     dispatch(fetchMenus());
     dispatch(fetchItems());
   }, []);

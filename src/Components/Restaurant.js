@@ -2,7 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AddMenu from './AddMenu';
-import { Box, Button, Link, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Box,
+  Button,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Tooltip,
+} from '@mui/material';
 import { fetchMenus, fetchItems, deleteMenu } from '../store';
 
 const Restaurant = (props) => {
@@ -33,19 +41,28 @@ const Restaurant = (props) => {
               <ListItemText>
                 <strong>{menu.name}</strong>
               </ListItemText>
-              <Button href={`#/menu/preview/${menu.id}`}>View</Button>
+
+              <Tooltip title="View Menu">
+                <Button href={`#/menu/preview/${menu.id}`}>View</Button>
+              </Tooltip>
               {auth.id === props.restaurant.userId ? (
-                <Button href={`#/menu/editContent/${menu.id}`}>
-                  Edit Data
-                </Button>
+                <Tooltip title="Edit Menu Data (images,names,descriptions,pricing,etc)">
+                  <Button href={`#/menu/editContent/${menu.id}`}>
+                    Edit Data
+                  </Button>
+                </Tooltip>
               ) : null}
               {auth.id === props.restaurant.userId ? (
-                <Button href={`#/menu/editStyle/${menu.id}`}>Edit Style</Button>
+                <Tooltip title="Edit Menu Design: Toggle between pre built templates or create your own layout ">
+                  <Button href={`#/menu/editStyle/${menu.id}`}>
+                    Edit Style
+                  </Button>
+                </Tooltip>
               ) : null}
               {/* {auth.id === props.restaurant.userId ? (
                 <Button href={`#/menu/editStyleFull/${menu.id}`}>Edit Via Dnd</Button>
               ) : null} */}
-            {/* </li> */}
+              {/* </li> */}
             </ListItem>
           );
         })}

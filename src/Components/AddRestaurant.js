@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Typography,
+  Typography,Tooltip
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRestaurant } from '../store';
@@ -66,9 +66,12 @@ const AddRestaurant = () => {
 
   return (
     <div>
+      <Tooltip title="Add a new restaurant">
+
       <Button variant="contained" onClick={handleClickOpen}>
         Add A Restaurant
       </Button>
+      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Restaurant</DialogTitle>
         <DialogContent>

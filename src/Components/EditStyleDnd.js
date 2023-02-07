@@ -334,7 +334,7 @@ const EditStyleDnd = () => {
                   }
                 }
                 >
-                  Save Settings
+                  Create and Save
                 </Button>
                 <br></br>
                 <br></br>

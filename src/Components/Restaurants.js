@@ -69,6 +69,9 @@ const Restaurants = () => {
 
   return (
     <Container sx={{ textAlign: 'center' }}>
+            <p>Welcome to MenYou!</p>
+            <p>Instructions: </p>
+
       <Box>
         <Typography gutterBottom variant="h1">
           My Restaurants

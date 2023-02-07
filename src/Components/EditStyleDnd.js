@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, createContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store';
@@ -39,6 +39,10 @@ export const CardContext = createContext({
 });
 
 const EditStyleDnd = () => {
+
+  const navigate = useNavigate();
+
+
   const [switchBool, setSwitchBool] = useState(false);
 
   
@@ -321,6 +325,7 @@ const EditStyleDnd = () => {
                   component="label"
                   fullWidth
                   onClick={() => { saveToDB();
+                    navigate(`/menu/editStyle/${id}`)
                     // console.log(layout);
                     // console.log(menuPreferences)
                     // console.log('todo save to db')

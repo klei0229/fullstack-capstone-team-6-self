@@ -11,7 +11,7 @@ import {
 import { extendTheme as extendJoyTheme } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
-import TextField from '@mui/joy/TextField';
+import Input from "@mui/joy/Input";
 import Button from '@mui/joy/Button';
 import { Link } from 'react-router-dom';
 import { blue, grey } from '@mui/material/colors';
@@ -128,21 +128,29 @@ const Login = () => {
           </Typography>
           <Typography level="body2">Sign in to continue.</Typography>
         </div>
-        <TextField
-          placeholder="username"
-          value={credentials.username}
-          name="username"
-          label="Username"
-          onChange={onChange}
-        />
-        <TextField
-          placeholder="password"
-          name="password"
-          label="Password"
-          type="password"
-          value={credentials.password}
-          onChange={onChange}
-        />
+        <FormControl>
+          <FormLabel>
+            Username
+          </FormLabel>
+          <Input
+            placeholder="username"
+            value={credentials.username}
+            name="username"
+            onChange={onChange} />
+
+        </FormControl>
+        <FormControl>
+          <FormLabel>
+            Password
+          </FormLabel>
+          <Input
+            placeholder="password"
+            name="password"
+            type="password"
+            value={credentials.password}
+            onChange={onChange} />
+
+        </FormControl>
       <div>
         <a href="/google/login">
           <h4> Login with Google </h4>

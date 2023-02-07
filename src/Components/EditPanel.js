@@ -87,8 +87,8 @@ const EditPanel = ({ menuId, menuOptions, setMenuOptions }) => {
     { name: 'Courier New', value: 'courier new' },
   ];
 
-  // const templates = ['template2', 'template3'];
 
+  // const templates = ['template2', 'template3'];
   // console.log(templates);
 
   //handles all changes to menu preferences

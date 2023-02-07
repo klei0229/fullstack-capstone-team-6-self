@@ -46,7 +46,7 @@ const MenuTemplate2 = ({ id, menuOptions }) => {
     refs.current[ev.target.value].scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
-    //console.log('menu', menu);
+    console.log('menu', menu);
     //loop thru each item
     //if categories does not include value add it
 

@@ -8,6 +8,8 @@ import menus from './menus';
 import menu from './menu';
 import menuPreferences from './menuPreferences';
 import items from './items';
+import users from './users';
+import onlineUsers from './onlineUsers';
 
 const reducer = combineReducers({
   auth,
@@ -17,6 +19,8 @@ const reducer = combineReducers({
   menu,
   menuPreferences,
   items,
+  users,
+  onlineUsers,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -30,3 +34,5 @@ export * from './menus';
 export * from './menu';
 export * from './menuPreferences';
 export * from './items';
+export * from './users';
+export * from './onlineUsers';

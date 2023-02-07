@@ -34,7 +34,8 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-draggable": "^4.4.5",
-    "sequelize": "^6.25.3"
+    "sequelize": "^6.25.3",
+    "socket.io": "^4.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",

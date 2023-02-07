@@ -20,6 +20,8 @@ app.use('/api/restaurants', require('./api/restaurants'));
 app.use('/api/menus', require('./api/menus'));
 app.use('/api/items', require('./api/items'));
 app.use('/api/menu', require('./api/menu'));
+app.use('/api/users', require('./api/users'));
+app.use('/api/onlineUsers', require('./api/onlineUsers'));
 
 // google login and authorization
 

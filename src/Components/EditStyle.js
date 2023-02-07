@@ -46,6 +46,16 @@ const EditStyle = () => {
     console.log(menu);
   }, [menuOptions]);
 
+  useEffect(() => {
+
+    console.log(menus);
+    const prefs = JSON.parse(menu.preferences)
+    console.log(prefs);
+    console.log(prefs.templates);
+
+    setTemplates(prefs.templates)
+  }, [menus]);
+
   //initialize menu options using menu object from DB
   useEffect(() => {
     console.log(menu);

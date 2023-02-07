@@ -41,12 +41,6 @@ const getImage = (path) => {
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
-  const [moe, lucy, larry, ethyl] = await Promise.all([
-    User.create({ username: 'moe', password: '123', isAdmin: true }),
-    User.create({ username: 'lucy', password: '123' }),
-    User.create({ username: 'larry', password: '123' }),
-    User.create({ username: 'ethyl', password: '123' }),
-  ]);
 
   const pancakeImg = await getImage(
     path.join(__dirname, '../../static/pancakes.png')
@@ -70,6 +64,26 @@ const syncAndSeed = async () => {
   const yummyTown2Logo = await getImage(
     path.join(__dirname, '../../static/yt2_logo.png')
   );
+  const moeAvatar = await getImage(
+    path.join(__dirname, '../../static/moe.png')
+  );
+  const lucyAvatar = await getImage(
+    path.join(__dirname, '../../static/lucy.png')
+  );
+  const larryAvatar = await getImage(
+    path.join(__dirname, '../../static/larry.png')
+  );
+  const ethylAvatar = await getImage(
+    path.join(__dirname, '../../static/ethyl.png')
+  );
+
+  const [moe, lucy, larry, ethyl] = await Promise.all([
+    User.create({ username: 'moe', password: '123', isAdmin: true, avatar: moeAvatar }),
+    User.create({ username: 'lucy', password: '123', avatar: lucyAvatar }),
+    User.create({ username: 'larry', password: '123', avatar: larryAvatar }),
+    User.create({ username: 'ethyl', password: '123', avatar: ethylAvatar }),
+  ]);
+  
 
   const [res1, res2] = await Promise.all([
     Restaurant.create({
